@@ -1,48 +1,179 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; scroll-behavior: smooth; }
+/* --- 基礎設定 --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
-/* 導覽列 */
-nav { display: flex; justify-content: space-between; padding: 40px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); }
-.nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+body { 
+    font-family: 'Inter', "PingFang TC", "Microsoft JhengHei", sans-serif; 
+    background: #ffffff; 
+    color: #1a1a1a; 
+    line-height: 1.6;
+    word-break: break-all;
+    scroll-behavior: smooth;
+}
 
-/* Banner */
-.banner { height: 70vh; display: flex; flex-direction: column; justify-content: center; padding-left: 5%; border-bottom: 1px solid #eee; }
-.banner h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 300; line-height: 1; letter-spacing: -2px; }
+/* --- 導覽列 --- */
+nav { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 40px 5%; 
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000; 
+    background: rgba(255, 255, 255, 0.9); 
+    backdrop-filter: blur(10px); 
+}
 
-/* 作品網格 */
-.works-section { padding: 80px 5%; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); gap: 60px 40px; }
+.logo { 
+    font-weight: 400; 
+    letter-spacing: 2px; 
+    font-size: 18px; 
+}
 
-.work-item { text-decoration: none; color: inherit; opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-.work-item.visible { opacity: 1; transform: translateY(0); }
-.img-container { overflow: hidden; background: #f0f0f0; margin-bottom: 15px; }
-.work-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.work-item:hover img { transform: scale(1.05); }
-.work-item h3 { font-size: 18px; font-weight: 400; margin-bottom: 5px; }
-.work-item p { font-size: 13px; color: #888; text-transform: uppercase; }
+.nav-links a { 
+    margin-left: 30px; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    font-size: 13px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
 
-/* 聯絡區 */
-.contact-section { padding: 150px 5%; text-align: center; background: #fafafa; }
-.email-btn { display: inline-block; margin-top: 20px; padding: 15px 40px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; transition: 0.3s; }
-.email-btn:hover { background: #1a1a1a; color: #fff; }
+/* --- Banner 區 --- */
+.banner { 
+    height: 75vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    padding: 0 5%; 
+    background: #ffffff;
+}
 
-@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+.banner h1 { 
+    font-size: clamp(2.5rem, 6vw, 4.5rem); 
+    font-weight: 300; 
+    line-height: 1.2; 
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+}
 
-/* 作品內頁專屬樣式 */
-.project-container { padding: 150px 5% 80px; max-width: 1200px; margin: 0 auto; }
-.project-header { margin-bottom: 60px; }
-.project-header .category { font-size: 14px; color: #888; margin-bottom: 10px; }
-.project-header h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; }
+.banner p { 
+    font-size: 16px; 
+    color: #666; 
+    max-width: 500px;
+}
 
-.project-info { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-bottom: 100px; }
-.description { font-size: 18px; line-height: 1.8; color: #444; }
-.details { font-size: 14px; color: #888; line-height: 2; }
+/* --- 作品呈現區 --- */
+.works-section { 
+    padding: 100px 5%; 
+}
 
-.project-gallery img { width: 100%; margin-bottom: 40px; display: block; }
+.grid { 
+    display: grid; 
+    /* 網頁版：一排四張 */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 40px 20px; 
+}
 
-.project-footer { padding: 100px 5%; text-align: center; border-top: 1px solid #eee; }
-.project-footer a { text-decoration: none; color: #1a1a1a; font-size: 14px; border-bottom: 1px solid #1a1a1a; padding-bottom: 5px; }
+/* 作品物件 */
+.work-item { 
+    text-decoration: none; 
+    color: inherit; 
+    display: block;
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* 捲動到視線內後的顯示狀態 */
+.work-item.visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* 4:3 比例容器與跳色背景 */
+.img-container { 
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3; /* 強制橫式 4:3 */
+    overflow: hidden; 
+    margin-bottom: 15px;
+    background-color: #f0f0f0; /* 預設色 */
+    transition: background-color 0.3s ease;
+}
+
+.work-item img { 
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; /* 圖片填滿不變形 */
+    display: block; 
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 滑鼠移入：圖片縮小露出背景跳色 */
+.work-item:hover img { 
+    transform: scale(0.9); /* 往內縮小，露出後方背景色 */
+}
+
+.work-item h3 { 
+    font-size: 16px; 
+    font-weight: 400; 
+    margin-bottom: 4px; 
+    letter-spacing: 0.5px;
+}
+
+.work-item p { 
+    font-size: 12px; 
+    color: #999; 
+    text-transform: uppercase;
+}
+
+/* --- 聯絡我們 --- */
+.contact-section { 
+    padding: 150px 5%; 
+    text-align: center; 
+    border-top: 1px solid #f0f0f0;
+}
+
+.contact-section h2 { 
+    font-size: 32px; 
+    font-weight: 300; 
+    margin-bottom: 20px; 
+}
+
+.email-btn { 
+    display: inline-block; 
+    padding: 12px 30px; 
+    border: 1px solid #1a1a1a; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    font-size: 14px;
+    transition: 0.3s; 
+}
+
+.email-btn:hover { 
+    background: #1a1a1a; 
+    color: #ffffff; 
+}
+
+/* --- 手機/平版 RWD 設定 --- */
+@media (max-width: 1024px) {
+    .grid { 
+        grid-template-columns: repeat(3, 1fr); /* 平板一排三張 */
+    }
+}
 
 @media (max-width: 768px) {
-    .project-info { grid-template-columns: 1fr; }
+    nav { padding: 20px 5%; }
+    .banner { height: 60vh; }
+    .grid { 
+        /* APP/手機版：一排兩張 */
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 25px 15px;
+    }
+    .banner h1 { font-size: 2rem; }
 }
