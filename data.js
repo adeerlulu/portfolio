@@ -1,5 +1,5 @@
 // 作品資料庫 - 
-const projectData = [
+window.projectData = [
     { 
         title: "我的第一件作品", 
         category: "Visual Design", 
