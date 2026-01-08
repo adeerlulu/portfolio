@@ -42,15 +42,26 @@ function initPortfolio() {
         }
 
         // C. --- 新增：SVG 太陽圖示滾動動畫 ---
-        if (fixedSunIcon) {
-            // 透明度隨滾動漸變 (0.2 到 0.6 之間)
-            let iconOpacity = 0.2 + (scrollPos / 800); 
-            fixedSunIcon.style.opacity = Math.min(0.6, Math.max(0.2, iconOpacity));
+if (fixedSunIcon) {
+    // A. 透明度隨滾動漸變 (0.4 到 0.8 之間，讓它更明顯)
+    let iconOpacity = 0.4 + (scrollPos / 1000); 
+    fixedSunIcon.style.opacity = Math.min(0.8, Math.max(0.4, iconOpacity));
 
-            // 旋轉動畫 (滾動距離 * 0.5 決定轉速)
-            let rotation = scrollPos * 0.5; 
-            fixedSunIcon.style.transform = `rotate(${rotation}deg)`;
-        }
+    // B. 旋轉動畫
+    let rotation = scrollPos * 0.3; // 稍微調慢一點轉速，看起來比較優雅
+    fixedSunIcon.style.transform = `rotate(${rotation}deg)`;
+
+    // C. 顏色漸層跳動邏輯
+    const sunColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
+    // 每滾動 200px 換一次顏色
+    let colorStep = Math.floor(scrollPos / 200) % sunColors.length;
+    let currentColor = sunColors[colorStep];
+    
+    // 透過 drop-shadow 濾鏡改變 SVG 的視覺顏色
+    fixedSunIcon.style.filter = `drop-shadow(300px 0 0 ${currentColor})`;
+    // 補償位移：因為 drop-shadow 投影出顏色，我們要把原圖往左再推遠一點
+    fixedSunIcon.style.marginLeft = "-300px"; 
+}
     });
 
     // --- 4. 規律跳色互動 ---
