@@ -19,37 +19,33 @@ nav { display: flex; justify-content: space-between; padding: 40px 5%; position:
     gap: 40px 20px; 
 }
 
-/* 作品容器：預設為 1:1 正方形 */
+/* 作品容器：1:1 正方形 */
 .work-item { 
     position: relative;
     text-decoration: none; 
     color: #1a1a1a; 
-    aspect-ratio: 1 / 1; /* 整個容器是 1:1 */
+    aspect-ratio: 1 / 1; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 內容置中 */
-    padding: 20px;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    justify-content: center; 
+    padding: 24px;
+    transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease;
     opacity: 0;
     transform: translateY(30px);
 }
 
 .work-item.visible { opacity: 1; transform: translateY(0); }
 
-/* 滑鼠移入時：背景變色，文字變白（或視背景色調整） */
-.work-item:hover {
-    color: #fff;
-    /* 背景色由 JS 動態賦予 */
-}
+/* 滑鼠移入時：文字變白 */
+.work-item:hover { color: #fff; }
 
-/* 4:3 圖片 */
+/* 3:2 圖片容器 */
 .img-container { 
     width: 100%;
-    aspect-ratio: 4 / 3; 
+    aspect-ratio: 3 / 2; /* 修改為 3:2 */
     overflow: hidden;
-    margin-bottom: 15px;
-    background: #f0f0f0;
-    transition: transform 0.4s ease;
+    margin-bottom: 18px;
+    background: #f5f5f5;
 }
 
 .img-container img { 
@@ -57,24 +53,20 @@ nav { display: flex; justify-content: space-between; padding: 40px 5%; position:
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.6s ease;
+}
+
+.work-item:hover .img-container img {
+    transform: scale(1.05); /* 滑過時圖片輕微放大 */
 }
 
 /* 標題與敘述 */
-.work-info h3 { 
-    font-size: 16px; 
-    font-weight: 500; 
-    margin-bottom: 5px; 
-}
+.work-info h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+.work-info p { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
 
-.work-info p { 
-    font-size: 12px; 
-    opacity: 0.7;
-    text-transform: uppercase;
-}
-
-/* 響應式設定 */
+/* 響應式：手機版 */
 @media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { 
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 20px 10px; }
-    .work-item { padding: 10px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
+    .work-item { padding: 12px; }
 }
