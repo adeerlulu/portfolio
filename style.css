@@ -74,7 +74,11 @@ nav {
 
 /* --- 5. 作品網格 Works Grid --- */
 .works-section { padding: 80px 5%; }
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 20px; }
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; /* 縮小間距，讓色塊感更緊密 */
+}
 
 .work-item { 
     position: relative;
@@ -82,14 +86,31 @@ nav {
     color: #1a1a1a; 
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    
+    /* 核心修正：強制正方形比例 */
+    aspect-ratio: 1 / 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 讓內容在正方形內置中 */
+    padding: 30px;
+    
+    /* 這裡負責背景色塊的平滑轉場 */
+    transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
+                color 0.4s ease, 
+                opacity 0.8s ease, 
+                transform 0.8s ease;
 }
 
 .work-item.visible { opacity: 1; transform: translateY(0); }
 
+/* 滑過時文字變白色，背景變隨機色 (隨機色由 JS 控制) */
+.work-item:hover { 
+    color: #fff; 
+}
+
 .img-container { 
     width: 100%;
-    aspect-ratio: 3 / 2; 
+    aspect-ratio: 3 / 2; /* 圖片在正方形內維持 3:2 */
     overflow: hidden;
     margin-bottom: 18px;
     background: #f9f9f9;
@@ -102,10 +123,18 @@ nav {
     transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.work-item:hover .img-container img { transform: scale(1.08); }
-.work-info h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-.work-info p { font-size: 10px; opacity: 0.6; }
+/* 滑過時圖片放大 */
+.work-item:hover .img-container img { transform: scale(1.1); }
 
+.work-info h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+.work-info p { font-size: 11px; opacity: 0.7; }
+
+/* 針對 RWD 調整，確保手機板也是正方形 */
+@media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { 
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } 
+    .work-item { padding: 15px; }
+}
 /* --- 6. 內頁樣板格式 Project Detail (1024px) --- */
 .container-1024 {
     max-width: 1024px;
