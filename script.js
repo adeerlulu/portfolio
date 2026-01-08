@@ -1,6 +1,5 @@
 /**
- * 作品集完整邏輯
- * 包含：作品渲染、導覽列變色、背景淡出、SVG 太陽旋轉與跳色
+ * 
  */
 function initPortfolio() {
     const data = window.projectData;
