@@ -48,7 +48,7 @@ nav {
 /* --- 4. 首頁 Banner 與 背景淡出 --- */
 .banner { 
     position: relative;
-    height: 80vh; 
+    height: 60vh; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
@@ -85,11 +85,11 @@ nav {
 .banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
 
 /* --- 5. 作品網格 Works Grid --- */
-.works-section { padding: 80px 5%; }
+.works-section { padding: 20px 5%; }
 .grid { 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
-    gap: 20px; /* 縮小間距，讓色塊感更緊密 */
+    gap: 20px; 
 }
 
 .work-item { 
