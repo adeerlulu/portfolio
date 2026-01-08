@@ -115,7 +115,7 @@ nav.scrolled {
 .banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
 
 /* --- 5. 作品網格 (1400px) --- */
-.works-section { padding: 80px 5%; background: #fff; }
+.works-section { padding: 80px 5%; }
 
 .grid { 
     max-width: 1400px; 
