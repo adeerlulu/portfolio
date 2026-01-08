@@ -1,47 +1,55 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. 導覽列滾動效果
+/**
+ * 作品集渲染與互動邏輯
+ */
+function initPortfolio() {
+    const grid = document.getElementById('works-grid');
     const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
+    const bannerBg = document.querySelector('.banner-bg');
+    const banner = document.querySelector('.banner');
+
+    // --- 1. 渲染作品函數 ---
+    function renderWorks() {
+        if (!grid) return;
+        
+        // 檢查資料是否存在
+        if (typeof worksData !== 'undefined' && worksData.length > 0) {
+            grid.innerHTML = worksData.map(work => `
+                <a href="project.html?id=${work.id}" class="work-item">
+                    <div class="img-container">
+                        <img src="${work.image}" alt="${work.title}">
+                    </div>
+                    <div class="work-info">
+                        <h3>${work.title}</h3>
+                        <p>${work.category}</p>
+                    </div>
+                </a>
+            `).join('');
+            console.log("作品渲染成功");
         } else {
-            nav.classList.remove('scrolled');
+            console.error("資料 worksData 尚未載入或為空");
+        }
+    }
+
+    // --- 2. 滾動效果 (導覽列變色 + 背景淡出) ---
+    window.addEventListener('scroll', () => {
+        const scrollPos = window.scrollY;
+
+        // 導覽列變色
+        if (nav) {
+            if (scrollPos > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        }
+
+        // 背景圖淡出
+        if (bannerBg && banner) {
+            let opacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
+            bannerBg.style.opacity = Math.max(0, opacity);
         }
     });
 
-    // 2. 背景圖滾動淡出
-    const bannerBg = document.querySelector('.banner-bg');
-    const banner = document.querySelector('.banner');
-    if (bannerBg && banner) {
-        window.addEventListener('scroll', () => {
-            let scrollPos = window.scrollY;
-            let opacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
-            bannerBg.style.opacity = Math.max(0, Math.min(1, opacity));
-        });
-    }
+    // 執行渲染
+    renderWorks();
+}
 
-    // 3. 作品集進場動畫與隨機色
-    const workItems = document.querySelectorAll('.work-item');
-    const colors = ['#e9ecef', '#dee2e6', '#ced4da', '#adb5bd']; // 你可以換成更鮮豔的顏色
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    workItems.forEach(item => {
-        observer.observe(item);
-        
-        // 滑動變色邏輯
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        item.addEventListener('mouseenter', () => {
-            item.style.backgroundColor = randomColor;
-        });
-        item.addEventListener('mouseleave', () => {
-            item.style.backgroundColor = 'transparent';
-        });
-    });
-});
+// 確保所有資源（包含 data.js）都載入完成再執行
+window.addEventListener('load', initPortfolio);
