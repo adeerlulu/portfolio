@@ -24,5 +24,29 @@ const projectData = [
         image: "images/w02-cover.jpg", 
         link: "project-04.html" 
     },
+        { 
+        title: "編輯排版實作", 
+        category: "Editorial Design", 
+        image: "images/w02-cover.jpg", 
+        link: "project-04.html" 
+    },
+        { 
+        title: "編輯排版實作", 
+        category: "Editorial Design", 
+        image: "images/w02-cover.jpg", 
+        link: "project-04.html" 
+    },
+        { 
+        title: "編輯排版實作", 
+        category: "Editorial Design", 
+        image: "images/w02-cover.jpg", 
+        link: "project-04.html" 
+    },
+        { 
+        title: "編輯排版實作", 
+        category: "Editorial Design", 
+        image: "images/w02-cover.jpg", 
+        link: "project-04.html" 
+    },
     // 往下繼續新增...
 ];
