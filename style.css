@@ -2,7 +2,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: "Lora", "Noto Sans TC", serif; /* 英數用 Lora, 中文用思源黑體 */
+    font-family: "Lora", "Noto Sans TC", serif;
     background: #fff;
     color: #1a1a1a;
     line-height: 1.8;
@@ -10,25 +10,22 @@ body {
 }
 
 /* --- 2. 字體層級設定 --- */
-/* 優雅大標 (Cormorant) */
 .banner h1, #proj-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
 }
 
-/* 導覽與分類標籤 (Lora) */
 nav .logo, .nav-links a, .category, .more-works-title, #proj-category, .work-info p {
     font-family: "Lora", serif;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-/* 中文內容與標題 (Noto Sans TC) */
 #proj-desc, .work-info h3, .banner p, .content-wrapper p {
     font-family: "Noto Sans TC", sans-serif;
 }
 
-/* --- 3. 導覽列 Navigation --- */
+/* --- 3. 導覽列 --- */
 nav { 
     display: flex; 
     justify-content: space-between; 
@@ -43,7 +40,6 @@ nav {
 }
 .logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; }
 .nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 12px; transition: 0.3s; }
-.nav-links a:hover { opacity: 0.5; }
 
 /* --- 4. 首頁 Banner 與 背景淡出 --- */
 .banner { 
@@ -51,10 +47,10 @@ nav {
     height: 60vh; 
     display: flex; 
     flex-direction: column; 
-    justify-content: center; 
-    padding: 0 5% 60px 5%; 
+    justify-content: flex-end; /* 讓標題靠下方對齊，接近作品集 */
+    padding: 0 5% 40px 5%; /* 下方內距縮減 */
     overflow: hidden;
-     background: transparent; 
+    background: transparent; 
 }
 
 .banner-bg {
@@ -63,35 +59,40 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-     background-image: url('images/bg1.jpg');
+    background-image: url('images/bg1.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
-     z-index: -1; 
-    
+    z-index: -1; 
     -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-    
-      transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
 }
 
 .banner-content {
     position: relative;
     z-index: 10;
     width: 100%;
-    max-width: 1024px; 
-    margin: 0 auto; 
-    padding: 0;      
-}
+    max-width: 1024px; /* 與作品集最大寬度一致 */
+    margin: 0 auto; /* 置中 */
+    padding: 0; /* 這裡設為0，依靠外層 banner 的 5% 來對齊 */
 }
 
-.banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 15px; line-height: 1.1; }
+.banner h1 { 
+    font-size: clamp(2.5rem, 6vw, 4.5rem); 
+    margin-bottom: 10px; 
+    line-height: 1.1; 
+}
 .banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
 
 /* --- 5. 作品網格 Works Grid --- */
-.works-section { padding: 20px 5%; }
+.works-section { 
+    padding: 20px 5%; 
+}
+
 .grid { 
+    max-width: 1024px; /* 關鍵：確保與 banner-content 一樣寬 */
+    margin: 0 auto; 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
     gap: 20px; 
@@ -103,56 +104,36 @@ nav {
     color: #1a1a1a; 
     opacity: 0;
     transform: translateY(30px);
-    
-    /* 核心修正：強制正方形比例 */
     aspect-ratio: 1 / 1; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 讓內容在正方形內置中 */
+    justify-content: center; 
     padding: 30px;
-    
-    /* 這裡負責背景色塊的平滑轉場 */
     transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
-                color 0.4s ease, 
-                opacity 0.8s ease, 
-                transform 0.8s ease;
+                color 0.4s ease, opacity 0.8s ease, transform 0.8s ease;
 }
 
 .work-item.visible { opacity: 1; transform: translateY(0); }
-
-/* 滑過時文字變白色，背景變隨機色 (隨機色由 JS 控制) */
-.work-item:hover { 
-    color: #fff; 
-}
+.work-item:hover { color: #fff; }
 
 .img-container { 
     width: 100%;
-    aspect-ratio: 3 / 2; /* 圖片在正方形內維持 3:2 */
+    aspect-ratio: 3 / 2; 
     overflow: hidden;
     margin-bottom: 18px;
     background: #f9f9f9;
 }
 
 .img-container img { 
-    width: 100%; 
-    height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover;
     transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 滑過時圖片放大 */
 .work-item:hover .img-container img { transform: scale(1.1); }
-
 .work-info h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
 .work-info p { font-size: 11px; opacity: 0.7; }
 
-/* 針對 RWD 調整，確保手機板也是正方形 */
-@media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { 
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } 
-    .work-item { padding: 15px; }
-}
-/* --- 6. 內頁樣板格式 Project Detail (1024px) --- */
+/* --- 6. 內頁與 RWD --- */
 .container-1024 {
     max-width: 1024px;
     margin: 0 auto;
@@ -160,31 +141,13 @@ nav {
 }
 
 .project-container { padding-top: 160px; }
-.project-hero { margin-bottom: 60px; }
-.project-info { text-align: left; margin-bottom: 80px; }
-
 #proj-title { font-size: clamp(2rem, 5vw, 3rem); margin: 10px 0 25px 0; }
 #proj-desc { font-size: 16px; line-height: 2; color: #333; white-space: pre-line; max-width: 750px; }
 
-.gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; }
-
-/* 底部其他作品 */
-.more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 120px; }
-.more-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 30px; }
-.more-item { text-decoration: none; color: #1a1a1a; }
-.more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; background: #f5f5f5; }
-.more-item img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s; }
-.more-item:hover img { transform: scale(1.05); }
-
-/* --- 7. 聯絡區與 RWD --- */
-.contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
-.email-btn { display: inline-block; margin-top: 20px; padding: 12px 35px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; transition: 0.3s; font-size: 13px; }
-.email-btn:hover { background: #1a1a1a; color: #fff; }
-
-@media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 1024px) { 
+    .grid { grid-template-columns: repeat(3, 1fr); } 
+}
 @media (max-width: 768px) { 
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 20px 15px; } 
-    .container-1024 { padding: 0 20px; }
-    .more-grid { grid-template-columns: 1fr; }
-    .project-container { padding-top: 120px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } 
+    .work-item { padding: 15px; }
 }
