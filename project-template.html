@@ -6,7 +6,7 @@
     <title>Project Detail | +1 Design</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 核心容器：限制最大寬度為 1024px */
+        /* 核心布局 */
         .container-1024 {
             max-width: 1024px;
             margin: 0 auto;
@@ -14,93 +14,53 @@
         }
 
         .project-container { padding-top: 140px; }
-        
-        /* 封面大圖間距 */
         .project-hero { margin-bottom: 60px; }
-
-        /* 文字內容區：全部置左 */
-        .project-info {
-            text-align: left;
-            margin-bottom: 100px;
-        }
-
+        .project-info { text-align: left; margin-bottom: 80px; }
+        
         .info-header { margin-bottom: 24px; }
-        #proj-category { 
-            font-size: 13px; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            color: #888; 
-            margin-bottom: 8px;
-            display: block;
-        }
-        #proj-title { 
-            font-size: clamp(2rem, 5vw, 3rem); 
-            font-weight: 300; 
-            margin: 0 0 30px 0; 
-            letter-spacing: -1px;
-            line-height: 1.2;
-        }
+        #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; }
+        #proj-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; margin: 0 0 30px 0; line-height: 1.2; }
+        #proj-desc { font-size: 16px; line-height: 2; color: #333; white-space: pre-line; max-width: 750px; }
 
-        /* 長敘述：移除標題，直接接在 H1 後面 */
-        .info-description { max-width: 750px; }
-        #proj-desc { 
-            font-size: 16px; 
-            line-height: 2; 
-            color: #333; 
-            white-space: pre-line; /* 保留 data.js 中的換行 */
-        }
+        /* 細節圖區 */
+        .gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; }
 
-        /* 細節圖樣式 */
-        #proj-gallery { margin-top: 40px; }
-        .gallery-item { 
-            width: 100%; 
-            height: auto; 
-            margin-bottom: 40px; 
-            display: block; 
+        /* 底部其他作品區 */
+        .more-works-section {
+            margin-top: 100px;
+            padding-top: 60px;
+            border-top: 1px solid #eee;
+            margin-bottom: 120px;
         }
+        .more-works-title { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-weight: 500; color: #1a1a1a; }
+        
+        /* 內頁專用 Grid：改為 2 欄讓視覺更穩重 */
+        .more-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 30px;
+        }
+        
+        .more-item { text-decoration: none; color: #1a1a1a; }
+        .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; background: #f5f5f5; }
+        .more-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .more-item:hover img { transform: scale(1.08); }
+        .more-item h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+        .more-item p { font-size: 11px; color: #888; text-transform: uppercase; }
 
-        /* 手機版調整 */
         @media (max-width: 768px) {
             .container-1024 { padding: 0 20px; }
-            .project-container { padding-top: 100px; }
-            #proj-title { font-size: 2rem; margin-bottom: 20px; }
+            .more-grid { grid-template-columns: 1fr; }
         }
-        /* 複用首頁 Grid 樣式 */
-.grid { 
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr); /* 內頁建議兩欄，視覺較穩重 */
-    gap: 40px 20px; 
-    margin-bottom: 100px;
-}
-
-/* 確保圖片在 Grid 中維持比例 */
-.more-works-section .img-container {
-    aspect-ratio: 3 / 2;
-    overflow: hidden;
-    margin-bottom: 15px;
-}
-
-/* 響應式：手機版改為一欄 */
-@media (max-width: 600px) {
-    .grid { grid-template-columns: 1fr; }
-}
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
-        <div class="nav-links">
-            <a href="index.html">Back to Works</a>
-        </div>
+        <div class="nav-links"><a href="index.html">Back to Works</a></div>
     </nav>
 
-    <section class="more-works-section container-1024">
-        <h2 style="font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-weight: 500; border-top: 1px solid #eee; padding-top: 60px;">More Works</h2>
-        <div id="more-works-grid" class="grid">
-            </div>
-    </section>
-    
     <main class="project-container">
         <section class="project-hero container-1024">
             <div class="img-container">
@@ -109,20 +69,16 @@
         </section>
 
         <section class="project-info container-1024">
-            <div class="info-header">
-                <span id="proj-category"></span>
-                <h1 id="proj-title"></h1>
-                <div class="info-description">
-                    <p id="proj-desc"></p>
-                </div>
-            </div>
+            <span id="proj-category"></span>
+            <h1 id="proj-title"></h1>
+            <p id="proj-desc"></p>
         </section>
 
-        <section id="proj-gallery" class="container-1024">
-            </section>
+        <section id="proj-gallery" class="container-1024"></section>
 
-        <section class="contact-section">
-            <a href="index.html" class="email-btn">Back to All Works</a>
+        <section class="more-works-section container-1024">
+            <h2 class="more-works-title">More Works</h2>
+            <div id="more-works-grid" class="more-grid"></div>
         </section>
     </main>
 
@@ -136,6 +92,7 @@
                 const project = window.projectData.find(p => p.id === projectID);
 
                 if (project) {
+                    // 填入當前作品內容
                     document.title = `${project.title} | +1 Design`;
                     document.getElementById('proj-title').innerText = project.title;
                     document.getElementById('proj-category').innerText = project.category;
@@ -143,40 +100,34 @@
                     document.getElementById('hero-img').src = project.image;
 
                     const gallery = document.getElementById('proj-gallery');
-                    if (project.details && Array.isArray(project.details)) {
+                    if (project.details) {
                         project.details.forEach(imgSrc => {
                             const img = document.createElement('img');
                             img.src = imgSrc;
                             img.className = "gallery-item";
-                            img.onerror = () => img.style.display = 'none';
                             gallery.appendChild(img);
-                        const moreWorksGrid = document.getElementById('more-works-grid');
-const otherProjects = window.projectData.filter(p => p.id !== projectID);
-
-// 限制顯示數量，例如只顯示最新的 2 個或 4 個
-otherProjects.slice(0, 4).forEach(p => {
-    const item = document.createElement('a');
-    item.href = p.link;
-    item.className = 'work-item visible'; // 直接顯示，不加延遲動畫
-    item.style.padding = '0'; // 內頁列表建議簡約，不需首頁的大內距
-    
-    item.innerHTML = `
-        <div class="img-container">
-            <img src="${p.image}" alt="${p.title}" style="transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);">
-        </div>
-        <div class="work-info">
-            <h3 style="font-size: 14px;">${p.title}</h3>
-            <p style="font-size: 11px; color: #888;">${p.category}</p>
-        </div>
-    `;
-
-    // 同樣加入首頁的 hover 放大效果 (CSS 已處理)
-    moreWorksGrid.appendChild(item);
-});
                         });
                     }
+
+                    // 渲染底部「其他作品」
+                    const moreGrid = document.getElementById('more-works-grid');
+                    const otherProjects = window.projectData.filter(p => p.id !== projectID);
+
+                    otherProjects.slice(0, 2).forEach(p => {
+                        const item = document.createElement('a');
+                        item.href = p.link;
+                        item.className = 'more-item';
+                        item.innerHTML = `
+                            <div class="img-box">
+                                <img src="${p.image}" alt="${p.title}">
+                            </div>
+                            <h3>${p.title}</h3>
+                            <p>${p.category}</p>
+                        `;
+                        moreGrid.appendChild(item);
+                    });
                 } else {
-                    window.location.href = 'index.html'; // 找不到 ID 就回首頁
+                    window.location.href = 'index.html';
                 }
             }
         });
