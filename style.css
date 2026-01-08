@@ -15,13 +15,33 @@ nav { display: flex; justify-content: space-between; padding: 40px 5%; position:
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 20px; }
 
 .work-item { 
-    position: relative; text-decoration: none; color: #1a1a1a; aspect-ratio: 1 / 1; 
-    display: flex; flex-direction: column; justify-content: center; padding: 24px;
-    transition: background-color 0.4s ease, color 0.3s ease;
+    position: relative;
+    text-decoration: none; 
+    color: #1a1a1a; 
+    aspect-ratio: 1 / 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    padding: 24px;
+    /* 拉長到 0.6s，並使用柔和曲線 */
+    transition: background 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+                color 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
-.img-container { width: 100%; aspect-ratio: 3 / 2; overflow: hidden; margin-bottom: 18px; background: #f5f5f5; }
-.img-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* 圖片放大效果優化：時間拉長到 1.2s，實現「慢慢放大」的優雅感 */
+.img-container img { 
+    width: 100%; 
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-item:hover .img-container img { 
+    transform: scale(1.08); /* 稍微增加放大比例，配上長慢速更有感 */
+}
 
 .work-info h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
 .work-info p { font-size: 11px; opacity: 0.7; text-transform: uppercase; }
