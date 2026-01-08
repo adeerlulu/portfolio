@@ -1,8 +1,8 @@
 const projects = [
     { 
-        title: "我的第一件作品", 
+        title: "頑者拉麵行銷圖", 
         category: "Visual Design", 
-        image: "images/w01-cover.jpg", // 1200x800
+        image: "images/w01-cover.jpg", 
         link: "project-01.html" 
     },
     { 
@@ -69,4 +69,5 @@ function renderWorks() {
     document.querySelectorAll('.work-item').forEach(el => observer.observe(el));
 }
 
-window.addEventListener('load', renderWorks);
+// 使用 DOMContentLoaded 確保 HTML 結構讀取完才執行
+document.addEventListener('DOMContentLoaded', renderWorks);
