@@ -1,3 +1,23 @@
+
+/* --- 新增：左側固定圖示樣式 --- */
+.fixed-sun-icon {
+    position: fixed; /* 固定在視窗中 */
+    left: 2%; /* 距離左側 2% */
+    top: 50%; /* 垂直置中 (未調整 transform 前的基準點) */
+    transform: translateY(-50%); /* 精確垂直置中 */
+    z-index: 500; /* 確保在背景但又在內容之上 (數字可調整) */
+    opacity: 0.2; /* 初始透明度低一點，作為背景裝飾 */
+    pointer-events: none; /* 讓它不影響滑鼠點擊下層元素 */
+    transition: opacity 0.3s ease-out; /* 讓透明度變化平滑 */
+}
+
+.fixed-sun-icon img {
+    width: 150px; /* 圖示大小，可依需求調整 */
+    height: auto;
+    display: block;
+    /* 確保轉動時不會因為圖片邊緣銳利而有鋸齒感 */
+    transform-origin: center center; 
+}
 /* --- 1. 全域變數與重設 --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
