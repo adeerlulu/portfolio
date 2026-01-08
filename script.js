@@ -1,21 +1,26 @@
 /**
  * Portfolio Logic Script
- * Dependencies: data.js (must be loaded before this script)
  */
 
 const dynamicColors = ['#FF6B6B', '#4D96FF', '#6BCB77', '#FFD93D', '#9477CB', '#FF9248'];
 
 function renderWorks() {
     const grid = document.getElementById('works-grid');
-    // 檢查是否有讀取到 data.js 中的 projectData
-    if (!grid || typeof projectData === 'undefined') return;
+    
+    // 關鍵修改：增加 window. 確保從全域讀取資料，並加入防錯判定
+    const data = window.projectData || []; 
+    
+    if (!grid || data.length === 0) {
+        console.log('Waiting for data...');
+        return;
+    }
 
-    grid.innerHTML = ''; // Clear grid
+    grid.innerHTML = ''; 
 
-    projectData.forEach(p => {
+    data.forEach(p => {
         const randomColor = dynamicColors[Math.floor(Math.random() * dynamicColors.length)];
         const item = document.createElement('a');
-        item.href = p.link;
+        item.href = p.link || '#';
         item.className = 'work-item';
         
         item.innerHTML = `
@@ -28,7 +33,6 @@ function renderWorks() {
             </div>
         `;
 
-        // Gradient Background Hover (100% -> 50%)
         item.addEventListener('mouseenter', () => {
             item.style.background = `linear-gradient(to bottom, ${randomColor} 0%, ${randomColor}80 100%)`;
         });
@@ -53,5 +57,6 @@ function renderWorks() {
     document.querySelectorAll('.work-item').forEach(el => observer.observe(el));
 }
 
-// Initialization
+// 改用更穩定的事件監聽
+window.addEventListener('DOMContentLoaded', renderWorks);
 window.addEventListener('load', renderWorks);
