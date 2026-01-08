@@ -65,6 +65,25 @@
             .project-container { padding-top: 100px; }
             #proj-title { font-size: 2rem; margin-bottom: 20px; }
         }
+        /* 複用首頁 Grid 樣式 */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); /* 內頁建議兩欄，視覺較穩重 */
+    gap: 40px 20px; 
+    margin-bottom: 100px;
+}
+
+/* 確保圖片在 Grid 中維持比例 */
+.more-works-section .img-container {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+/* 響應式：手機版改為一欄 */
+@media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -131,6 +150,29 @@
                             img.className = "gallery-item";
                             img.onerror = () => img.style.display = 'none';
                             gallery.appendChild(img);
+                        const moreWorksGrid = document.getElementById('more-works-grid');
+const otherProjects = window.projectData.filter(p => p.id !== projectID);
+
+// 限制顯示數量，例如只顯示最新的 2 個或 4 個
+otherProjects.slice(0, 4).forEach(p => {
+    const item = document.createElement('a');
+    item.href = p.link;
+    item.className = 'work-item visible'; // 直接顯示，不加延遲動畫
+    item.style.padding = '0'; // 內頁列表建議簡約，不需首頁的大內距
+    
+    item.innerHTML = `
+        <div class="img-container">
+            <img src="${p.image}" alt="${p.title}" style="transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);">
+        </div>
+        <div class="work-info">
+            <h3 style="font-size: 14px;">${p.title}</h3>
+            <p style="font-size: 11px; color: #888;">${p.category}</p>
+        </div>
+    `;
+
+    // 同樣加入首頁的 hover 放大效果 (CSS 已處理)
+    moreWorksGrid.appendChild(item);
+});
                         });
                     }
                 } else {
