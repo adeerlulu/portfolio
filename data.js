@@ -1,52 +1,21 @@
 // 作品資料庫 - 
 window.projectData = [
     { 
-        title: "我的第一件作品", 
+        id: "p01", // 給每個作品一個唯一 ID
+        title: "ESG內頁設計", 
         category: "Visual Design", 
         image: "images/w02-cover.jpg", 
-        link: "projects/project-01.html" 
+        description: "這裡填寫長敘述：此設計探討了空間與色彩的平衡...",
+        details: ["images/w02-detail1.jpg", "images/w02-detail2.jpg"], // 更多細節圖
+        link: "project-template.html?id=p01" // 改成連往樣板並帶參數
     },
     { 
-        title: "品牌形象設計", 
+        id: "p02",
+        title: "ESG內頁設計", 
         category: "Brand Identity", 
         image: "images/w02-cover.jpg", 
-        link: "projects/project-02.html" 
-    },
-    { 
-        title: "編輯排版實作", 
-        category: "Editorial Design", 
-        image: "images/w02-cover.jpg", 
-        link: "projects/project-03.html" 
-    },
-    { 
-        title: "編輯排版實作", 
-        category: "Editorial Design", 
-        image: "images/w02-cover.jpg", 
-        link: "projects/project-04.html" 
-    },
-        { 
-        title: "編輯排版實作", 
-        category: "Editorial Design", 
-        image: "images/w02-cover.jpg", 
-        link: "projects/project-04.html" 
-    },
-        { 
-        title: "編輯排版實作", 
-        category: "Editorial Design", 
-        image: "images/w02-cover.jpg", 
-        link: "projects/project-04.html" 
-    },
-        { 
-        title: "編輯排版實作", 
-        category: "Editorial Design", 
-        image: "images/w02-cover.jpg", 
-        link: "projects/project-04.html" 
-    },
-        { 
-        title: "編輯排版實作", 
-        category: "Editorial Design", 
-        image: "images/w02-cover.jpg", 
-        link: "projects/project-04.html" 
-    },
-    // 往下繼續新增...
+        description: "第二件作品的設計理念...",
+        details: ["images/w02-detail1.jpg"],
+        link: "project-template.html?id=p02"
+    }
 ];
