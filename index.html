@@ -46,26 +46,28 @@
 
         const dynamicColors = ['#FFEDA3', '#D4E9FF', '#FFD1D1', '#D0F0C0', '#E5D1FA', '#FFD8B1'];
 
-        function renderWorks() {
-            const grid = document.getElementById('works-grid');
-            if (!grid) return;
+       function renderWorks() {
+    const grid = document.getElementById('works-grid');
+    if (!grid) return;
 
-            grid.innerHTML = ""; // 清空一次
-
-            projects.forEach(p => {
-                const randomColor = dynamicColors[Math.floor(Math.random() * dynamicColors.length)];
-                const item = document.createElement('a');
-                item.href = p.link;
-                item.className = 'work-item';
-                item.innerHTML = `
-                    <div class="img-container" style="background-color: ${randomColor};">
-                        <img src="${p.image}" alt="${p.title}">
-                    </div>
+    projects.forEach(p => {
+        const randomColor = dynamicColors[Math.floor(Math.random() * dynamicColors.length)];
+        const item = document.createElement('a');
+        item.href = p.link;
+        item.className = 'work-item';
+        
+        // 結構調整：將文字放入 info-overlay 並設置背景色
+        item.innerHTML = `
+            <div class="img-container">
+                <img src="${p.image}" alt="${p.title}">
+                <div class="info-overlay" style="background-color: ${randomColor}ee;"> 
                     <h3>${p.title}</h3>
                     <p>${p.category}</p>
-                `;
-                grid.appendChild(item);
-            });
+                </div>
+            </div>
+        `;
+        grid.appendChild(item);
+    });
 
             // 啟動淡入觀察器
             const observer = new IntersectionObserver((entries) => {
