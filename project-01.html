@@ -3,43 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品標題 - My Portfolio</title>
+    <title>Project Detail | +1 Design</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body class="project-page">
+    </head>
+<body>
+
     <nav>
-        <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">BACK</a></div>
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
         <div class="nav-links">
-            <a href="index.html#works">Works</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="index.html">Back to Works</a>
         </div>
     </nav>
 
-    <article class="project-container">
-        <header class="project-header">
-            <p class="category">Brand Identity / 2024</p>
-            <h1>作品標題名稱</h1>
-        </header>
-
-        <section class="project-info">
-            <div class="description">
-                <p>這裡描述你的設計初衷。例如：這是一個為了某品牌重新設計的識別系統，我們採用了極簡的線條來傳達專業感...</p>
+    <main class="project-container">
+        <section class="project-hero">
+            <div class="img-container">
+                <img src="images/w01-cover.jpg" alt="Cover Image">
             </div>
-            <div class="details">
-                <p><strong>Client</strong>: Private Client</p>
-                <p><strong>Role</strong>: Art Direction, Web Design</p>
+        </section>
+
+        <section class="project-header">
+            <div class="header-content">
+                <p class="category">Visual Design</p>
+                <h1>我的第一件作品</h1>
+                <p class="short-desc">這是一段關於作品的精簡介紹，延續首頁的視覺語彙。</p>
+            </div>
+        </section>
+
+        <section class="project-description">
+            <div class="content-wrapper">
+                <h3>Design Concept</h3>
+                <p>這裡填寫你的長敘述。例如：此設計探討了空間與色彩的平衡，透過極簡的線條與大面積留白，傳達出寧靜且深刻的視覺印象。我們在過程中嘗試了多種材質的疊加，最終選定了最能代表品牌核心的方案。</p>
             </div>
         </section>
 
         <section class="project-gallery">
-            <img src="https://via.placeholder.com/1600x900" alt="Detail 1">
-            <img src="https://via.placeholder.com/1600x900" alt="Detail 2">
-            <img src="https://via.placeholder.com/1600x900" alt="Detail 3">
+            <div class="gallery-item">
+                <img src="images/w01-detail1.jpg" alt="Detail 01">
+            </div>
+            <div class="gallery-item">
+                <img src="images/w01-detail2.jpg" alt="Detail 02">
+            </div>
         </section>
-    </article>
 
-    <footer class="project-footer">
-        <a href="index.html">Back to All Works</a>
-    </footer>
+        <section class="contact-section">
+            <a href="index.html" class="email-btn">Back to All Works</a>
+        </section>
+    </main>
+
 </body>
 </html>
