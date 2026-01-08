@@ -6,9 +6,22 @@ body {
     background: #fff;
     color: #1a1a1a;
     line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* --- 2. 導覽列 --- */
+/* --- 2. 字體層級 --- */
+.banner h1, #proj-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+}
+
+nav .logo, .nav-links a, .category, .work-info p {
+    font-family: "Lora", serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* --- 3. 導覽列 Navigation (初始透明) --- */
 nav { 
     display: flex; 
     justify-content: space-between; 
@@ -18,50 +31,59 @@ nav {
     top: 0; 
     z-index: 1000; 
     background: transparent; 
-    transition: 0.4s;
+    transition: all 0.4s ease;
 }
 
+/* 滾動後變色 */
 nav.scrolled {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
+    padding: 15px 5%;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; }
 .nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 12px; }
 
-/* --- 3. Banner 區塊 --- */
+/* --- 4. Banner 區塊 (對齊 1400px) --- */
 .banner { 
     position: relative;
-    height: 50vh; 
+    height: 55vh; 
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
     padding: 0 5% 60px 5%; 
+    overflow: hidden;
 }
 
 .banner-bg {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: url('images/bg1.jpg');
     background-size: cover;
     background-position: center;
     z-index: -1; 
     -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    transition: opacity 0.3s linear;
 }
 
 .banner-content {
     width: 100%;
     max-width: 1400px; 
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
 }
 
-/* --- 4. 作品網格 (關鍵修正) --- */
-.works-section { 
-    padding: 80px 5%; 
-    background: #fff; 
-    min-height: 500px; /* 確保區塊即使沒內容也有高度 */
-}
+.banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 10px; line-height: 1.1; }
+.banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
+
+/* --- 5. 作品網格 (1400px) --- */
+.works-section { padding: 80px 5%; background: #fff; }
 
 .grid { 
     max-width: 1400px; 
@@ -72,31 +94,41 @@ nav.scrolled {
 }
 
 .work-item { 
-    display: flex;
-    flex-direction: column;
+    position: relative;
     text-decoration: none; 
     color: #1a1a1a; 
     aspect-ratio: 1 / 1; 
-    padding: 20px;
-    background: #fdfdfd; /* 先給一個淺底色，確認看得到框 */
-    border: 1px solid #eee; /* 先給邊框，確認容器有跑出來 */
-    opacity: 1 !important; /* 強制顯示 */
-    transform: none !important; /* 取消任何位移 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
 }
+
+.work-item.visible { opacity: 1; transform: translateY(0); }
+.work-item:hover { color: #fff; }
 
 .img-container { 
     width: 100%;
     aspect-ratio: 3 / 2; 
     overflow: hidden;
-    margin-bottom: 15px;
-    background: #eee;
+    margin-bottom: 18px;
+    background: #f9f9f9;
 }
 
-.img-container img { width: 100%; height: 100%; object-fit: cover; }
+.img-container img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s ease; }
+.work-item:hover .img-container img { transform: scale(1.08); }
 
-/* --- 5. Contact --- */
-.contact-section { padding: 100px 5%; text-align: center; border-top: 1px solid #eee; }
+/* --- 6. 聯絡區 --- */
+.contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
+.email-btn { 
+    display: inline-block; padding: 15px 40px; border: 1px solid #1a1a1a; 
+    text-decoration: none; color: #1a1a1a; font-size: 13px;
+}
+.email-btn:hover { background: #1a1a1a; color: #fff; }
 
-/* --- 6. RWD --- */
+/* --- 7. RWD --- */
 @media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
