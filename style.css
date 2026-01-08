@@ -1,0 +1,29 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; scroll-behavior: smooth; }
+
+/* 導覽列 */
+nav { display: flex; justify-content: space-between; padding: 40px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); }
+.nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Banner */
+.banner { height: 70vh; display: flex; flex-direction: column; justify-content: center; padding-left: 5%; border-bottom: 1px solid #eee; }
+.banner h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 300; line-height: 1; letter-spacing: -2px; }
+
+/* 作品網格 */
+.works-section { padding: 80px 5%; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); gap: 60px 40px; }
+
+.work-item { text-decoration: none; color: inherit; opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+.work-item.visible { opacity: 1; transform: translateY(0); }
+.img-container { overflow: hidden; background: #f0f0f0; margin-bottom: 15px; }
+.work-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.work-item:hover img { transform: scale(1.05); }
+.work-item h3 { font-size: 18px; font-weight: 400; margin-bottom: 5px; }
+.work-item p { font-size: 13px; color: #888; text-transform: uppercase; }
+
+/* 聯絡區 */
+.contact-section { padding: 150px 5%; text-align: center; background: #fafafa; }
+.email-btn { display: inline-block; margin-top: 20px; padding: 15px 40px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; transition: 0.3s; }
+.email-btn:hover { background: #1a1a1a; color: #fff; }
+
+@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
