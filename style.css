@@ -44,11 +44,11 @@ nav {
 /* --- 4. 首頁 Banner 與 背景淡出 --- */
 .banner { 
     position: relative;
-    height: 60vh; 
+    height: 45vh; 
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; /* 讓標題靠下方對齊，接近作品集 */
-    padding: 0 5% 40px 5%; /* 下方內距縮減 */
+    padding: 140 5% 0px 5%; /* 下方內距縮減 */
     overflow: hidden;
     background: transparent; 
 }
@@ -150,4 +150,44 @@ nav {
 @media (max-width: 768px) { 
     .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } 
     .work-item { padding: 15px; }
+}
+
+/* --- 7. 聯絡區 Contact (重置並確保顯示) --- */
+.contact-section { 
+    padding: 100px 5%; 
+    text-align: center; 
+    border-top: 1px solid #eee; 
+    background: #fff; /* 確保背景不透明 */
+    width: 100%;
+    clear: both; /* 預防上方浮動元素干擾 */
+}
+
+.email-btn { 
+    display: inline-block; 
+    margin-top: 25px; 
+    padding: 15px 45px; 
+    border: 1px solid #1a1a1a; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    transition: 0.3s ease; 
+    font-size: 13px; 
+    font-family: "Lora", serif;
+    letter-spacing: 2px;
+}
+
+.email-btn:hover { 
+    background: #1a1a1a; 
+    color: #fff; 
+}
+
+/* --- 8. RWD 修正 --- */
+@media (max-width: 1024px) { 
+    .grid { grid-template-columns: repeat(3, 1fr); } 
+}
+
+@media (max-width: 768px) { 
+    .banner { height: auto; padding: 120px 5% 40px 5%; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } 
+    .work-item { padding: 15px; }
+    .contact-section { padding: 60px 5%; }
 }
