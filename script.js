@@ -1,78 +1,78 @@
-/**
- * 作品資料管理區
- * 以後有新作品，直接在 [] 裡面增加一組 {} 即可
- */
+// 作品資料：未來新增作品請在這裡編輯
 const projects = [
     { 
-        title: "作品名稱 01", 
-        category: "Brand Identity", 
-        image: "https://via.placeholder.com/800x600", 
+        title: "我的第一件作品", 
+        category: "Visual Design", 
+        image: "images/w01-cover.jpg", 
         link: "project-01.html" 
     },
     { 
-        title: "作品名稱 02", 
-        category: "UI/UX Design", 
-        image: "https://via.placeholder.com/800x600", 
-        link: "project-02.html" 
+        title: "Project Title 02", 
+        category: "Web Design", 
+        image: "images/w01-cover.jpg", 
+        link: "project-01.html" 
     },
     { 
-        title: "作品名稱 03", 
-        category: "Graphic Design", 
-        image: "https://via.placeholder.com/800x600", 
-        link: "project-03.html" 
+        title: "Project Title 03", 
+        category: "Graphic", 
+        image: "images/w01-cover.jpg", 
+        link: "project-01.html" 
     },
     { 
-        title: "作品名稱 04", 
+        title: "Project Title 04", 
         category: "Photography", 
-        image: "https://via.placeholder.com/800x600", 
-        link: "project-04.html" 
+        image: "images/w01-cover.jpg", 
+        link: "project-01.html" 
     }
 ];
 
-// 活潑的跳色配色盤 (日系現代感)
-const dynamicColors = ['#FFEDA3', '#D4E9FF', '#FFD1D1', '#D0F0C0', '#E5D1FA', '#FFD8B1', '#FFCC99'];
+// 活潑色配色盤
+const dynamicColors = ['#FF6B6B', '#4D96FF', '#6BCB77', '#FFD93D', '#9477CB', '#FF9248'];
 
-/**
- * 核心執行邏輯
- */
-document.addEventListener('DOMContentLoaded', () => {
+function renderWorks() {
     const grid = document.getElementById('works-grid');
+    if (!grid) return;
 
-    // 1. 檢查 HTML 是否有對應的 ID，避免錯誤
-    if (!grid) {
-        console.error("錯誤：找不到 id 為 'works-grid' 的元素。請檢查 index.html。");
-        return;
-    }
-
-    // 2. 生成作品 HTML
     projects.forEach(p => {
-        // 隨機選一個顏色作為 Hover 時的背景
         const randomColor = dynamicColors[Math.floor(Math.random() * dynamicColors.length)];
+        const item = document.createElement('a');
+        item.href = p.link;
+        item.className = 'work-item';
         
-        const workItem = document.createElement('a');
-        workItem.href = p.link;
-        workItem.className = 'work-item';
-        
-        workItem.innerHTML = `
-            <div class="img-container" style="background-color: ${randomColor};">
-                <img src="${p.image}" alt="${p.title}" loading="lazy">
+        item.innerHTML = `
+            <div class="img-container">
+                <img src="${p.image}" alt="${p.title}">
             </div>
-            <h3>${p.title}</h3>
-            <p>${p.category}</p>
+            <div class="work-info">
+                <h3>${p.title}</h3>
+                <p>${p.category}</p>
+            </div>
         `;
-        
-        grid.appendChild(workItem);
+
+        // 滑鼠移入：改變背景色
+        item.addEventListener('mouseenter', () => {
+            item.style.backgroundColor = randomColor;
+        });
+
+        // 滑鼠移出：恢復透明背景
+        item.addEventListener('mouseleave', () => {
+            item.style.backgroundColor = 'transparent';
+        });
+
+        grid.appendChild(item);
     });
 
-    // 3. 滾動淡入動畫 (Intersection Observer)
-    const fadeObserver = new IntersectionObserver((entries) => {
+    // 啟動淡入觀察器
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // 觸發後就不再重複偵測，提升效能
-                fadeObserver.unobserve(entry.target);
             }
         });
-    }, { 
-        threshold: 0.1, // 當作品露出 10% 時觸發
-        rootMargin:
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.work-item').forEach(el => observer.observe(el));
+}
+
+// 執行載入
+window.onload = renderWorks;
