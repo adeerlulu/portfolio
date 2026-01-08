@@ -73,3 +73,78 @@ nav { display: flex; justify-content: space-between; padding: 40px 5%; position:
     .grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
     .work-item { padding: 12px; }
 }
+
+/* --- Project Detail Page Styles --- */
+
+.project-container {
+    padding-top: 120px; /* 留出導覽列空間 */
+}
+
+.project-hero {
+    padding: 0 5%;
+    margin-bottom: 60px;
+}
+
+.project-header {
+    padding: 0 5%;
+    margin-bottom: 80px;
+}
+
+.header-content h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    margin: 10px 0;
+}
+
+.header-content .category {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+}
+
+.project-description {
+    padding: 80px 5%;
+    background: #fcfcfc; /* 輕微色塊區隔 */
+    margin-bottom: 80px;
+}
+
+.content-wrapper {
+    max-width: 800px; /* 限制閱讀寬度更舒適 */
+    margin: 0 auto;
+}
+
+.content-wrapper h3 {
+    margin-bottom: 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.content-wrapper p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #444;
+}
+
+.project-gallery {
+    padding: 0 5%;
+}
+
+.gallery-item {
+    width: 100%;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* 這裡可以選擇是否也要縮放效果，或保持靜態 */
+}
+
+/* RWD for Detail Page */
+@media (max-width: 768px) {
+    .header-content h1 { font-size: 2rem; }
+    .project-description { padding: 40px 5%; }
+}
