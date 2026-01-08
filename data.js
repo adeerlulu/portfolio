@@ -5,7 +5,7 @@ window.projectData = [
         title: "ESG內頁設計", 
         category: "Visual Design", 
         image: "images/w02-cover.jpg", 
-        description: "這裡填寫長敘述：此設計探討了空間與色彩的平衡...",
+        description: "延續封面水彩概念，以綠葉、水、環保帶進整本文案設計",
         details: ["images/w02-d-01.jpg", "images/w02-d-02.jpg"], // 更多細節圖
         link: "project-template.html?id=p01" // 改成連往樣板並帶參數
     },
