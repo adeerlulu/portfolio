@@ -6,7 +6,7 @@ window.projectData = [
         category: "Visual Design", 
         image: "images/w02-cover.jpg", 
         description: "這裡填寫長敘述：此設計探討了空間與色彩的平衡...",
-        details: ["images/w02-detail1.jpg", "images/w02-detail2.jpg"], // 更多細節圖
+        details: ["images/w02-d-01.jpg", "images/w02-d-02.jpg"], // 更多細節圖
         link: "project-template.html?id=p01" // 改成連往樣板並帶參數
     },
     { 
