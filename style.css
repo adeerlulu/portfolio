@@ -1,5 +1,38 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', "PingFang TC", sans-serif; background: #fff; color: #1a1a1a; line-height: 1.5; overflow-x: hidden; }
+/* 全域字體設定：中文優先使用粉圓體，英文數字優先使用 Lora */
+body {
+    font-family: "Lora", "jf-open-huninn", serif;
+    background: #fff;
+    color: #1a1a1a;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 首頁大標專用字體 (Cormorant) */
+.banner h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+/* 內頁作品大標 (同樣建議使用 Cormorant 以維持層級) */
+#proj-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 300;
+}
+
+/* 導覽列與分類文字 (Lora) */
+nav .logo, .nav-links a, .category, .more-works-title {
+    font-family: "Lora", serif;
+    letter-spacing: 2px;
+}
+
+/* 內文、描述、中文內容 (粉圓體會自動處理) */
+#proj-desc, .work-info h3, .work-info p {
+    font-family: "Lora", "jf-open-huninn", sans-serif;
+}
 
 /* Navigation */
 nav { display: flex; justify-content: space-between; padding: 40px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); }
