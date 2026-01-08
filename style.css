@@ -7,25 +7,23 @@ body {
     color: #1a1a1a;
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    /* 預防字體閃爍：初始隱藏由 JS 顯示，或使用優化渲染 */
+    text-rendering: optimizeLegibility;
 }
 
-/* --- 2. 字體層級設定 --- */
+/* --- 2. 字體層級 --- */
 .banner h1, #proj-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
 }
 
-nav .logo, .nav-links a, .category, .more-works-title, #proj-category, .work-info p {
+nav .logo, .nav-links a, .category, .work-info p {
     font-family: "Lora", serif;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-#proj-desc, .work-info h3, .banner p, .content-wrapper p {
-    font-family: "Noto Sans TC", sans-serif;
-}
-
-/* --- 3. 導覽列 --- */
+/* --- 3. 導覽列 Navigation (初始透明) --- */
 nav { 
     display: flex; 
     justify-content: space-between; 
@@ -34,23 +32,30 @@ nav {
     width: 100%; 
     top: 0; 
     z-index: 1000; 
-    background: rgba(255,255,255,0.85); 
-    backdrop-filter: blur(15px); 
-    border-bottom: 1px solid rgba(0,0,0,0.03);
+    background: transparent; /* 初始透明 */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
+/* 滾動後樣式 */
+nav.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    padding: 18px 5%;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
 .logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; }
 .nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 12px; transition: 0.3s; }
 
-/* --- 4. 首頁 Banner 與 背景淡出 --- */
+/* --- 4. Banner 區塊 (對齊 1400px) --- */
 .banner { 
     position: relative;
-    height: 45vh; 
+    height: 55vh; 
     display: flex; 
     flex-direction: column; 
-    justify-content: flex-end; /* 讓標題靠下方對齊，接近作品集 */
-    padding: 140 5% 0px 5%; /* 下方內距縮減 */
+    justify-content: flex-end; 
+    padding: 0 5% 60px 5%; 
     overflow: hidden;
-    background: transparent; 
 }
 
 .banner-bg {
@@ -59,58 +64,52 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('images/bg1.jpg');
+    background-image: url('images/bg1.jpg'); /* 使用你的檔名 bg1 */
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     z-index: -1; 
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-    transition: opacity 0.2s linear;
+    /* 底部淡出遮罩 */
+    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
 }
 
 .banner-content {
+    width: 100%;
+    max-width: 1400px; /* 放寬容器 */
+    margin: 0 auto;
     position: relative;
     z-index: 10;
-    width: 100%;
-    max-width: 1024px; /* 與作品集最大寬度一致 */
-    margin: 0 auto; /* 置中 */
-    padding: 0; /* 這裡設為0，依靠外層 banner 的 5% 來對齊 */
 }
 
-.banner h1 { 
-    font-size: clamp(2.5rem, 6vw, 4.5rem); 
-    margin-bottom: 10px; 
-    line-height: 1.1; 
-}
+.banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 10px; line-height: 1.1; }
 .banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
 
-/* --- 5. 作品網格 Works Grid --- */
+/* --- 5. 作品網格 (1400px) --- */
 .works-section { 
     padding: 80px 5%; 
+    background: #fff;
 }
 
 .grid { 
-    max-width: 1024px; /* 關鍵：確保與 banner-content 一樣寬 */
+    max-width: 1400px; 
     margin: 0 auto; 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
-    gap: 20px; 
+    gap: 25px; 
 }
 
 .work-item { 
     position: relative;
     text-decoration: none; 
     color: #1a1a1a; 
-    opacity: 0;
-    transform: translateY(30px);
-    aspect-ratio: 1 / 1; 
+    aspect-ratio: 1 / 1; /* 正方形色塊 */
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
     padding: 30px;
-    transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
-                color 0.4s ease, opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0; /* JS 會觸發顯現 */
+    transform: translateY(30px);
+    transition: background 0.6s ease, color 0.3s ease, opacity 0.8s ease, transform 0.8s ease;
 }
 
 .work-item.visible { opacity: 1; transform: translateY(0); }
@@ -124,70 +123,22 @@ nav {
     background: #f9f9f9;
 }
 
-.img-container img { 
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
+.img-container img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s ease; }
+.work-item:hover .img-container img { transform: scale(1.08); }
 
-.work-item:hover .img-container img { transform: scale(1.1); }
-.work-info h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
-.work-info p { font-size: 11px; opacity: 0.7; }
+.work-info h3 { font-size: 16px; font-weight: 500; }
+.work-info p { font-size: 11px; opacity: 0.6; }
 
-/* --- 6. 內頁與 RWD --- */
-.container-1024 {
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 0 40px;
-}
-
-.project-container { padding-top: 160px; }
-#proj-title { font-size: clamp(2rem, 5vw, 3rem); margin: 10px 0 25px 0; }
-#proj-desc { font-size: 16px; line-height: 2; color: #333; white-space: pre-line; max-width: 750px; }
-
-@media (max-width: 1024px) { 
-    .grid { grid-template-columns: repeat(3, 1fr); } 
-}
-@media (max-width: 768px) { 
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } 
-    .work-item { padding: 15px; }
-}
-
-/* --- 7. 聯絡區 Contact (重置並確保顯示) --- */
-.contact-section { 
-    padding: 100px 5%; 
-    text-align: center; 
-    border-top: 1px solid #eee; 
-    background: #fff; /* 確保背景不透明 */
-    width: 100%;
-    clear: both; /* 預防上方浮動元素干擾 */
-}
-
+/* --- 6. Contact & RWD --- */
+.contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
 .email-btn { 
-    display: inline-block; 
-    margin-top: 25px; 
-    padding: 15px 45px; 
-    border: 1px solid #1a1a1a; 
-    text-decoration: none; 
-    color: #1a1a1a; 
-    transition: 0.3s ease; 
-    font-size: 13px; 
-    font-family: "Lora", serif;
-    letter-spacing: 2px;
+    display: inline-block; padding: 15px 40px; border: 1px solid #1a1a1a; 
+    text-decoration: none; color: #1a1a1a; font-size: 13px; transition: 0.3s;
 }
+.email-btn:hover { background: #1a1a1a; color: #fff; }
 
-.email-btn:hover { 
-    background: #1a1a1a; 
-    color: #fff; 
-}
-
-/* --- 8. RWD 修正 --- */
-@media (max-width: 1024px) { 
-    .grid { grid-template-columns: repeat(3, 1fr); } 
-}
-
+@media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { 
-    .banner { height: auto; padding: 120px 5% 40px 5%; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } 
-    .work-item { padding: 15px; }
-    .contact-section { padding: 60px 5%; }
+    .banner { height: 45vh; }
 }
