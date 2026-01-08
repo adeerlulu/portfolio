@@ -29,3 +29,50 @@ nav { display: flex; justify-content: space-between; padding: 40px 5%; position:
 /* --- 4. RWD --- */
 @media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+/* --- 5. 互動動畫補齊 --- */
+
+/* 初始狀態設為透明並稍微下移，準備進場動畫 */
+.work-item { 
+    opacity: 0;
+    transform: translateY(30px);
+    transition: background-color 0.4s ease, color 0.3s ease, opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* 當捲動到視線內，由 JS 加入 visible 類別觸發動畫 */
+.work-item.visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* 滑鼠移入時的特效 */
+.work-item:hover { 
+    color: #ffffff; /* 文字變白 */
+}
+
+/* 圖片在滑鼠移入時輕微放大，增加空間感 */
+.work-item:hover .img-container img { 
+    transform: scale(1.05);
+}
+
+/* 聯絡區樣式補齊 */
+.contact-section { 
+    padding: 120px 5%; 
+    text-align: center; 
+    border-top: 1px solid #eee; 
+}
+
+.email-btn { 
+    display: inline-block; 
+    margin-top: 20px; 
+    padding: 12px 35px; 
+    border: 1px solid #1a1a1a; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    font-size: 14px;
+    transition: 0.3s; 
+}
+
+.email-btn:hover { 
+    background: #1a1a1a; 
+    color: #fff; 
+}
