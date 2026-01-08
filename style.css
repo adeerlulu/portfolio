@@ -1,181 +1,144 @@
+/* --- 1. 全域變數與重設 --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-    font-family: "Lora", "Noto Sans TC", serif;
+    font-family: "Lora", "Noto Sans TC", serif; /* 英數用 Lora, 中文用思源黑體 */
     background: #fff;
     color: #1a1a1a;
-    line-height: 1.6;
+    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
 }
 
-/* 首頁大標專用字體 (Cormorant) */
-.banner h1 {
+/* --- 2. 字體層級設定 --- */
+/* 優雅大標 (Cormorant) */
+.banner h1, #proj-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 300;
-    margin-bottom: 10px;
-}
-
-/* 內頁作品大標 (同樣建議使用 Cormorant 以維持層級) */
-#proj-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
     font-weight: 300;
 }
 
-/* 導覽列與分類文字 (Lora) */
-nav .logo, .nav-links a, .category, .more-works-title {
+/* 導覽與分類標籤 (Lora) */
+nav .logo, .nav-links a, .category, .more-works-title, #proj-category, .work-info p {
     font-family: "Lora", serif;
     letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
-#proj-desc, .work-info h3, .work-info p {
-    font-family: "Lora", "Noto Sans TC", sans-serif;
+/* 中文內容與標題 (Noto Sans TC) */
+#proj-desc, .work-info h3, .banner p, .content-wrapper p {
+    font-family: "Noto Sans TC", sans-serif;
 }
 
-/* Navigation */
-nav { display: flex; justify-content: space-between; padding: 40px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); }
-.logo { font-weight: 500; letter-spacing: 2px; }
-.nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 13px; text-transform: uppercase; }
+/* --- 3. 導覽列 Navigation --- */
+nav { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 30px 5%; 
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000; 
+    background: rgba(255,255,255,0.85); 
+    backdrop-filter: blur(15px); 
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; }
+.nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 12px; transition: 0.3s; }
+.nav-links a:hover { opacity: 0.5; }
 
-/* Banner */
-.banner { height: 70vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5%; }
-.banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 300; margin-bottom: 10px; }
-.banner p { color: #888; letter-spacing: 1px; }
+/* --- 4. 首頁 Banner 與 背景淡出 --- */
+.banner { 
+    position: relative;
+    height: 80vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    padding: 0 10%; 
+    overflow: hidden;
+}
 
-/* Works Grid */
-.works-section { padding: 60px 5%; }
+.banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    transition: opacity 0.8s ease-out; /* JavaScript 觸發淡出 */
+}
+
+.banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 15px; line-height: 1.1; }
+.banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
+
+/* --- 5. 作品網格 Works Grid --- */
+.works-section { padding: 80px 5%; }
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 20px; }
 
 .work-item { 
     position: relative;
     text-decoration: none; 
     color: #1a1a1a; 
-    aspect-ratio: 1 / 1; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    padding: 24px;
     opacity: 0;
     transform: translateY(30px);
-    /* Soft Background transition */
-    transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
-                color 0.4s ease, 
-                opacity 0.8s ease, 
-                transform 0.8s ease;
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .work-item.visible { opacity: 1; transform: translateY(0); }
-.work-item:hover { color: #fff; }
 
-/* Image Container: Overflow Hidden for Internal Zoom */
 .img-container { 
     width: 100%;
     aspect-ratio: 3 / 2; 
-    overflow: hidden; /* Important: keeps zoom inside the box */
+    overflow: hidden;
     margin-bottom: 18px;
-    background: #f5f5f5;
+    background: #f9f9f9;
 }
 
 .img-container img { 
     width: 100%; 
     height: 100%;
     object-fit: cover;
-    display: block;
-    /* Smooth slow zoom */
     transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.work-item:hover .img-container img { 
-    transform: scale(1.1); /* Zoom in without moving text */
+.work-item:hover .img-container img { transform: scale(1.08); }
+.work-info h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+.work-info p { font-size: 10px; opacity: 0.6; }
+
+/* --- 6. 內頁樣板格式 Project Detail (1024px) --- */
+.container-1024 {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
-/* Info Text */
-.work-info h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
-.work-info p { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+.project-container { padding-top: 160px; }
+.project-hero { margin-bottom: 60px; }
+.project-info { text-align: left; margin-bottom: 80px; }
 
-/* Contact */
+#proj-title { font-size: clamp(2rem, 5vw, 3rem); margin: 10px 0 25px 0; }
+#proj-desc { font-size: 16px; line-height: 2; color: #333; white-space: pre-line; max-width: 750px; }
+
+.gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; }
+
+/* 底部其他作品 */
+.more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 120px; }
+.more-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 30px; }
+.more-item { text-decoration: none; color: #1a1a1a; }
+.more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; background: #f5f5f5; }
+.more-item img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s; }
+.more-item:hover img { transform: scale(1.05); }
+
+/* --- 7. 聯絡區與 RWD --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
-.email-btn { display: inline-block; margin-top: 20px; padding: 12px 35px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; transition: 0.3s; }
+.email-btn { display: inline-block; margin-top: 20px; padding: 12px 35px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; transition: 0.3s; font-size: 13px; }
 .email-btn:hover { background: #1a1a1a; color: #fff; }
 
-/* RWD */
 @media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { 
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
-    .work-item { padding: 12px; }
-}
-
-/* --- Project Detail Page Styles --- */
-
-.project-container {
-    padding-top: 120px; /* 留出導覽列空間 */
-}
-
-.project-hero {
-    padding: 0 5%;
-    margin-bottom: 60px;
-}
-
-.project-header {
-    padding: 0 5%;
-    margin-bottom: 80px;
-}
-
-.header-content h1 {
-    font-size: 3rem;
-    font-weight: 300;
-    margin: 10px 0;
-}
-
-.header-content .category {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #888;
-}
-
-.project-description {
-    padding: 80px 5%;
-    background: #fcfcfc; /* 輕微色塊區隔 */
-    margin-bottom: 80px;
-}
-
-.content-wrapper {
-    max-width: 800px; /* 限制閱讀寬度更舒適 */
-    margin: 0 auto;
-}
-
-.content-wrapper h3 {
-    margin-bottom: 20px;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-.content-wrapper p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #444;
-}
-
-.project-gallery {
-    padding: 0 5%;
-}
-
-.gallery-item {
-    width: 100%;
-    margin-bottom: 40px;
-    overflow: hidden;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    /* 這裡可以選擇是否也要縮放效果，或保持靜態 */
-}
-
-/* RWD for Detail Page */
-@media (max-width: 768px) {
-    .header-content h1 { font-size: 2rem; }
-    .project-description { padding: 40px 5%; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 20px 15px; } 
+    .container-1024 { padding: 0 20px; }
+    .more-grid { grid-template-columns: 1fr; }
+    .project-container { padding-top: 120px; }
 }
