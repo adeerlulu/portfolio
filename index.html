@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>+1 Design</title>
-
     <meta name="description" content="從品牌輪廓、版面節奏到視覺重心，一一形塑，一起找到適合它的樣子。">
     <meta property="og:title" content="+1 Design">
     <meta property="og:description" content="加一點，讓它更加不同——從品牌輪廓、版面節奏到視覺重心，一一形塑，一起找到適合它的樣子。">
-    <meta property="og:type" content="website">
-
+    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
 </head>
@@ -25,13 +22,12 @@
     </nav>
 
     <header class="banner">
-        <h1 class="fade-in">+1 Design</h1>
-        <p class="fade-in">Selected Works 2024-2025</p>
+        <h1>+1 Design</h1>
+        <p>Selected Works 2024-2025</p>
     </header>
 
     <section id="works" class="works-section">
-        <div class="grid" id="works-grid">
-            </div>
+        <div class="grid" id="works-grid"></div>
     </section>
 
     <section id="contact" class="contact-section">
@@ -40,6 +36,51 @@
         <a href="mailto:your-email@example.com" class="email-btn">Send Message</a>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+        const projects = [
+            { title: "Project 01", category: "Brand Design", image: "https://via.placeholder.com/800x600", link: "project-01.html" },
+            { title: "Project 02", category: "Web Design", image: "https://via.placeholder.com/800x600", link: "project-01.html" },
+            { title: "Project 03", category: "Graphic", image: "https://via.placeholder.com/800x600", link: "project-01.html" },
+            { title: "Project 04", category: "Identity", image: "https://via.placeholder.com/800x600", link: "project-01.html" }
+        ];
+
+        const dynamicColors = ['#FFEDA3', '#D4E9FF', '#FFD1D1', '#D0F0C0', '#E5D1FA', '#FFD8B1'];
+
+        function renderWorks() {
+            const grid = document.getElementById('works-grid');
+            if (!grid) return;
+
+            grid.innerHTML = ""; // 清空一次
+
+            projects.forEach(p => {
+                const randomColor = dynamicColors[Math.floor(Math.random() * dynamicColors.length)];
+                const item = document.createElement('a');
+                item.href = p.link;
+                item.className = 'work-item';
+                item.innerHTML = `
+                    <div class="img-container" style="background-color: ${randomColor};">
+                        <img src="${p.image}" alt="${p.title}">
+                    </div>
+                    <h3>${p.title}</h3>
+                    <p>${p.category}</p>
+                `;
+                grid.appendChild(item);
+            });
+
+            // 啟動淡入觀察器
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.work-item').forEach(el => observer.observe(el));
+        }
+
+        // 確保網頁一開好就執行
+        window.onload = renderWorks;
+    </script>
 </body>
 </html>
