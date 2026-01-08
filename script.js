@@ -48,13 +48,25 @@ function initPortfolio() {
         }
     });
 
-    // --- 4. 隨機背景色互動 (選配) ---
+    // --- 4. 隨機背景色互動 (漸層跳色) ---
     const items = document.querySelectorAll('.work-item');
-    const hoverColors = ['#f0f2f5', '#e9ecef', '#dee2e6'];
+    // 你指定的四種顏色
+    const baseColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
+    
     items.forEach(item => {
-        const color = hoverColors[Math.floor(Math.random() * hoverColors.length)];
-        item.addEventListener('mouseenter', () => item.style.backgroundColor = color);
-        item.addEventListener('mouseleave', () => item.style.backgroundColor = 'transparent');
+        // 為每個項目隨機分配一個顏色
+        const color = baseColors[Math.floor(Math.random() * baseColors.length)];
+        
+        item.addEventListener('mouseenter', () => {
+            // 套用 100% 到 40% (66) 的垂直漸層，文字維持黑色
+            item.style.background = `linear-gradient(to bottom, ${color} 0%, ${color}66 100%)`;
+            item.style.color = '#1a1a1a';
+        });
+
+        item.addEventListener('mouseleave', () => {
+            item.style.background = 'transparent';
+            item.style.color = '#1a1a1a';
+        });
     });
 }
 
