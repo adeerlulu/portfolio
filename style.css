@@ -1,7 +1,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-/* 全域字體設定：中文優先使用粉圓體，英文數字優先使用 Lora */
 body {
-    font-family: "Lora", "jf-open-huninn", serif;
+    font-family: "Lora", "Noto Sans TC", serif;
     background: #fff;
     color: #1a1a1a;
     line-height: 1.6;
@@ -29,9 +28,8 @@ nav .logo, .nav-links a, .category, .more-works-title {
     letter-spacing: 2px;
 }
 
-/* 內文、描述、中文內容 (粉圓體會自動處理) */
 #proj-desc, .work-info h3, .work-info p {
-    font-family: "Lora", "jf-open-huninn", sans-serif;
+    font-family: "Lora", "Noto Sans TC", sans-serif;
 }
 
 /* Navigation */
