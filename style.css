@@ -54,6 +54,7 @@ nav {
     justify-content: center; 
     padding: 0 10%; 
     overflow: hidden;
+     background: transparent; 
 }
 
 .banner-bg {
@@ -62,16 +63,22 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('images/bg.jpg');
+     background-image: url('images/bg1.jpg');
     background-size: cover;
     background-position: center;
-    z-index: -1;
+    background-repeat: no-repeat;
     
-    /* 核心修正：讓圖片底部 20% 開始產生漸層消失 */
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+     z-index: -1; 
+    
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    
+      transition: opacity 0.2s linear;
+}
 
-    transition: opacity 0.1s linear; /* 讓滾動時的透明度變化更即時 */
+.banner-content {
+    position: relative;
+    z-index: 10;
 }
 
 .banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 15px; line-height: 1.1; }
