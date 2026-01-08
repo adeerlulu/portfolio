@@ -108,7 +108,7 @@ nav.scrolled {
 }
 
 .work-item.visible { opacity: 1; transform: translateY(0); }
-.work-item:hover { color: #fff; }
+.work-item:hover { color: #1a1a1a; }
 
 .img-container { 
     width: 100%;
