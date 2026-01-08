@@ -6,19 +6,65 @@
     <title>Project Detail | +1 Design</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 內頁專屬微調 */
-        .project-container { padding-top: 120px; }
-        .project-hero { padding: 0 5%; margin-bottom: 60px; }
-        .project-header { padding: 0 5%; margin-bottom: 80px; }
-        .project-description { padding: 80px 5%; background: #fcfcfc; margin-bottom: 60px; }
-        .content-wrapper { max-width: 800px; margin: 0 auto; }
-        .gallery-item { width: 100%; margin-bottom: 60px; display: block; }
-        #proj-gallery img { width: 100%; height: auto; display: block; margin-bottom: 40px; }
+        /* 核心容器：限制最大寬度為 1024px */
+        .container-1024 {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .project-container { padding-top: 140px; }
         
-        /* 標題與文字細節 */
-        #proj-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; margin: 10px 0; }
-        #proj-category { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #888; }
-        #proj-desc { font-size: 16px; line-height: 1.8; color: #444; white-space: pre-line; }
+        /* 封面大圖間距 */
+        .project-hero { margin-bottom: 60px; }
+
+        /* 文字內容區：全部置左 */
+        .project-info {
+            text-align: left;
+            margin-bottom: 100px;
+        }
+
+        .info-header { margin-bottom: 24px; }
+        #proj-category { 
+            font-size: 13px; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            color: #888; 
+            margin-bottom: 8px;
+            display: block;
+        }
+        #proj-title { 
+            font-size: clamp(2rem, 5vw, 3rem); 
+            font-weight: 300; 
+            margin: 0 0 30px 0; 
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        /* 長敘述：移除標題，直接接在 H1 後面 */
+        .info-description { max-width: 750px; }
+        #proj-desc { 
+            font-size: 16px; 
+            line-height: 2; 
+            color: #333; 
+            white-space: pre-line; /* 保留 data.js 中的換行 */
+        }
+
+        /* 細節圖樣式 */
+        #proj-gallery { margin-top: 40px; }
+        .gallery-item { 
+            width: 100%; 
+            height: auto; 
+            margin-bottom: 40px; 
+            display: block; 
+        }
+
+        /* 手機版調整 */
+        @media (max-width: 768px) {
+            .container-1024 { padding: 0 20px; }
+            .project-container { padding-top: 100px; }
+            #proj-title { font-size: 2rem; margin-bottom: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -30,75 +76,60 @@
         </div>
     </nav>
 
-  <main class="project-container">
-    <section class="project-hero container-1024">
-        <div class="img-container">
-            <img id="hero-img" src="" alt="Loading...">
-        </div>
-    </section>
-
-    <section class="project-info container-1024">
-        <div class="info-header">
-            <p id="proj-category" class="category"></p>
-            <h1 id="proj-title"></h1>
-        </div>
-        
-        <div class="info-description">
-            <h3 class="concept-title">Design Concept</h3>
-            <p id="proj-desc"></p>
-        </div>
-    </section>
-
-    <section id="proj-gallery" class="container-1024">
+    <main class="project-container">
+        <section class="project-hero container-1024">
+            <div class="img-container">
+                <img id="hero-img" src="" alt="Loading...">
+            </div>
         </section>
 
-    <section class="contact-section">
-        <a href="index.html" class="email-btn">Back to All Works</a>
-    </section>
-</main>
+        <section class="project-info container-1024">
+            <div class="info-header">
+                <span id="proj-category"></span>
+                <h1 id="proj-title"></h1>
+                <div class="info-description">
+                    <p id="proj-desc"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="proj-gallery" class="container-1024">
+            </section>
+
+        <section class="contact-section">
+            <a href="index.html" class="email-btn">Back to All Works</a>
+        </section>
+    </main>
 
     <script src="data.js"></script>
-    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 取得網址上的 id 參數 (?id=p01)
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
 
-            // 從 data.js (window.projectData) 尋找資料
             if (window.projectData) {
                 const project = window.projectData.find(p => p.id === projectID);
 
                 if (project) {
-                    // 填入基礎文字與封面
                     document.title = `${project.title} | +1 Design`;
                     document.getElementById('proj-title').innerText = project.title;
                     document.getElementById('proj-category').innerText = project.category;
                     document.getElementById('proj-desc').innerText = project.description;
                     document.getElementById('hero-img').src = project.image;
 
-                    // 處理細節圖片陣列
                     const gallery = document.getElementById('proj-gallery');
                     if (project.details && Array.isArray(project.details)) {
                         project.details.forEach(imgSrc => {
                             const img = document.createElement('img');
                             img.src = imgSrc;
-                            img.alt = "Project Detail";
                             img.className = "gallery-item";
-                            
-                            // 防錯：如果圖片讀不到，就在控制台提醒
-                            img.onerror = () => console.error(`無法載入圖片: ${imgSrc}`);
-                            
+                            img.onerror = () => img.style.display = 'none';
                             gallery.appendChild(img);
                         });
                     }
                 } else {
-                    // 若找不到 ID 對應的作品
-                    document.querySelector('.project-container').innerHTML = 
-                        "<div style='text-align:center; padding: 100px 0;'><h1>Project Not Found</h1><br><a href='index.html'>Back Home</a></div>";
+                    window.location.href = 'index.html'; // 找不到 ID 就回首頁
                 }
-            } else {
-                console.error("data.js 未能正確載入");
             }
         });
     </script>
