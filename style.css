@@ -1,34 +1,28 @@
-/* --- 左側固定太陽圖示樣式修正 --- */
+/* sun */
 .fixed-sun-icon {
-    position: fixed; 
-    left: -150px; /* 往左移出一半 (假設寬度 300px，移出 150px) */
+    position: fixed;
+    left: -150px;           
     top: 50%;
     transform: translateY(-50%);
-    /* z-index 設為 -1 或低於 main/nav，確保在文字後方 */
-    z-index: -1; 
-    opacity: 0.4; /* 調高初始透明度 */
-    pointer-events: none;
-    transition: opacity 0.3s ease, filter 0.5s ease; /* 讓顏色切換更平滑 */
-}
-
-.fixed-sun-icon {
-    position: fixed; 
-    left: -150px; /* 露出一半 */
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: -1; 
-    opacity: 0.6; /* 調高一點讓它更清楚 */
-    pointer-events: none;
+    z-index: 9999;          
+    opacity: 0.5;           
+    pointer-events: none;   
+    mix-blend-mode: multiply; 
 }
 
 .sun-svg {
-    width: 300px; /* 放大兩倍 */
+    width: 350px;           
     height: auto;
     display: block;
     transform-origin: center center;
-    /* --- 強制變色邏輯 --- */
-    fill: currentColor; /* 強制所有內部元件抓取父層顏色 */
-    transition: color 0.8s ease; /* 讓顏色切換時有漸變感 */
+    fill: currentColor !important; 
+    transition: color 0.8s ease, opacity 0.3s ease;
+}
+
+/* 強制解除 SVG 內部 path 的原始顏色鎖定 */
+.sun-svg .cls-1, 
+.sun-svg path {
+    fill: currentColor !important;
 }
 /* --- 1. 全域變數與重設 --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
