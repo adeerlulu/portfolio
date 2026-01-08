@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail | +1 Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="index.html">+1 DESIGN</a></div>
+        <div class="nav-links"><a href="index.html">Back to Works</a></div>
+    </nav>
+
+    <main class="project-container">
+        <section class="project-hero">
+            <div class="img-container">
+                <img id="hero-img" src="" alt="">
+            </div>
+        </section>
+
+        <section class="project-header" style="padding: 0 5%; margin-bottom: 80px;">
+            <p id="proj-category" class="category" style="color:#888; font-size:12px;"></p>
+            <h1 id="proj-title" style="font-size: 3rem; font-weight: 300;"></h1>
+        </section>
+
+        <section class="project-description" style="padding: 80px 5%; background: #fcfcfc;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h3>Concept</h3>
+                <p id="proj-desc" style="line-height: 1.8; color: #444;"></p>
+            </div>
+        </section>
+
+        <section id="proj-gallery" style="padding: 40px 5%;"></section>
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+        // 1. 取得網址上的 ID (例如 ?id=p01)
+        const params = new URLSearchParams(window.location.search);
+        const projectID = params.get('id');
+
+        // 2. 從 data.js 找對應的資料
+        const project = window.projectData.find(p => p.id === projectID);
+
+        if (project) {
+            // 3. 填入文字
+            document.getElementById('proj-title').innerText = project.title;
+            document.getElementById('proj-category').innerText = project.category;
+            document.getElementById('proj-desc').innerText = project.description;
+            document.getElementById('hero-img').src = project.image;
+
+            // 4. 生成多張細節圖
+            const gallery = document.getElementById('proj-gallery');
+            project.details.forEach(imgSrc => {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.style.width = "100%";
+                img.style.marginBottom = "40px";
+                gallery.appendChild(img);
+            });
+        }
+    </script>
+</body>
+</html>
