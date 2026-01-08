@@ -1,134 +1,47 @@
-/* --- 1. 全域變數與重設 --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. 導覽列滾動效果
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
 
-body {
-    font-family: "Lora", "Noto Sans TC", serif;
-    background: #fff;
-    color: #1a1a1a;
-    line-height: 1.8;
-    -webkit-font-smoothing: antialiased;
-}
+    // 2. 背景圖滾動淡出
+    const bannerBg = document.querySelector('.banner-bg');
+    const banner = document.querySelector('.banner');
+    if (bannerBg && banner) {
+        window.addEventListener('scroll', () => {
+            let scrollPos = window.scrollY;
+            let opacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
+            bannerBg.style.opacity = Math.max(0, Math.min(1, opacity));
+        });
+    }
 
-/* --- 2. 字體層級 --- */
-.banner h1, #proj-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-}
+    // 3. 作品集進場動畫與隨機色
+    const workItems = document.querySelectorAll('.work-item');
+    const colors = ['#e9ecef', '#dee2e6', '#ced4da', '#adb5bd']; // 你可以換成更鮮豔的顏色
 
-nav .logo, .nav-links a, .category, .work-info p {
-    font-family: "Lora", serif;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
 
-/* --- 3. 導覽列 Navigation (初始透明) --- */
-nav { 
-    display: flex; 
-    justify-content: space-between; 
-    padding: 30px 5%; 
-    position: fixed; 
-    width: 100%; 
-    top: 0; 
-    z-index: 1000; 
-    background: transparent; 
-    transition: all 0.4s ease;
-}
-
-/* 滾動後變色 */
-nav.scrolled {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 5%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; }
-.nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 12px; }
-
-/* --- 4. Banner 區塊 (對齊 1400px) --- */
-.banner { 
-    position: relative;
-    height: 55vh; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: flex-end; 
-    padding: 0 5% 60px 5%; 
-    overflow: hidden;
-}
-
-.banner-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('images/bg1.jpg');
-    background-size: cover;
-    background-position: center;
-    z-index: -1; 
-    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-    transition: opacity 0.3s linear;
-}
-
-.banner-content {
-    width: 100%;
-    max-width: 1400px; 
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-}
-
-.banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 10px; line-height: 1.1; }
-.banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
-
-/* --- 5. 作品網格 (1400px) --- */
-.works-section { padding: 80px 5%; background: #fff; }
-
-.grid { 
-    max-width: 1400px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 30px; 
-}
-
-.work-item { 
-    position: relative;
-    text-decoration: none; 
-    color: #1a1a1a; 
-    aspect-ratio: 1 / 1; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 30px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
-}
-
-.work-item.visible { opacity: 1; transform: translateY(0); }
-.work-item:hover { color: #fff; }
-
-.img-container { 
-    width: 100%;
-    aspect-ratio: 3 / 2; 
-    overflow: hidden;
-    margin-bottom: 18px;
-    background: #f9f9f9;
-}
-
-.img-container img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s ease; }
-.work-item:hover .img-container img { transform: scale(1.08); }
-
-/* --- 6. 聯絡區 --- */
-.contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
-.email-btn { 
-    display: inline-block; padding: 15px 40px; border: 1px solid #1a1a1a; 
-    text-decoration: none; color: #1a1a1a; font-size: 13px;
-}
-.email-btn:hover { background: #1a1a1a; color: #fff; }
-
-/* --- 7. RWD --- */
-@media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    workItems.forEach(item => {
+        observer.observe(item);
+        
+        // 滑動變色邏輯
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        item.addEventListener('mouseenter', () => {
+            item.style.backgroundColor = randomColor;
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.backgroundColor = 'transparent';
+        });
+    });
+});
