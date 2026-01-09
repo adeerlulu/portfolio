@@ -1,171 +1,100 @@
-/* sun */
-.fixed-sun-icon {
-    position: fixed;
-    left: -150px;           
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 9999;          
-    opacity: 0.5;           
-    pointer-events: none;   
-    mix-blend-mode: multiply; 
-}
-
-.sun-svg {
-    width: 350px;           
-    height: auto;
-    display: block;
-    transform-origin: center center;
-    fill: currentColor !important; 
-    transition: color 0.8s ease, opacity 0.3s ease;
-}
-
-/* 強制解除 SVG 內部 path 的原始顏色鎖定 */
-.sun-svg .cls-1, 
-.sun-svg path {
-    fill: currentColor !important;
-}
-/* --- 1. 全域變數與重設 --- */
+/* --- 1. 全域重設與防溢出 --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
+html, body { 
+    max-width: 100%; 
+    overflow-x: hidden; 
     font-family: "Lora", "Noto Sans TC", serif;
-    background: #fff;
-    color: #1a1a1a;
-    line-height: 1.8;
+    background: #fff; color: #1a1a1a; line-height: 1.8;
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- 2. 字體層級 --- */
-.banner h1, #proj-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
+/* --- 2. 太陽圖示 Sun Icon (整合 RWD) --- */
+.fixed-sun-icon {
+    position: fixed; left: -150px; top: 50%;
+    transform: translateY(-50%); z-index: 9999;
+    opacity: 0.5; pointer-events: none; mix-blend-mode: multiply;
+}
+.sun-svg {
+    width: 350px; height: auto; display: block;
+    transform-origin: center center; fill: currentColor !important;
+    transition: color 0.8s ease, opacity 0.3s ease;
+}
+.sun-svg .cls-1, .sun-svg path { fill: currentColor !important; }
+
+@media (max-width: 768px) {
+    .fixed-sun-icon { left: -120px; opacity: 0.25; }
+    .sun-svg { width: 240px; }
 }
 
-nav .logo, .nav-links a, .category, .work-info p {
-    font-family: "Lora", serif;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+/* --- 3. 字體與導覽列 --- */
+.banner h1, #proj-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+nav .logo, .nav-links a, .category, .work-info p { 
+    font-family: "Lora", serif; letter-spacing: 2px; text-transform: uppercase; 
 }
 
-/* --- 3. 導覽列 Navigation (初始透明) --- */
-nav { 
-    display: flex; 
-    justify-content: space-between; 
-    padding: 30px 5%; 
-    position: fixed; 
-    width: 100%; 
-    top: 0; 
-    z-index: 1000; 
-    background: transparent; 
-    transition: all 0.4s ease;
+nav {
+    display: flex; justify-content: space-between; padding: 30px 5%;
+    position: fixed; width: 100%; top: 0; z-index: 1000;
+    transition: all 0.4s ease; background: transparent;
 }
-
-/* 滾動後變色 */
 nav.scrolled {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 5%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+    padding: 15px 5%; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
-
 .logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; }
 .nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 12px; }
 
-/* --- 4. Banner 區塊 (對齊 1400px) --- */
+/* --- 4. Banner 區塊 --- */
 .banner { 
-    position: relative;
-    height: 55vh; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: flex-end; 
-    padding: 0 5% 60px 5%; 
-    overflow: hidden;
+    position: relative; height: 55vh; display: flex; 
+    flex-direction: column; justify-content: flex-end; 
+    padding: 0 5% 60px; overflow: hidden;
 }
-
 .banner-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('images/bg1.jpg');
-    background-size: cover;
-    background-position: center;
-    z-index: -1; 
+    position: absolute; inset: 0; z-index: -1;
+    background: url('images/bg1.jpg') center/cover;
     -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-    transition: opacity 0.3s linear;
 }
-
-.banner-content {
-    width: 100%;
-    max-width: 1400px; 
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-}
-
-.banner h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 10px; line-height: 1.1; }
+.banner-content { width: 100%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
+.banner h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); margin-bottom: 10px; line-height: 1.1; word-break: break-word; }
 .banner p { color: #666; font-size: 15px; letter-spacing: 1px; max-width: 600px; }
 
-/* --- 5. 作品網格 (1400px) --- */
+/* --- 5. 作品網格與圖片保護 --- */
 .works-section { padding: 80px 5%; }
-
 .grid { 
-    max-width: 1400px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 30px; 
+    max-width: 1400px; margin: 0 auto; display: grid; 
+    grid-template-columns: repeat(4, 1fr); gap: 30px; 
 }
-
 .work-item { 
-    position: relative;
-    text-decoration: none; 
-    color: #1a1a1a; 
-    aspect-ratio: 1 / 1; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 30px;
-    opacity: 1;
-    transform: none;
-    transition: all 0.6s ease;
+    text-decoration: none; color: #1a1a1a; display: flex; 
+    flex-direction: column; transition: all 0.6s ease; 
 }
-
-.work-item.visible { opacity: 1; transform: translateY(0); }
-.work-item:hover { color: #1a1a1a; }
-
-.img-container { 
-    width: 100%;
-    aspect-ratio: 3 / 2; 
-    overflow: hidden;
-    margin-bottom: 18px;
-    background: #f9f9f9;
-}
-
+.img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 18px; background: #f9f9f9; }
 .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s ease; }
 .work-item:hover .img-container img { transform: scale(1.08); }
+
+/* 防盜圖設定 */
+.work-item img, .project-details img {
+    pointer-events: none; -webkit-user-select: none; user-select: none; -webkit-user-drag: none;
+}
 
 /* --- 6. 聯絡區 --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
 .email-btn { 
     display: inline-block; padding: 15px 40px; border: 1px solid #1a1a1a; 
-    text-decoration: none; color: #1a1a1a; font-size: 13px;
+    text-decoration: none; color: #1a1a1a; font-size: 13px; transition: 0.3s;
 }
 .email-btn:hover { background: #1a1a1a; color: #fff; }
 
-/* --- 7. RWD --- */
-@media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-
-/* 禁止所有作品圖片被儲存 */
-.project-details img,
-.work-item img {
-    pointer-events: none; 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-user-drag: none;
+/* --- 7. RWD 媒體查詢 --- */
+@media (max-width: 1024px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .banner { height: 50vh; padding-bottom: 40px; }
+}
+@media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; gap: 20px; }
+    .works-section { padding: 40px 5%; }
 }
