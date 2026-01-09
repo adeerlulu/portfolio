@@ -158,3 +158,14 @@ nav.scrolled {
 /* --- 7. RWD --- */
 @media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* 禁止所有作品圖片被儲存 */
+.project-details img,
+.work-item img {
+    pointer-events: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
