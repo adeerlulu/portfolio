@@ -45,7 +45,7 @@ nav.scrolled {
 }
 .banner-bg {
     position: absolute; inset: 0; z-index: -1; 
-    background: url('images/bg1.jpg') center/cover no-repeat;
+    background: url('../images/bg1.jpg') center/cover no-repeat;
     -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 .banner-content { width: 90%; max-width: 1400px; margin: 0 auto; }
