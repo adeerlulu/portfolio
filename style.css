@@ -38,7 +38,7 @@ nav.scrolled {
     white-space: nowrap;
 }
 
-/* --- 4. Banner (移除所有遮罩，100% 顯示) --- */
+/* --- 4. Banner (路徑修正版) --- */
 .banner { 
     position: relative; 
     height: 55vh; 
@@ -47,21 +47,28 @@ nav.scrolled {
     justify-content: flex-end; 
     padding-bottom: 60px; 
     overflow: hidden;
-    background-color: #f0f0f0; /* 暫時給一個淡灰色底，如果圖片沒出來，你會看到灰色 */
+    background-color: #fff; /* 恢復白色底，以便融合 */
 }
 
 .banner-bg {
     position: absolute; 
     inset: 0; 
     z-index: -1; 
-    /* 修正路徑：確保沒有開頭斜線 */
-    background: url('images/bg1.jpg') center/cover no-repeat !important;
+    /* 關鍵修正：加上 ../ 確保從 css 資料夾跳出來找到 images */
+    background: url('../images/bg1.jpg') center/cover no-repeat;
     
-    /* 這裡原本的 -webkit-mask-image 已全數刪除 */
-    opacity: 1 !important;
+    /* 重新啟動：優雅的融合效果 */
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
 }
 
-.banner-content { width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
+.banner-content { 
+    width: 90%; 
+    max-width: 1400px; 
+    margin: 0 auto; 
+    position: relative; 
+    z-index: 10; 
+}
 .banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
 .banner p { font-size: 14px; color: #666; max-width: 600px; }
 
