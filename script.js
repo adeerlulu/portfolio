@@ -54,7 +54,7 @@ function initPortfolio() {
             const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
             
             item.addEventListener('mouseenter', () => {
-                item.style.background = `linear-gradient(to bottom, ${color}CC 10%, ${color}33 70%)`;
+                item.style.background = `linear-gradient(to bottom, ${color}CC 5%, ${color}33 60%)`;
             });
             
             item.addEventListener('mouseleave', () => {
