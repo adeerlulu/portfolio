@@ -18,7 +18,7 @@ h1, .banner h1, .work-info h3, #proj-title {
 }
 .sun-svg { width: 350px; height: auto; display: block; fill: currentColor !important; transition: 0.8s; }
 
-/* --- 3. 導覽列 (修正：文字絕對不跑版) --- */
+/* --- 3. 導覽列 --- */
 nav {
     display: flex; justify-content: space-between; align-items: center; 
     padding: 30px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s;
@@ -29,31 +29,43 @@ nav.scrolled {
 }
 .logo { 
     font-size: 18px; font-weight: 500; letter-spacing: 3px; 
-    font-family: "Lora", serif; white-space: nowrap; /* 強制不換行 */
+    font-family: "Lora", serif; white-space: nowrap;
 }
 .nav-links { display: flex; align-items: center; }
 .nav-links a { 
     margin-left: 25px; text-decoration: none; color: #1a1a1a; 
     font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-    white-space: nowrap; /* 強制不換行 */
+    white-space: nowrap;
 }
 
-/* --- 4. Banner (切齊作品集邊緣) --- */
+/* --- 4. Banner (移除所有遮罩，100% 顯示) --- */
 .banner { 
-    position: relative; height: 55vh; display: flex; flex-direction: column; 
-    justify-content: flex-end; padding-bottom: 60px; overflow: hidden;
-}
-.banner-bg {
-    position: absolute; inset: 0; z-index: -1; 
-    background: url('images/bg1.jpg') center/cover no-repeat;
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-}
-.banner-content { width: 90%; max-width: 1400px; margin: 0 auto; }
-.banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
-.banner p { font-size: 14px; color: #666; max-width: 600px;
+    position: relative; 
+    height: 55vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    padding-bottom: 60px; 
+    overflow: hidden;
+    background-color: #f0f0f0; /* 暫時給一個淡灰色底，如果圖片沒出來，你會看到灰色 */
 }
 
-/* --- 5. 作品網格 (修正：內容置左切齊圖片，手機一排一個) --- */
+.banner-bg {
+    position: absolute; 
+    inset: 0; 
+    z-index: -1; 
+    /* 修正路徑：確保沒有開頭斜線 */
+    background: url('images/bg1.jpg') center/cover no-repeat !important;
+    
+    /* 這裡原本的 -webkit-mask-image 已全數刪除 */
+    opacity: 1 !important;
+}
+
+.banner-content { width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
+.banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
+.banner p { font-size: 14px; color: #666; max-width: 600px; }
+
+/* --- 5. 作品網格 --- */
 .works-section { padding: 80px 5%; }
 .grid { 
     max-width: 1400px; margin: 0 auto; display: grid; 
@@ -66,44 +78,28 @@ nav.scrolled {
     padding: 35px; background: #fcfcfc; transition: 0.4s; overflow: hidden;
 }
 
-.img-container { 
-    width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; 
-}
+.img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
 .img-container img { 
-    width: 100%; height: 100%; object-fit: cover; 
-    display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-    pointer-events: none; -webkit-user-drag: none;
+    width: 100%; height: 100%; object-fit: cover; display: block; 
+    transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
 }
 .work-item:hover .img-container img { transform: scale(1.1); }
-
-.work-info { width: 100%; text-align: left; }
-.work-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
-.work-info p { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; }
 
 /* --- 6. 聯絡區 --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
 .email-btn { display: inline-block; padding: 12px 35px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; font-size: 12px; }
 
-/* --- 7. RWD 手機版改回一排一個 --- */
+/* --- 7. RWD --- */
 @media (max-width: 1024px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
-    .fixed-sun-icon { left: -120px; }
 }
 
 @media (max-width: 768px) {
-    /* 修正 Menu 跑版：縮小字距與邊距 */
-    nav { padding: 25px 5%; }
-    .logo { font-size: 16px; letter-spacing: 2px; }
-    .nav-links a { margin-left: 15px; font-size: 10px; letter-spacing: 1px; }
-
-    /* 改回一排一個 */
     .grid { grid-template-columns: 1fr; gap: 30px; }
-    .work-item { padding: 30px; }
-    .banner { height: 45vh; padding-bottom: 40px; }
+    .banner { height: 45vh; }
 }
 
 @media (max-width: 350px) {
-    /* 針對 320px 的極致優化 */
     .logo { font-size: 14px; }
     .nav-links a { margin-left: 10px; font-size: 9px; }
 }
