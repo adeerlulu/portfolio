@@ -104,25 +104,21 @@ nav.scrolled {
 /* --- 5. Works Grid (Seamless & Centered) --- */
 .works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
 .grid { 
-    max-width: 1400px; /* 容器維持 1400px */
+    max-width: 1400px;
     margin: 0 auto; 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
-    gap: 0; /* 取消間距 */
-    border-left: 1px solid #f5f5f5;
-    border-top: 1px solid #f5f5f5;
+    gap: 0; /* 無縫對接 */
 }
 .work-item { 
     display: flex !important; flex-direction: column; 
     text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
     padding: 35px; background: transparent; 
-    border-right: 1px solid #f5f5f5; 
-    border-bottom: 1px solid #f5f5f5; 
-    transition: background 0.5s ease;
+    border: none; /* 移除格線 */
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 }
 .work-item:hover {
-    border-color: #f5f5f5; /* 取消滑過邊框變化 */
     box-shadow: none; 
 }
 .img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
