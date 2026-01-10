@@ -45,12 +45,13 @@ nav.scrolled {
 }
 .banner-bg {
     position: absolute; inset: 0; z-index: -1; 
-    background: url('../images/bg1.jpg') center/cover no-repeat;
+    background: url('images/bg1.jpg') center/cover no-repeat;
     -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 .banner-content { width: 90%; max-width: 1400px; margin: 0 auto; }
 .banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
-.banner p { font-size: 14px; color: #666; max-width: 600px; }
+.banner p { font-size: 14px; color: #666; max-width: 600px;
+}
 
 /* --- 5. 作品網格 (修正：內容置左切齊圖片，手機一排一個) --- */
 .works-section { padding: 80px 5%; }
