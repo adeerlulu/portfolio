@@ -54,8 +54,7 @@ function initPortfolio() {
             const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
             
             item.addEventListener('mouseenter', () => {
-                // 套用 80%(CC) 到 20%(33) 的漸層色
-                item.style.background = `linear-gradient(to bottom, ${color}CC 0%, ${color}33 100%)`;
+                item.style.background = `linear-gradient(to bottom, ${color}CC 10%, ${color}33 70%)`;
             });
             
             item.addEventListener('mouseleave', () => {
