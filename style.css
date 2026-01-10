@@ -1,93 +1,187 @@
 /* --- 1. 全域重設與字體強化 --- */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 html, body { 
+
     max-width: 100%; overflow-x: hidden; 
+
     font-family: "Lora", "Noto Sans TC", serif;
+
     background: #fff; color: #1a1a1a; -webkit-font-smoothing: antialiased;
+
 }
+
+
 
 h1, .banner h1, .work-info h3, #proj-title { 
+
     font-family: 'Cormorant Garamond', serif !important; 
+
     font-weight: 300; 
+
 }
+
+
 
 /* --- 2. 太陽圖示 --- */
+
 .fixed-sun-icon {
+
     position: fixed; left: -150px; top: 50%; transform: translateY(-50%);
+
     z-index: 9999; opacity: 0.5; pointer-events: none; mix-blend-mode: multiply;
+
 }
+
 .sun-svg { width: 350px; height: auto; display: block; fill: currentColor !important; transition: 0.8s; }
+
 .sun-svg path, .sun-svg .cls-1 { fill: currentColor !important; }
 
-/* --- 3. 導覽列 --- */
-nav {
-    display: flex; justify-content: space-between; padding: 30px 5%;
-    position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s;
-}
-nav.scrolled {
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-    padding: 15px 5%; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
-.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; font-family: "Lora", serif; }
-.nav-links a { margin-left: 30px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
 
-/* --- 4. Banner (修正背景可見度) --- */
+
+/* --- 3. 導覽列 --- */
+
+nav {
+
+    display: flex; justify-content: space-between; padding: 30px 5%;
+
+    position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s;
+
+}
+
+nav.scrolled {
+
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+
+    padding: 15px 5%; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+
+}
+
+.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; font-family: "Lora", serif; }
+
+.nav-links a { margin-left: 20px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+
+
+
+/* --- 4. Banner --- */
+
 .banner { 
+
     position: relative; height: 55vh; display: flex; flex-direction: column; 
+
     justify-content: flex-end; padding: 0 5% 60px; overflow: hidden;
+
 }
+
 .banner-bg {
+
     position: absolute; inset: 0; z-index: -1; 
+
     background: url('images/bg1.jpg') center/cover no-repeat;
-    /* 修正：讓遮罩漸層只影響底部 20%，保留上方圖片色彩 */
+
     -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+
     mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+
 }
-.banner h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
+
+.banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
+
 .banner p { font-size: 14px; color: #666; max-width: 600px; }
 
-/* --- 5. 作品網格 --- */
-.works-section { padding: 80px 5%; }
-.grid { 
-    max-width: 1400px; margin: 0 auto; display: grid; 
-    grid-template-columns: repeat(4, 1fr); gap: 30px; 
-}
-.work-item { 
-    display: flex !important; flex-direction: column; justify-content: center; 
-    align-items: center; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
-    padding: 20px; background: #fcfcfc; transition: 0.4s; overflow: hidden;
-}
-.img-container { width: 85%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; }
-.img-container img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.work-info h3 { font-size: 1.25rem; margin-bottom: 5px; }
-.work-info p { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; font-family: "Lora", serif; }
 
-/* --- 6. 聯絡區 (修正版型) --- */
+
+/* --- 5. 作品網格 --- */
+
+.works-section { padding: 80px 5%; }
+
+.grid { 
+
+    max-width: 1400px; margin: 0 auto; display: grid; 
+
+    grid-template-columns: repeat(4, 1fr); gap: 30px; 
+
+}
+
+.work-item { 
+
+    display: flex !important; flex-direction: column; justify-content: center; 
+
+    align-items: center; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
+
+    padding: 20px; background: #fcfcfc; transition: 0.4s; overflow: hidden;
+
+}
+
+.img-container { width: 85%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; }
+
+.img-container img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+.work-info h3 { font-size: 1.1rem; margin-bottom: 5px; }
+
+.work-info p { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; font-family: "Lora", serif; }
+
+
+
+/* --- 6. 聯絡區 --- */
+
 .contact-section { 
-    padding: 120px 5%; text-align: center; border-top: 1px solid #eee;
+
+    padding: 100px 5%; text-align: center; border-top: 1px solid #eee;
+
     background: #fff; width: 100%;
+
 }
-.contact-section p { 
-    font-size: 1.5rem; margin-bottom: 30px; 
-    font-family: 'Cormorant Garamond', serif; 
-}
+
+.contact-section p { font-size: 1.5rem; margin-bottom: 30px; font-family: 'Cormorant Garamond', serif; }
+
 .email-btn { 
-    display: inline-block; padding: 15px 40px; border: 1px solid #1a1a1a; 
-    text-decoration: none; color: #1a1a1a; font-size: 13px; 
-    transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;
+
+    display: inline-block; padding: 12px 35px; border: 1px solid #1a1a1a; 
+
+    text-decoration: none; color: #1a1a1a; font-size: 12px; transition: 0.3s;
+
 }
+
 .email-btn:hover { background: #1a1a1a; color: #fff; }
 
-/* --- 7. RWD --- */
+
+
+/* --- 7. RWD 手機版強制兩欄 --- */
+
 @media (max-width: 1024px) {
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* 中小螢幕維持兩欄 */
+
     .fixed-sun-icon { left: -120px; opacity: 0.3; }
+
     .sun-svg { width: 220px; }
+
 }
+
+
+
 @media (max-width: 600px) {
-    .grid { grid-template-columns: 1fr; }
+
+    .works-section { padding: 40px 15px; } /* 減少兩側間距讓色塊大一點 */
+
+    .grid { 
+
+        grid-template-columns: repeat(2, 1fr); /* 強制兩欄 */
+
+        gap: 10px; /* 縮小間距 */
+
+    }
+
     .banner { height: 45vh; padding-bottom: 40px; }
-    .banner h1 { font-size: 2.2rem; }
-    .work-item { aspect-ratio: auto; padding: 40px 20px; }
+
+    .banner h1 { font-size: 2rem; }
+
+    .work-item { padding: 10px; } /* 縮小內部 padding 避免內容太擠 */
+
+    .work-info h3 { font-size: 0.9rem; } /* 手機版作品標題字級縮小 */
+
     .contact-section p { font-size: 1.2rem; }
+
 }
