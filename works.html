@@ -18,8 +18,35 @@
 
         /* --- Typography (Unified to Lora) --- */
         #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
-        #proj-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 500; margin: 0 0 30px 0; line-height: 1.1; font-family: "Lora", serif; }
-        #proj-desc { font-size: 16px; line-height: 2; color: #333; white-space: pre-line; max-width: 750px; font-family: "Lora", serif; }
+        
+        /* Updated: Font-weight 400 for non-bold title */
+        #proj-title { 
+            font-size: clamp(2rem, 5vw, 3.5rem); 
+            font-weight: 400; 
+            margin: 0; 
+            line-height: 1.1; 
+            font-family: "Lora", serif; 
+        }
+
+        /* Entrance Animation: Black Line */
+        .title-wrapper { position: relative; display: inline-block; margin-bottom: 30px; }
+        .title-line { 
+            position: absolute; bottom: -10px; left: 0; 
+            height: 1px; background: #1a1a1a; width: 0;
+            animation: lineReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: 0.5s;
+        }
+        @keyframes lineReveal { from { width: 0; } to { width: 100%; } }
+
+        /* Updated: 14px Font size for description */
+        #proj-desc { 
+            font-size: 14px; 
+            line-height: 2.2; 
+            color: #333; 
+            white-space: pre-line; 
+            max-width: 750px; 
+            font-family: "Lora", serif; 
+        }
 
         /* --- Project Gallery --- */
         .gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; }
@@ -56,7 +83,10 @@
 
         <section class="project-info container-1024">
             <span id="proj-category"></span>
-            <h1 id="proj-title"></h1>
+            <div class="title-wrapper">
+                <h1 id="proj-title"></h1>
+                <div class="title-line"></div>
+            </div>
             <p id="proj-desc"></p>
         </section>
 
@@ -71,9 +101,6 @@
     <script src="data.js"></script>
     <script src="script.js"></script>
     <script>
-        /**
-         * Page Initialization
-         */
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
@@ -88,7 +115,6 @@
                     document.getElementById('proj-desc').innerText = project.description;
                     document.getElementById('hero-img').src = project.image;
 
-                    // Gallery Render
                     const gallery = document.getElementById('proj-gallery');
                     if (project.details) {
                         project.details.forEach(imgSrc => {
@@ -99,13 +125,11 @@
                         });
                     }
 
-                    // More Works Render (Link Fixed)
                     const moreGrid = document.getElementById('more-works-grid');
                     const otherProjects = window.projectData.filter(p => p.id !== projectID);
 
                     otherProjects.slice(0, 2).forEach(p => {
                         const item = document.createElement('a');
-                        // Use current filename for links
                         item.href = `works.html?id=${p.id}`; 
                         item.className = 'more-item';
                         item.innerHTML = `
