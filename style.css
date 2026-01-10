@@ -22,12 +22,50 @@ h1, .banner h1, .work-info h3, #proj-title {
 
 /* --- 3. Navigation --- */
 nav {
-    display: flex; justify-content: space-between; align-items: center; 
-    padding: 30px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 30px 5%; 
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000; 
+    transition: all 0.4s ease;
+    background: transparent;
 }
-.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; font-family: "Lora", serif; white-space: nowrap; flex-shrink: 0; }
-.nav-links { display: flex; align-items: center; list-style: none; }
-.nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; flex-shrink: 0; }
+
+nav.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 5%;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.logo { 
+    font-size: 18px; 
+    font-weight: 500; 
+    letter-spacing: 3px; 
+    font-family: "Lora", serif; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+}
+
+.nav-links { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+}
+
+.nav-links a { 
+    margin-left: 25px; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    font-size: 11px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+}
 
 /* --- 4. Banner & Entrance Animation --- */
 .banner { 
