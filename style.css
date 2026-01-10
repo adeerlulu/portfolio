@@ -11,10 +11,32 @@ h1, .banner h1, .work-info h3, #proj-title {
     font-weight: 300; 
 }
 
-/* --- 2. Floating Sun Icon --- */
+/* --- 2. Floating Sun Icon (Restored & Rotating) --- */
 .fixed-sun-icon {
-    position: fixed; left: -150px; top: 50%; transform: translateY(-50%);
-    z-index: 9999; opacity: 0.5; pointer-events: none; mix-blend-mode: multiply;
+    position: fixed; 
+    left: -150px; 
+    top: 50%; 
+    transform: translateY(-50%);
+    /* Set z-index higher than banner (which is 1) and navigation (which is 1000) */
+    z-index: 9999; 
+    opacity: 0.5; 
+    pointer-events: none; 
+    mix-blend-mode: multiply;
+}
+
+.sun-svg { 
+    width: 350px; 
+    height: auto; 
+    display: block; 
+    fill: currentColor !important; 
+    /* Add infinite rotation animation */
+    animation: sunRotate 20s linear infinite; 
+}
+
+/* Rotation Animation Definition */
+@keyframes sunRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* --- 3. Navigation --- */
