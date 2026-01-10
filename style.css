@@ -84,7 +84,7 @@ nav.scrolled {
 }
 .banner-content { 
     width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10;
-    animation: fadeInUp 1.2s cubic-bezier(0.2, 1, 0.3, 1) both;
+    animation: fadeInUp 1.6s cubic-bezier(0.2, 1, 0.3, 1) both;
 }
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
