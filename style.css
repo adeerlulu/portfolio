@@ -39,27 +39,32 @@ nav.scrolled {
 }
 
 /* --- 4. Banner (路徑修正版) --- */
+/* --- 4. Banner (修正路徑與顯示層級) --- */
 .banner { 
     position: relative; 
     height: 55vh; 
+    min-height: 400px; /* 確保最小高度 */
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
     padding-bottom: 60px; 
     overflow: hidden;
-    background-color: #fff; /* 恢復白色底，以便融合 */
+    background-color: #fff; 
 }
 
 .banner-bg {
     position: absolute; 
-    inset: 0; 
-    z-index: -1; 
-    /* 關鍵修正：加上 ../ 確保從 css 資料夾跳出來找到 images */
-    background: url('../images/bg1.jpg') center/cover no-repeat;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; /* 強制填滿父容器 */
+    z-index: 1; /* 調高層級 */
     
-    /* 重新啟動：優雅的融合效果 */
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+    /* 回歸最直接的路徑，並加上 !important 排除其他干擾 */
+    background: url('images/bg1.jpg') center center / cover no-repeat !important;
+    
+    /* 先暫時不加遮罩，確定圖出來了再加 */
+    opacity: 1 !important;
 }
 
 .banner-content { 
@@ -67,7 +72,7 @@ nav.scrolled {
     max-width: 1400px; 
     margin: 0 auto; 
     position: relative; 
-    z-index: 10; 
+    z-index: 10; /* 內容必須高於背景圖 */
 }
 .banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
 .banner p { font-size: 14px; color: #666; max-width: 600px; }
