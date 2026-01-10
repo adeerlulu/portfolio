@@ -5,7 +5,9 @@ html, body {
     font-family: "Lora", "Noto Sans TC", serif;
     background: #fff; color: #1a1a1a;
 }
-h1, .banner h1, .work-info h3, #proj-title { 
+
+/* Updated: Removed .work-info h3 from Cormorant Garamond to use Lora instead */
+h1, .banner h1, #proj-title { 
     font-family: 'Cormorant Garamond', serif !important; 
     font-weight: 300; 
 }
@@ -108,15 +110,16 @@ nav.scrolled {
     margin: 0 auto; 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
-    gap: 0; /* 無縫對接 */
+    gap: 0;
 }
 .work-item { 
     display: flex !important; flex-direction: column; 
     text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
     padding: 35px; background: transparent; 
-    border: none; /* 移除格線 */
+    border: none; 
     transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
+    font-family: "Lora", serif;
 }
 .work-item:hover {
     box-shadow: none; 
@@ -124,6 +127,22 @@ nav.scrolled {
 .img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
 .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
 .work-item:hover .img-container img { transform: scale(1.08); }
+
+/* Updated: Unified Typography for Work Titles */
+.work-info h3 { 
+    font-family: "Lora", serif !important; 
+    font-size: 16px; 
+    font-weight: 500; 
+    margin-bottom: 5px; 
+    letter-spacing: 0.5px; 
+}
+.work-info p { 
+    font-family: "Lora", serif !important; 
+    font-size: 11px; 
+    color: #888; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
 
 /* --- 6. Contact Section --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
