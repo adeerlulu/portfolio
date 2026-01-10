@@ -65,21 +65,58 @@ nav {
 .banner h1 span:hover:nth-child(4n+4) { color: #34A853; }
 .banner p { font-size: 16px; color: #666; max-width: 650px; line-height: 1.8; }
 
-/* --- 5. Works Grid --- */
-.works-section { position: relative; z-index: 5; padding: 40px 5% 80px; background: transparent; }
-.grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
-.work-item { 
-    display: flex !important; flex-direction: column; justify-content: flex-start; 
-    align-items: flex-start; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
-    padding: 35px; background: transparent; border: 1px solid transparent; 
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
+/* --- 5. Works Grid (Seamless Grid Layout) --- */
+.works-section { 
+    position: relative; 
+    z-index: 5; 
+    padding: 0; /* Removed side padding for full-width feel if needed */
 }
-.work-item:hover { background: #fcfcfc; border-color: #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
-.img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
-.img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
-.work-item:hover .img-container img { transform: scale(1.08); }
-.work-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
-.work-info p { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; }
+
+.grid { 
+    max-width: 100%; /* Changed from 1400px to 100% for seamless edge-to-edge */
+    margin: 0 auto; 
+    display: grid; 
+    /* Remove gap to make boxes touch each other */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 0; 
+}
+
+.work-item { 
+    display: flex !important; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: flex-start; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    aspect-ratio: 1/1; 
+    padding: 40px; 
+    background: transparent; 
+    /* Set a very faint border to define the grid even when not hovered */
+    border: 0.5px solid #f0f0f0; 
+    transition: all 0.4s ease; 
+    overflow: hidden;
+}
+
+.work-item:hover {
+    /* Hover background color is now managed by your script.js */
+    z-index: 2; /* Ensures the hover border/shadow stays on top */
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); /* Subtle inner definition */
+}
+
+.img-container { 
+    width: 100%; 
+    aspect-ratio: 3/2; 
+    overflow: hidden; 
+    margin-bottom: 25px; 
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) { 
+    .grid { grid-template-columns: repeat(2, 1fr); } 
+}
+@media (max-width: 768px) { 
+    .grid { grid-template-columns: 1fr; } 
+}
 
 /* --- 6. Contact Section --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
