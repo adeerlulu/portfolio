@@ -5,7 +5,6 @@ html, body {
     font-family: "Lora", "Noto Sans TC", serif;
     background: #fff; color: #1a1a1a;
 }
-
 h1, .banner h1, .work-info h3, #proj-title { 
     font-family: 'Cormorant Garamond', serif !important; 
     font-weight: 300; 
@@ -18,7 +17,6 @@ h1, .banner h1, .work-info h3, #proj-title {
 }
 .sun-svg { 
     width: 350px; height: auto; display: block; fill: currentColor !important; 
-    /* No animation here, rotation is handled by JavaScript */
     transition: transform 0.1s ease-out; 
 }
 
@@ -31,7 +29,7 @@ nav {
 .nav-links { display: flex; align-items: center; list-style: none; }
 .nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; flex-shrink: 0; }
 
-/* --- 4. Banner & Entrance Animation (1.5x Larger) --- */
+/* --- 4. Banner & Entrance Animation --- */
 .banner { 
     position: relative; height: 50vh; min-height: 400px;
     display: flex; flex-direction: column; justify-content: flex-end; 
@@ -65,58 +63,33 @@ nav {
 .banner h1 span:hover:nth-child(4n+4) { color: #34A853; }
 .banner p { font-size: 16px; color: #666; max-width: 650px; line-height: 1.8; }
 
-/* --- 5. Works Grid (Seamless Grid Layout) --- */
-.works-section { 
-    position: relative; 
-    z-index: 5; 
-    padding: 0; /* Removed side padding for full-width feel if needed */
-}
-
+/* --- 5. Works Grid (Seamless & Centered) --- */
+.works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
 .grid { 
-    max-width: 100%; /* Changed from 1400px to 100% for seamless edge-to-edge */
+    max-width: 1400px; /* 容器維持 1400px */
     margin: 0 auto; 
     display: grid; 
-    /* Remove gap to make boxes touch each other */
     grid-template-columns: repeat(4, 1fr); 
-    gap: 0; 
+    gap: 0; /* 取消間距 */
+    border-left: 1px solid #f5f5f5;
+    border-top: 1px solid #f5f5f5;
 }
-
 .work-item { 
-    display: flex !important; 
-    flex-direction: column; 
-    justify-content: flex-start; 
-    align-items: flex-start; 
-    text-decoration: none; 
-    color: #1a1a1a; 
-    aspect-ratio: 1/1; 
-    padding: 40px; 
-    background: transparent; 
-    /* Set a very faint border to define the grid even when not hovered */
-    border: 0.5px solid #f0f0f0; 
-    transition: all 0.4s ease; 
+    display: flex !important; flex-direction: column; 
+    text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
+    padding: 35px; background: transparent; 
+    border-right: 1px solid #f5f5f5; 
+    border-bottom: 1px solid #f5f5f5; 
+    transition: background 0.5s ease;
     overflow: hidden;
 }
-
 .work-item:hover {
-    /* Hover background color is now managed by your script.js */
-    z-index: 2; /* Ensures the hover border/shadow stays on top */
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); /* Subtle inner definition */
+    border-color: #f5f5f5; /* 取消滑過邊框變化 */
+    box-shadow: none; 
 }
-
-.img-container { 
-    width: 100%; 
-    aspect-ratio: 3/2; 
-    overflow: hidden; 
-    margin-bottom: 25px; 
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) { 
-    .grid { grid-template-columns: repeat(2, 1fr); } 
-}
-@media (max-width: 768px) { 
-    .grid { grid-template-columns: 1fr; } 
-}
+.img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
+.img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
+.work-item:hover .img-container img { transform: scale(1.08); }
 
 /* --- 6. Contact Section --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
@@ -125,7 +98,7 @@ nav {
 /* --- 7. Responsive Design --- */
 @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 768px) {
-    .grid { grid-template-columns: 1fr; gap: 30px; }
+    .grid { grid-template-columns: 1fr; }
     .banner { height: 40vh; padding-bottom: 30px; }
     .banner h1 { font-size: 4rem !important; }
 }
