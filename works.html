@@ -5,53 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Detail | +1 Design</title>
     <link rel="stylesheet" href="style.css">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vfonts@0.0.3/jf-open-huninn.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
     <style>
-        /* 核心布局 */
-        .container-1024 {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
+        /* --- Layout & Typography --- */
+        .container-1024 { max-width: 1024px; margin: 0 auto; padding: 0 40px; }
         .project-container { padding-top: 140px; }
         .project-hero { margin-bottom: 60px; }
         .project-info { text-align: left; margin-bottom: 80px; }
-        
-        .info-header { margin-bottom: 24px; }
         #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; }
-        #proj-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; margin: 0 0 30px 0; line-height: 1.2; }
+        #proj-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; margin: 0 0 30px 0; line-height: 1.1; }
         #proj-desc { font-size: 16px; line-height: 2; color: #333; white-space: pre-line; max-width: 750px; }
 
-        /* 細節圖區 */
+        /* --- Project Gallery --- */
         .gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; }
 
-        /* 底部其他作品區 */
-        .more-works-section {
-            margin-top: 100px;
-            padding-top: 60px;
-            border-top: 1px solid #eee;
-            margin-bottom: 120px;
-        }
-        .more-works-title { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-weight: 500; color: #1a1a1a; }
-        
-        /* 內頁專用 Grid：改為 2 欄讓視覺更穩重 */
-        .more-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px 30px;
-        }
-        
+        /* --- Bottom Grid --- */
+        .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 120px; }
+        .more-works-title { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-weight: 500; }
+        .more-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 30px; }
         .more-item { text-decoration: none; color: #1a1a1a; }
         .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; background: #f5f5f5; }
-        .more-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .more-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
         .more-item:hover img { transform: scale(1.08); }
-        .more-item h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-        .more-item p { font-size: 11px; color: #888; text-transform: uppercase; }
 
         @media (max-width: 768px) {
             .container-1024 { padding: 0 20px; }
@@ -69,7 +47,7 @@
     <main class="project-container">
         <section class="project-hero container-1024">
             <div class="img-container">
-                <img id="hero-img" src="" alt="Loading...">
+                <img id="hero-img" src="" alt="Loading..." style="width:100%;">
             </div>
         </section>
 
@@ -88,7 +66,10 @@
     </main>
 
     <script src="data.js"></script>
-    <script>
+    <script src="script.js"></script> <script>
+        /**
+         * Page Data Initialization
+         */
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
@@ -97,7 +78,6 @@
                 const project = window.projectData.find(p => p.id === projectID);
 
                 if (project) {
-                    // 填入當前作品內容
                     document.title = `${project.title} | +1 Design`;
                     document.getElementById('proj-title').innerText = project.title;
                     document.getElementById('proj-category').innerText = project.category;
@@ -114,18 +94,16 @@
                         });
                     }
 
-                    // 渲染底部「其他作品」
+                    // Render Footer Recommendations
                     const moreGrid = document.getElementById('more-works-grid');
                     const otherProjects = window.projectData.filter(p => p.id !== projectID);
 
                     otherProjects.slice(0, 2).forEach(p => {
                         const item = document.createElement('a');
-                        item.href = p.link;
+                        item.href = `works.html?id=${p.id}`; // Fixed link logic
                         item.className = 'more-item';
                         item.innerHTML = `
-                            <div class="img-box">
-                                <img src="${p.image}" alt="${p.title}">
-                            </div>
+                            <div class="img-box"><img src="${p.image}" alt="${p.title}"></div>
                             <h3>${p.title}</h3>
                             <p>${p.category}</p>
                         `;
