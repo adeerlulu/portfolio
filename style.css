@@ -1,4 +1,4 @@
-/* --- 1. 全域重設 --- */
+/* --- 1. Global Reset --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { 
     max-width: 100%; overflow-x: hidden; 
@@ -11,14 +11,14 @@ h1, .banner h1, .work-info h3, #proj-title {
     font-weight: 300; 
 }
 
-/* --- 2. 太陽圖示 --- */
+/* --- 2. Floating Sun Icon --- */
 .fixed-sun-icon {
     position: fixed; left: -150px; top: 50%; transform: translateY(-50%);
     z-index: 9999; opacity: 0.5; pointer-events: none; mix-blend-mode: multiply;
 }
 .sun-svg { width: 350px; height: auto; display: block; fill: currentColor !important; transition: 0.8s; }
 
-/* --- 3. 導覽列 --- */
+/* --- 3. Navigation --- */
 nav {
     display: flex; justify-content: space-between; align-items: center; 
     padding: 30px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s;
@@ -27,87 +27,68 @@ nav.scrolled {
     background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
     padding: 15px 5%;
 }
-.logo { 
-    font-size: 18px; font-weight: 500; letter-spacing: 3px; 
-    font-family: "Lora", serif; white-space: nowrap;
-}
+.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; font-family: "Lora", serif; white-space: nowrap; }
 .nav-links { display: flex; align-items: center; }
-.nav-links a { 
-    margin-left: 25px; text-decoration: none; color: #1a1a1a; 
-    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-    white-space: nowrap;
-}
+.nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; }
 
-/* --- 4. Banner (路徑修正版) --- */
-/* --- 4. Banner (修正路徑與顯示層級) --- */
+/* --- 4. Banner & Background Fade --- */
 .banner { 
-    position: relative; 
-    height: 55vh; 
-    min-height: 400px; /* 確保最小高度 */
-    display: flex; 
-    flex-direction: column; 
-    justify-content: flex-end; 
-    padding-bottom: 60px; 
-    overflow: hidden;
-    background-color: #fff; 
+    position: relative; height: 55vh; min-height: 400px;
+    display: flex; flex-direction: column; justify-content: flex-end; 
+    padding-bottom: 60px; background-color: #fff; 
+    overflow: visible; /* Allow background to flow into works section */
 }
 
 .banner-bg {
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; /* 強制填滿父容器 */
-    z-index: 1; /* 調高層級 */
-    
-    /* 回歸最直接的路徑，並加上 !important 排除其他干擾 */
+    position: absolute; top: 0; left: 0; 
+    width: 100%; height: 130%; /* Extend height below banner */
+    z-index: 1; pointer-events: none;
     background: url('images/bg1.jpg') center center / cover no-repeat !important;
     
-    /* 先暫時不加遮罩，確定圖出來了再加 */
-    opacity: 1 !important;
+    /* Elegant transition into white background */
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, rgba(0,0,0,0.5) 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 65%, rgba(0,0,0,0.5) 85%, transparent 100%);
 }
 
-.banner-content { 
-    width: 90%; 
-    max-width: 1400px; 
-    margin: 0 auto; 
-    position: relative; 
-    z-index: 10; /* 內容必須高於背景圖 */
-}
+.banner-content { width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
 .banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
 .banner p { font-size: 14px; color: #666; max-width: 600px; }
 
-/* --- 5. 作品網格 --- */
-.works-section { padding: 80px 5%; }
+/* --- 5. Works Grid --- */
+.works-section { position: relative; z-index: 5; padding: 80px 5%; background: transparent; }
 .grid { 
     max-width: 1400px; margin: 0 auto; display: grid; 
     grid-template-columns: repeat(4, 1fr); gap: 40px; 
 }
 .work-item { 
-    display: flex !important; flex-direction: column; 
-    justify-content: flex-start; align-items: flex-start; 
-    text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
+    display: flex !important; flex-direction: column; justify-content: flex-start; 
+    align-items: flex-start; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
     padding: 35px; background: #fcfcfc; transition: 0.4s; overflow: hidden;
 }
 
 .img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
-.img-container img { 
-    width: 100%; height: 100%; object-fit: cover; display: block; 
-    transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-}
+.img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
 .work-item:hover .img-container img { transform: scale(1.1); }
 
-/* --- 6. 聯絡區 --- */
+.work-info { width: 100%; text-align: left; }
+.work-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.work-info p { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; }
+
+/* --- 6. Contact Section --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
 .email-btn { display: inline-block; padding: 12px 35px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; font-size: 12px; }
 
-/* --- 7. RWD --- */
+/* --- 7. Responsive Design --- */
 @media (max-width: 1024px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
+    nav { padding: 25px 5%; }
+    .logo { font-size: 16px; }
+    .nav-links a { margin-left: 15px; font-size: 10px; }
     .grid { grid-template-columns: 1fr; gap: 30px; }
+    .work-item { padding: 30px; }
     .banner { height: 45vh; }
 }
 
