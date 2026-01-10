@@ -44,10 +44,21 @@ nav.scrolled {
     justify-content: flex-end; padding-bottom: 60px; overflow: hidden;
 }
 .banner-bg {
-    position: absolute; inset: 0; z-index: -1; 
+    position: absolute; 
+    inset: 0; 
+    z-index: -1; 
     background: url('images/bg1.jpg') center/cover no-repeat;
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-}
+    
+    -webkit-mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black 70%, 
+        transparent 100%
+    );
+    mask-image: linear-gradient(to bottom, 
+        black 0%, 
+        black 70%, 
+        transparent 100%
+    );
 .banner-content { width: 90%; max-width: 1400px; margin: 0 auto; }
 .banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
 .banner p { font-size: 14px; color: #666; max-width: 600px; }
