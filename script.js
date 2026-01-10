@@ -52,8 +52,15 @@ function initPortfolio() {
         items.forEach((item, index) => {
             const cols = getColumnCount();
             const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
-            item.addEventListener('mouseenter', () => item.style.background = `${color}1A`);
-            item.addEventListener('mouseleave', () => item.style.background = 'transparent');
+            
+            item.addEventListener('mouseenter', () => {
+                // 套用 80%(CC) 到 20%(33) 的漸層色
+                item.style.background = `linear-gradient(to bottom, ${color}CC 0%, ${color}33 100%)`;
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.background = 'transparent';
+            });
         });
     }
 }
