@@ -22,68 +22,39 @@ function initPortfolio() {
                 </div>
             </a>
         `).join('');
-        
         initWorkItemHovers();
     }
 
     // --- 2. Scroll Interaction ---
     window.addEventListener('scroll', () => {
         const scrollPos = window.scrollY;
-
-        // A. Navigation Bar
-        if (nav) {
-            if (scrollPos > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        }
-
-        // B. Banner Background Fade
+        if (nav) scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
         if (bannerBg && banner) {
             let bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
             bannerBg.style.opacity = Math.max(0, bgOpacity);
         }
-
-        // C. Sun Icon Rotation & Color Jump
         if (sunSvg) {
-            let rotation = scrollPos * 0.2; 
-            sunSvg.style.transform = `rotate(${rotation}deg)`;
-
+            sunSvg.style.transform = `rotate(${scrollPos * 0.2}deg)`;
             const sunColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
-            let colorIndex = Math.floor(scrollPos / 400) % sunColors.length;
-            sunSvg.style.color = sunColors[colorIndex];
+            sunSvg.style.color = sunColors[Math.floor(scrollPos / 400) % sunColors.length];
         }
     });
 
     // --- 3. Work Item Hover Effects ---
     function initWorkItemHovers() {
         const items = document.querySelectorAll('.work-item');
-        const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; // Updated to matching system colors
-        
+        const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
         const getColumnCount = () => {
             if (window.innerWidth <= 768) return 1;
             if (window.innerWidth <= 1024) return 2;
             return 4;
         };
-
         items.forEach((item, index) => {
-            const columns = getColumnCount();
-            const row = Math.floor(index / columns);
-            const col = index % columns;
-            const colorIndex = (row + col) % baseColors.length;
-            const color = baseColors[colorIndex];
-            
-            item.addEventListener('mouseenter', () => {
-                // Applied subtle gradient matching your system colors
-                item.style.background = `linear-gradient(to bottom, ${color}1A 0%, ${color}05 100%)`;
-                item.style.borderColor = color;
-            });
-
-            item.addEventListener('mouseleave', () => {
-                item.style.background = 'transparent';
-                item.style.borderColor = 'transparent';
-            });
+            const cols = getColumnCount();
+            const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
+            item.addEventListener('mouseenter', () => item.style.background = `${color}1A`);
+            item.addEventListener('mouseleave', () => item.style.background = 'transparent');
         });
     }
 }
-
-// Entry Point
 document.addEventListener('DOMContentLoaded', initPortfolio);
