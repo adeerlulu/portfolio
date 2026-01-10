@@ -1,5 +1,5 @@
 /**
- * 作品集完整邏輯
+ * Portfolio Core Logic
  */
 function initPortfolio() {
     const data = window.projectData;
@@ -9,7 +9,7 @@ function initPortfolio() {
     const banner = document.querySelector('.banner');
     const sunSvg = document.querySelector('.sun-svg');
 
-    // --- 1. 渲染作品區塊 ---
+    // --- 1. Render Works Grid ---
     if (grid && data && data.length > 0) {
         grid.innerHTML = data.map(work => `
             <a href="${work.link}" class="work-item">
@@ -23,27 +23,26 @@ function initPortfolio() {
             </a>
         `).join('');
         
-        // 渲染完後，立即初始化作品的 Hover 效果
         initWorkItemHovers();
     }
 
-    // --- 2. 滾動監聽效果 ---
+    // --- 2. Scroll Interaction ---
     window.addEventListener('scroll', () => {
         const scrollPos = window.scrollY;
 
-        // A. 導覽列
+        // A. Navigation Bar
         if (nav) {
             if (scrollPos > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         }
 
-        // B. Banner 背景淡出
+        // B. Banner Background Fade
         if (bannerBg && banner) {
             let bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
             bannerBg.style.opacity = Math.max(0, bgOpacity);
         }
 
-        // C. SVG 太陽旋轉與跳色
+        // C. Sun Icon Rotation & Color Jump
         if (sunSvg) {
             let rotation = scrollPos * 0.2; 
             sunSvg.style.transform = `rotate(${rotation}deg)`;
@@ -54,14 +53,14 @@ function initPortfolio() {
         }
     });
 
-    // --- 3. 作品集 Hover 邏輯 (獨立成函數確保順序) ---
+    // --- 3. Work Item Hover Effects ---
     function initWorkItemHovers() {
         const items = document.querySelectorAll('.work-item');
-        const baseColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
+        const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; // Updated to matching system colors
         
         const getColumnCount = () => {
-            if (window.innerWidth <= 768) return 2;
-            if (window.innerWidth <= 1200) return 3;
+            if (window.innerWidth <= 768) return 1;
+            if (window.innerWidth <= 1024) return 2;
             return 4;
         };
 
@@ -73,16 +72,18 @@ function initPortfolio() {
             const color = baseColors[colorIndex];
             
             item.addEventListener('mouseenter', () => {
-                item.style.background = `linear-gradient(to bottom, ${color} 0%, ${color}66 100%)`;
-                item.style.color = '#1a1a1a';
+                // Applied subtle gradient matching your system colors
+                item.style.background = `linear-gradient(to bottom, ${color}1A 0%, ${color}05 100%)`;
+                item.style.borderColor = color;
             });
 
             item.addEventListener('mouseleave', () => {
                 item.style.background = 'transparent';
+                item.style.borderColor = 'transparent';
             });
         });
     }
 }
 
-// 執行初始化
+// Entry Point
 document.addEventListener('DOMContentLoaded', initPortfolio);
