@@ -39,10 +39,20 @@ h1, .banner h1, .work-info h3, #proj-title {
     to { transform: rotate(360deg); }
 }
 
-/* --- 3. Navigation --- */
+/* --- 3. Navigation (Restored Version) --- */
 nav {
     display: flex; justify-content: space-between; align-items: center; 
     padding: 30px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s;
+}
+.logo { 
+    font-size: 18px; font-weight: 500; letter-spacing: 3px; 
+    font-family: "Lora", serif; white-space: nowrap; flex-shrink: 0; 
+}
+.nav-links { display: flex; align-items: center; list-style: none; }
+.nav-links a { 
+    margin-left: 25px; text-decoration: none; color: #1a1a1a; 
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    white-space: nowrap; flex-shrink: 0;
 }
 
 /* --- 4. Banner & Entrance Animation --- */
