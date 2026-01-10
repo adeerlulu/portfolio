@@ -16,87 +16,82 @@ h1, .banner h1, .work-info h3, #proj-title {
     position: fixed; left: -150px; top: 50%; transform: translateY(-50%);
     z-index: 9999; opacity: 0.5; pointer-events: none; mix-blend-mode: multiply;
 }
-.sun-svg { width: 350px; height: auto; display: block; fill: currentColor !important; transition: 0.8s; }
 
 /* --- 3. Navigation --- */
 nav {
     display: flex; justify-content: space-between; align-items: center; 
     padding: 30px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s;
 }
-nav.scrolled {
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-    padding: 15px 5%;
-}
-.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; font-family: "Lora", serif; white-space: nowrap; }
-.nav-links { display: flex; align-items: center; }
-.nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; }
 
-/* --- 4. Banner & Background (Shifted up by 20px) --- */
+/* --- 4. Banner & Entrance Animation --- */
 .banner { 
-    position: relative; height: 50vh; min-height: 380px; /* Reduced height to shift content up */
+    position: relative; height: 50vh; min-height: 380px;
     display: flex; flex-direction: column; justify-content: flex-end; 
-    padding-bottom: 40px; /* Reduced from 60px to shift content up */
-    background-color: #fff; overflow: visible;
+    padding-bottom: 40px; background-color: #fff; overflow: visible;
 }
 
 .banner-bg {
-    position: absolute; top: 0; left: 0; 
-    width: 100%; height: 120%; 
+    position: absolute; top: 0; left: 0; width: 100%; height: 120%; 
     z-index: 1; pointer-events: none;
     background: url('images/bg1.jpg') center center / cover no-repeat !important;
     -webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, rgba(0,0,0,0.5) 85%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 0%, black 65%, rgba(0,0,0,0.5) 85%, transparent 100%);
 }
 
-.banner-content { width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
-.banner h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 10px; }
-.banner p { font-size: 14px; color: #666; max-width: 600px; }
+.banner-content { 
+    width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10;
+    animation: fadeInUp 1.2s cubic-bezier(0.2, 1, 0.3, 1) both;
+}
 
-/* --- 5. Works Grid (Transparent by default) --- */
-.works-section { position: relative; z-index: 5; padding: 40px 5% 80px; background: transparent; } /* Adjusted top padding */
+/* Entrance Animation Definition */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Character Color Interaction Styles */
+.banner h1 span { transition: color 0.3s ease; display: inline-block; cursor: default; }
+.banner h1 span:hover:nth-child(4n+1) { color: #4285F4; } /* Blue */
+.banner h1 span:hover:nth-child(4n+2) { color: #EA4335; } /* Red */
+.banner h1 span:hover:nth-child(4n+3) { color: #FBBC05; } /* Yellow */
+.banner h1 span:hover:nth-child(4n+4) { color: #34A853; } /* Green */
+
+/* --- 5. Works Grid (Transparent to Bordered Box) --- */
+.works-section { position: relative; z-index: 5; padding: 40px 5% 80px; background: transparent; }
 .grid { 
     max-width: 1400px; margin: 0 auto; display: grid; 
     grid-template-columns: repeat(4, 1fr); gap: 40px; 
 }
+
 .work-item { 
     display: flex !important; flex-direction: column; justify-content: flex-start; 
     align-items: flex-start; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; 
-    padding: 35px; 
-    background: transparent; /* Changed to transparent */
-    transition: background 0.4s ease, transform 0.4s ease; 
+    padding: 35px; background: transparent; 
+    border: 1px solid transparent; /* Hidden border */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 }
 
-/* Show background only on hover */
 .work-item:hover {
     background: #fcfcfc; 
+    border-color: #eee; /* Fine border appearing */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
 }
 
 .img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
 .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
-.work-item:hover .img-container img { transform: scale(1.1); }
+.work-item:hover .img-container img { transform: scale(1.08); }
 
 .work-info { width: 100%; text-align: left; }
 .work-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
 .work-info p { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; }
 
-/* --- 6. Contact Section --- */
+/* --- 6. Contact & RWD --- */
 .contact-section { padding: 120px 5%; text-align: center; border-top: 1px solid #eee; }
 .email-btn { display: inline-block; padding: 12px 35px; border: 1px solid #1a1a1a; text-decoration: none; color: #1a1a1a; font-size: 12px; }
 
-/* --- 7. Responsive Design --- */
-@media (max-width: 1024px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
-}
-
+@media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 768px) {
-    nav { padding: 25px 5%; }
     .grid { grid-template-columns: 1fr; gap: 30px; }
-    .work-item { padding: 30px; }
     .banner { height: 40vh; padding-bottom: 30px; }
-}
-
-@media (max-width: 350px) {
-    .logo { font-size: 14px; }
-    .nav-links a { margin-left: 10px; font-size: 9px; }
 }
