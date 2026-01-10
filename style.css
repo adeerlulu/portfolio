@@ -91,7 +91,7 @@ nav.scrolled {
     to { opacity: 1; transform: translateY(0); }
 }
 .banner h1 { 
-    font-size: clamp(3.5rem, 12vw, 7rem) !important; 
+    font-size: clamp(3.5rem, 12vw, 5rem) !important; 
     line-height: 0.9; margin-bottom: 25px; 
     font-family: 'Cormorant Garamond', serif !important;
     letter-spacing: -2px;
