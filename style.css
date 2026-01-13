@@ -1,6 +1,8 @@
+/* --- 0. Smooth Scroll --- */
 html {
     scroll-behavior: smooth;
 }
+
 /* --- 1. Global Reset --- */
 * { 
     margin: 0; 
@@ -66,17 +68,19 @@ nav.scrolled {
 
 .logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; font-family: "Lora", serif; }
 .nav-links { display: flex; align-items: center; list-style: none; }
-.nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
+.nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #1a1a1a; transition: width 0.3s ease; }
+.nav-links a:hover::after { width: 100%; }
 
 /* --- 4. Banner --- */
 .banner { 
     position: relative; 
-    height: 50vh; 
-    min-height: 400px;
+    height: 60vh; 
+    min-height: 500px;
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
-    padding-bottom: 40px; 
+    padding-bottom: 80px; 
     background-color: #fff; 
 }
 
@@ -100,150 +104,87 @@ nav.scrolled {
     to { opacity: 1; transform: translateY(0); } 
 }
 
-.banner h1 { font-size: clamp(2.5rem, 12vw, 5rem) !important; line-height: 0.9; margin-bottom: 25px; letter-spacing: -2px; }
+.banner h1 { font-size: clamp(2.5rem, 12vw, 5.5rem) !important; line-height: 0.9; margin-bottom: 25px; letter-spacing: -2px; }
 .banner h1 span { display: inline-block; transition: color 0.3s ease; }
 .banner h1 span:hover:nth-child(4n+1) { color: #4285F4; }
 .banner h1 span:hover:nth-child(4n+2) { color: #EA4335; }
 .banner h1 span:hover:nth-child(4n+3) { color: #FBBC05; }
 .banner h1 span:hover:nth-child(4n+4) { color: #34A853; }
-.banner p { font-size: 16px; color: #666; max-width: 650px; line-height: 1.8; }
+.banner p { font-size: 16px; color: #666; max-width: 650px; line-height: 1.8; font-weight: 300; }
 
-/* --- 5. Works Grid --- */
-.works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
-.grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-.work-item { display: flex; flex-direction: column; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; padding: 35px; transition: background 0.6s ease; }
-.img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
+/* --- 5. Works Grid & Tags --- */
+.works-section { position: relative; z-index: 5; padding: 40px 2% 80px; }
+.grid { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+
+.work-item { 
+    display: flex; 
+    flex-direction: column; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    padding: 40px; 
+    transition: background 0.6s ease; 
+    border: 0.5px solid transparent;
+}
+
+.img-container { width: 100%; aspect-ratio: 1.2 / 1; overflow: hidden; margin-bottom: 25px; background: #f9f9f9; }
 .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
-.work-item:hover .img-container img { transform: scale(1.08); }
-.work-info h3 { font-family: "Lora", serif !important; font-size: 16px; font-weight: 500; margin-bottom: 5px; letter-spacing: 0.5px; }
-.work-info p { font-size: 11px; color: #b0b0b0; text-transform: uppercase; letter-spacing: 1px; } /* 敘述文字調淡 */
+.work-item:hover .img-container img { transform: scale(1.05); }
 
-/* --- 6. Contact Section & Reveal Animation --- */
-.reveal-section {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-}
-.reveal-section.active {
-    opacity: 1;
-    transform: translateY(0);
+.work-info h3 { font-family: "Lora", serif !important; font-size: 18px; font-weight: 500; margin-bottom: 8px; letter-spacing: 0.5px; }
+.work-info p { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; }
+
+/* 標籤樣式渲染區 */
+.work-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.tag { 
+    font-size: 10px; 
+    padding: 3px 10px; 
+    border: 1px solid #eee; 
+    border-radius: 20px; 
+    color: #888; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
-/* Contact Title 動畫：初始隱藏 + 位移 */
-.contact-title { 
-    font-family: "Lora", serif; 
-    font-size: 28px; 
-    font-weight: 300; 
-    margin-bottom: 60px; 
-    color: #1a1a1a;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease-out 0.2s; /* 延遲顯現增加節奏感 */
-}
-.reveal-section.active .contact-title {
-    opacity: 1;
-    transform: translateY(0);
-}
+.work-item:hover .tag { border-color: #1a1a1a; color: #1a1a1a; }
+
+/* --- 6. Contact Section --- */
+.reveal-section { opacity: 0; transform: translateY(40px); transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
+.reveal-section.active { opacity: 1; transform: translateY(0); }
 
 .contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid #eee; }
 .container-700 { max-width: 700px; margin: 0 auto; }
+.contact-title { font-family: "Lora", serif; font-size: 32px; font-weight: 300; margin-bottom: 60px; color: #1a1a1a; text-align: center; }
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .form-group { margin-bottom: 35px; position: relative; }
 .form-group label { font-size: 11px; color: #1a1a1a; font-weight: 500; letter-spacing: 1.5px; display: block; margin-bottom: 10px; text-transform: uppercase; }
 
-/* 輸入框文字與提示字顏色 */
 .form-group input, .form-group textarea { 
-    width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; 
+    width: 100%; border: none; border-bottom: 1px solid #eee; padding: 12px 0; 
     font-size: 14px; outline: none; background: transparent !important; border-radius: 0; color: #1a1a1a;
+    transition: border-color 0.3s;
 }
-/* 提示字 (Placeholder) 顏色改為淡灰色 */
-.form-group input::placeholder, 
-.form-group textarea::placeholder {
-    color: #cccccc; 
-}
-
+.form-group input::placeholder, .form-group textarea::placeholder { color: #cccccc; }
 .form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid #1a1a1a; }
 
-/* Captcha & Submit Alignment */
-.captcha-row { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: flex-start; 
-    margin-top: 20px; 
-}
-
-#captchaDisplay { 
-    font-family: "Lora", serif; font-weight: 700; font-size: 20px; padding: 5px 18px; 
-    border: 1px solid #f0f0f0; margin-right: 20px; letter-spacing: 5px; user-select: none; background: #fafafa;
-}
+.captcha-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; }
+#captchaDisplay { font-family: "Lora", serif; font-weight: 700; font-size: 22px; padding: 8px 20px; border: 1px solid #f0f0f0; margin-right: 20px; letter-spacing: 6px; user-select: none; background: #fafafa; }
 
 .submit-wrap { margin-top: 25px; }
 .submit-btn {
-    background: #1a1a1a; color: #ffffff; border: 1px solid #1a1a1a; padding: 10px 28px;
+    background: #1a1a1a; color: #ffffff; border: 1px solid #1a1a1a; padding: 12px 35px;
     border-radius: 40px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 15px; transition: all 0.4s ease;
 }
-.arrow-icon { width: 40px; height: 12px; transition: transform 0.6s ease; }
-.submit-btn:hover .arrow-icon { transform: translateX(10px); }
+.submit-btn .arrow-icon { width: 30px; height: 12px; }
+.submit-btn:hover { background: #333; transform: translateY(-2px); }
+.submit-btn:hover .arrow-icon { transform: translateX(8px); }
 
-/* Error Styling */
-.error-message { font-size: 10px; color: #e74c3c; margin-top: 5px; height: 12px; opacity: 0; transition: opacity 0.3s; }
-.form-group.error input, .form-group.error textarea { border-bottom: 1px solid #e74c3c !important; }
-.form-group.error .error-message { opacity: 1; }
-
-/* --- 7. Custom Modal --- */
-.custom-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.5s ease; }
-.custom-modal.active { opacity: 1; visibility: visible; }
-.modal-content { background: #fff; padding: 60px; border: 1px solid #f0f0f0; text-align: center; max-width: 450px; width: 90%; }
-
-/* --- 8. Responsive --- */
-@media (max-width: 1024px) { 
-    .grid { grid-template-columns: repeat(2, 1fr); } 
-}
-
-@media (max-width: 768px) {
-    /* 手機版太陽放大 20% (105px * 1.2 = 126px) */
-    .fixed-sun-icon { width: 126px; left: -50px; }
-    .sun-svg { width: 126px; }
-    
-    .works-section { padding: 20px 5% 40px; }
-    .grid { gap: 10px; }
-    .work-item { padding: 15px; }
-    .banner h1 { font-size: 3rem !important; }
-    .form-row { grid-template-columns: 1fr; gap: 0; }
-    .captcha-row { flex-direction: column; align-items: flex-start; gap: 20px; }
-    .submit-wrap { margin-top: 0; width: 100%; }
-    .submit-btn { width: 100%; justify-content: center; }
-}
-
-@media (max-width: 375px) {
-    .grid { 
-        grid-template-columns: 1fr; 
-    }
-    .work-item { 
-        aspect-ratio: auto; 
-        padding: 20px 10px;
-        border-bottom: 1px solid #f0f0f0; 
-    }
-    .banner h1 { 
-        font-size: 2.5rem !important;
-    }
-}
-/* --- Footer Bottom (Copyright) --- */
-.footer-bottom {
-    padding: 40px 0;
-    text-align: center;
-    font-family: "Lora", serif;
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: #999;
-}
-
-/* --- Back to Top --- */
+/* --- 7. Back to Top (修正色差與對齊) --- */
 .back-to-top {
     position: fixed;
-    right: 40px;
-    bottom: 40px;
+    right: 50px;
+    bottom: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -252,52 +193,63 @@ nav.scrolled {
     opacity: 0;
     visibility: hidden;
     transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    transform: translateY(20px);
     color: #1a1a1a;
 }
-
-.back-to-top svg line,
-.back-to-top svg polyline {
-    stroke: currentColor !important;
-}
-
-.back-to-top.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
+.back-to-top.active { opacity: 1; visibility: visible; }
 
 .btt-text {
     font-family: "Lora", serif;
     font-size: 10px;
     letter-spacing: 2px;
-    writing-mode: vertical-rl; /* 文字直向 */
-    margin-bottom: 15px;
-    color: #1a1a1a;
+    writing-mode: vertical-rl;
+    margin-bottom: 20px;
 }
 
 .btt-arrow {
-    width: 1px;
-    height: 40px;
-    background: #1a1a1a;
+    width: 1.2px; /* 這裡的粗細要跟 SVG 線條接近 */
+    height: 50px;
+    background: currentColor; /* 使用繼承色 */
     position: relative;
     transition: height 0.4s ease;
-    color: #1a1a1a;
 }
 
 .btt-arrow svg {
     position: absolute;
-    top: -5px;
+    top: -8px;
     left: 50%;
-    transform: translateX(-50%) rotate(90deg); 
-    width: 30px;
-    color: #1a1a1a;
+    transform: translateX(-50%) rotate(-90deg); /* 轉向朝上 */
+    width: 35px;
+    color: inherit;
 }
 
-.back-to-top:hover .btt-arrow {
-    height: 60px; /* 滑過時箭頭拉長 */
+.back-to-top:hover .btt-arrow { height: 70px; }
+
+/* --- 8. Responsive --- */
+@media (max-width: 1200px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) { 
+    .grid { grid-template-columns: repeat(2, 1fr); } 
 }
 
 @media (max-width: 768px) {
+    .fixed-sun-icon { width: 120px; left: -40px; opacity: 0.3; }
+    .sun-svg { width: 120px; }
+    .banner { height: 50vh; padding-bottom: 40px; }
+    .banner h1 { font-size: 3.2rem !important; }
+    .grid { grid-template-columns: 1fr; }
+    .work-item { padding: 30px 5%; border-bottom: 1px solid #f5f5f5; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .captcha-row { flex-direction: column; gap: 25px; }
+    .submit-btn { width: 100%; justify-content: center; }
     .back-to-top { right: 20px; bottom: 20px; }
 }
+
+/* --- 9. Modal & Footer --- */
+.custom-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.5s ease; }
+.custom-modal.active { opacity: 1; visibility: visible; }
+.modal-content { text-align: center; max-width: 400px; padding: 40px; }
+.modal-btn { background: #1a1a1a; color: #fff; border: none; padding: 12px 40px; margin-top: 30px; cursor: pointer; letter-spacing: 2px; }
+
+.footer-bottom { padding: 60px 0; text-align: center; font-size: 10px; color: #bbb; letter-spacing: 1px; }
