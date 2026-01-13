@@ -63,7 +63,7 @@
     </main>
 
     <footer class="contact-section" id="contact">
-        <div class="container-700 reveal-section">
+        <div class="container-700 reveal-section" id="revealContact">
             <h2 class="contact-title">Contact us</h2>
             <form id="contactForm" action="https://formspree.io/f/xlggeplo" method="POST" class="contact-form" autocomplete="off" novalidate>
                 <div class="form-row">
@@ -93,13 +93,14 @@
 
                 <div class="captcha-row">
                     <div class="form-group" style="margin-bottom: 0;">
-                    <label>Verification Code</label>
-                    <div class="captcha-input-group">
-                        <span id="captchaDisplay"></span>
-                        <input type="text" id="captchaInput" placeholder="驗證碼" style="width: 100px;">
-                    </div>
+                        <label>Verification Code</label>
+                        <div class="captcha-input-group">
+                            <span id="captchaDisplay"></span>
+                            <input type="text" id="captchaInput" placeholder="驗證碼" style="width: 100px;">
+                        </div>
                         <div class="error-message">驗證碼錯誤 Captcha incorrect</div>
                     </div>
+                    
                     <div class="submit-wrap">
                         <button type="submit" class="submit-btn" id="submitBtn">
                             <span>送出訊息</span>
@@ -136,7 +137,6 @@
             let autoRotation = 0;
             function animate() {
                 autoRotation += 0.4;
-                // 獲取 script.js 中設定的滾動旋轉量
                 const scrollRotate = parseFloat(sun.style.getPropertyValue('--scroll-rotate')) || 0;
                 sun.style.transform = `rotate(${autoRotation + scrollRotate}deg)`;
                 requestAnimationFrame(animate);
@@ -165,10 +165,23 @@
         }
         function closeModal() { document.getElementById('infoModal').classList.remove('active'); }
 
-        // 4. 表單驗證與送出處理
+        // 4. Contact Us 顯現動畫偵測
+        function handleScrollReveal() {
+            const revealTarget = document.getElementById('revealContact');
+            if (!revealTarget) return;
+            const top = revealTarget.getBoundingClientRect().top;
+            if (top < window.innerHeight - 100) {
+                revealTarget.classList.add('active');
+            }
+        }
+
+        // 5. 初始化與事件綁定
         document.addEventListener('DOMContentLoaded', () => {
             initSunRotation();
             generateCaptcha();
+            handleScrollReveal(); // 初始化時檢查一次位置
+            
+            window.addEventListener('scroll', handleScrollReveal);
 
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
@@ -176,7 +189,6 @@
                     e.preventDefault();
                     let hasError = false;
 
-                    // 重設所有錯誤狀態
                     document.querySelectorAll('.form-group').forEach(el => el.classList.remove('error'));
 
                     const name = this.querySelector('[name="name"]');
@@ -184,7 +196,6 @@
                     const message = this.querySelector('[name="message"]');
                     const captchaInput = document.getElementById('captchaInput');
 
-                    // 邏輯驗證
                     if (!name.value.trim()) { name.parentElement.classList.add('error'); hasError = true; }
                     if (!email.value.includes('@')) { email.parentElement.classList.add('error'); hasError = true; }
                     if (!message.value.trim()) { message.parentElement.classList.add('error'); hasError = true; }
@@ -195,7 +206,6 @@
 
                     if (hasError) return;
 
-                    // 按鈕送出狀態
                     const submitBtn = document.getElementById('submitBtn');
                     const btnSpan = submitBtn.querySelector('span');
                     const originalText = btnSpan.innerText;
@@ -223,7 +233,6 @@
                     }
                 });
 
-                // 輸入時自動移除紅線
                 contactForm.querySelectorAll('input, textarea').forEach(input => {
                     input.addEventListener('input', () => input.closest('.form-group').classList.remove('error'));
                 });
