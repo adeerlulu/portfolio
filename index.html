@@ -173,46 +173,145 @@
         <div id="works-grid" class="grid"></div>
     </main>
 
-    <footer class="contact-section" id="contact">
-        <div class="container-700">
-            <h2 class="contact-title">Contact us</h2>
-            <form id="contactForm" action="https://formspree.io/f/ayunina103@gmail.com" method="POST" class="contact-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" required placeholder="聯絡人">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" required placeholder="電子信箱">
-                    </div>
+ <footer class="contact-section" id="contact">
+    <div class="container-700 reveal-section">
+        <h2 class="contact-title">Contact us</h2>
+        <form id="contactForm" action="https://formspree.io/f/ayunina103@gmail.com" method="POST" class="contact-form">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" required placeholder="聯絡人">
                 </div>
-
                 <div class="form-group">
                     <label>LINE ID</label>
                     <input type="text" name="line_id" placeholder="選填">
                 </div>
+            </div>
 
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required placeholder="電子信箱">
+            </div>
+
+            <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" rows="3" placeholder="請輸入欲洽詢內容"></textarea>
+            </div>
+
+            <div class="captcha-row">
                 <div class="form-group">
-                    <label>Message</label>
-                    <textarea name="message" rows="3" placeholder="請輸入欲洽詢內容"></textarea>
+                    <label>Verification Code</label>
+                    <div class="captcha-input-group">
+                        <span id="captchaDisplay"></span>
+                        <input type="text" id="captchaInput" required placeholder="輸入驗證碼">
+                    </div>
                 </div>
+                <div class="submit-wrap">
+                    <button type="submit" class="submit-btn">
+                        <span>送出訊息</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</footer>
 
-                <div class="captcha-row">
-                    <div class="form-group">
-                        <label>Verification Code</label>
-                        <div class="captcha-input-group">
-                            <span id="captchaDisplay"></span>
-                            <input type="text" id="captchaInput" required placeholder="輸入驗證碼">
-                        </div>
-                    </div>
-                    <div class="submit-wrap">
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </footer>
+<style>
+    /* --- 1. Contact Section 浮現動畫 --- */
+    .reveal-section {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-section.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* --- 2. 欄位樣式優化 --- */
+    .contact-section { padding: 120px 5%; border-top: 1px solid #f2f2f2; background: #fff; scroll-margin-top: 80px; }
+    .container-700 { max-width: 700px; margin: 0 auto; }
+    .contact-title { font-family: "Lora", serif; font-size: 28px; font-weight: 300; margin-bottom: 60px; letter-spacing: 2px; color: #1a1a1a; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .form-group { margin-bottom: 40px; display: flex; flex-direction: column; }
+    .form-group label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #aaa; margin-bottom: 12px; }
+    .form-group input, .form-group textarea { border: none; border-bottom: 1px solid #e0e0e0; padding: 10px 0; font-size: 14px; outline: none; background: transparent; transition: border-color 0.4s ease; color: #1a1a1a; border-radius: 0; }
+    .form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid #1a1a1a; }
+
+    /* --- 3. 翻轉按鈕與小箭頭動畫 --- */
+    .submit-btn {
+        position: relative;
+        background: #1a1a1a;
+        color: #fff;
+        border: 1px solid #1a1a1a;
+        padding: 14px 45px;
+        font-size: 13px;
+        font-family: "Noto Sans TC", sans-serif;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        overflow: hidden;
+    }
+
+    .submit-btn:hover {
+        background: #fff;
+        color: #1a1a1a;
+    }
+
+    /* 小箭頭樣式與動畫 */
+    .arrow-icon {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        transition: transform 0.4s ease;
+    }
+
+    .submit-btn:hover .arrow-icon {
+        transform: translateX(5px);
+    }
+
+    /* 驗證碼樣式保持穩定 */
+    .captcha-row { display: flex; justify-content: space-between; align-items: flex-end; }
+    .captcha-input-group { display: flex; align-items: center; gap: 20px; }
+    #captchaDisplay { font-family: "Lora", serif; font-style: italic; font-size: 18px; letter-spacing: 4px; color: #999; background: #fcfcfc; padding: 5px 15px; border: 1px solid #eee; user-select: none; }
+    #captchaInput { width: 100px; text-align: center; }
+
+    @media (max-width: 768px) {
+        .form-row { grid-template-columns: 1fr; gap: 0; }
+        .captcha-row { flex-direction: column; align-items: flex-start; gap: 30px; }
+        .submit-btn { width: 100%; justify-content: center; }
+    }
+</style>
+
+<script>
+    // 原有的驗證碼與發信功能代碼塊，額外加入區塊浮現偵測
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. 執行驗證碼
+        generateCaptcha();
+
+        // 2. 區塊浮現動畫偵測
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-section').forEach(section => {
+            observer.observe(section);
+        });
+    });
+
+ </script>
 
     <script src="data.js"></script>
     <script src="script.js"></script>
