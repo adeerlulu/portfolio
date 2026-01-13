@@ -1,121 +1,102 @@
-/**
- * Portfolio Core Logic - script.js
- */
-function initPortfolio() {
-    const data = window.projectData || window.worksData;
+document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('works-grid');
-    const nav = document.querySelector('nav');
-    const bannerBg = document.querySelector('.banner-bg');
-    const banner = document.querySelector('.banner');
-    const sunSvg = document.querySelector('.sun-svg');
-    const btt = document.getElementById('backToTop');
-    const revealTarget = document.getElementById('revealContact');
-
-    // --- 1. Render Works Grid (含標籤渲染) ---
-    if (grid && data && data.length > 0) {
-        grid.innerHTML = data.map(work => `
-            <a href="${work.link || '#'}" class="work-item">
+    if (grid && window.projectData) {
+        grid.innerHTML = window.projectData.map(work => `
+            <a href="works.html?id=${work.id}" class="work-item">
                 <div class="img-container">
-                    <img src="${work.image}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Missing'">
+                    <img src="${work.image}" alt="${work.title}" loading="lazy">
                 </div>
                 <div class="work-info">
                     <h3>${work.title}</h3>
                     <p>${work.category}</p>
-                    <div class="work-tags">
-                        ${work.tags ? work.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
-                    </div>
                 </div>
             </a>
         `).join('');
-        initWorkItemHovers();
     }
 
-    // --- 2. Scroll Interaction (Unified) ---
-    window.addEventListener('scroll', () => {
-        const scrollPos = window.scrollY;
-
-        // Nav 樣式切換
-        if (nav) scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
-
-        // Banner 背景淡出
-        if (bannerBg && banner) {
-            let bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
-            bannerBg.style.opacity = Math.max(0, bgOpacity);
-        }
-
-        // 太陽捲動特效
-        if (sunSvg) {
-            const extraRotate = scrollPos * 0.2;
-            sunSvg.style.setProperty('--scroll-rotate', `${extraRotate}deg`);
-            const sunColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
-            sunSvg.style.color = sunColors[Math.floor(scrollPos / 400) % sunColors.length];
-        }
-
-        // Back to Top 顯示邏輯
-        if (btt) {
-            scrollPos > 600 ? btt.classList.add('active') : btt.classList.remove('active');
-        }
-
-        // Contact Section 顯現動畫
-        if (revealTarget) {
-            const top = revealTarget.getBoundingClientRect().top;
-            if (top < window.innerHeight - 100) {
-                revealTarget.classList.add('active');
-            }
-        }
-    });
-
-    // --- 3. Click Events (平滑滾動) ---
+    // 2. 太陽特效：隨捲動旋轉與變色
+    const sunSvg = document.querySelector('.sun-svg');
+    const colors = ['#87CEEB', '#FF6B6B', '#4ECDC4', '#FFE66D', '#1a1a1a'];
     
-    // Back to Top 按鈕
-    if (btt) {
-        btt.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        // 旋轉
+        if (sunSvg) {
+            sunSvg.style.transform = `rotate(${scrolled * 0.2}deg)`;
+            // 隨機變色 (每捲動 500px 換一次色)
+            const colorIndex = Math.floor(scrolled / 500) % colors.length;
+            sunSvg.style.color = colors[colorIndex];
+        }
 
-    // 導覽列平滑捲動與補償 (Works & Contact)
-    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+        // 導覽列背景切換
+        const nav = document.querySelector('nav');
+        if (scrolled > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
 
-            if (targetElement) {
-                // 取得目標位置並扣除導覽列高度 (約 70-80px) 以免遮擋
-                const offset = 80; 
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
+        // Back to Top 按鈕顯示
+        const btt = document.getElementById('backToTop');
+        if (scrolled > 300) {
+            btt.classList.add('active');
+        } else {
+            btt.classList.remove('active');
+        }
     });
 
-    // --- 4. Work Item Hover Effects ---
-    function initWorkItemHovers() {
-        const items = document.querySelectorAll('.work-item');
-        const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
-        const getColumnCount = () => {
-            if (window.innerWidth <= 768) return 1;
-            if (window.innerWidth <= 1024) return 2;
-            return 4;
-        };
-        items.forEach((item, index) => {
-            item.addEventListener('mouseenter', () => {
-                const cols = getColumnCount();
-                const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
-                // 優化：當 Hover 時背景顏色稍微透明，讓標籤更明顯
-                item.style.background = `linear-gradient(to bottom, ${color}1A 5%, ${color}05 60%)`;
-            });
-            item.addEventListener('mouseleave', () => {
-                item.style.background = 'transparent';
-            });
-        });
-    }
-}
+    // 3. Back to Top 點擊事件
+    document.getElementById('backToTop')?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-document.addEventListener('DOMContentLoaded', initPortfolio);
+    // 4. 聯絡表單：驗證碼邏輯
+    const captchaDisplay = document.getElementById('captchaDisplay');
+    let currentCaptcha = "";
+
+    function generateCaptcha() {
+        currentCaptcha = Math.random().toString(36).substring(2, 6).toUpperCase();
+        if (captchaDisplay) captchaDisplay.innerText = currentCaptcha;
+    }
+    generateCaptcha();
+
+    // 5. 表單提交處理
+    const contactForm = document.getElementById('portfolioContactForm');
+    contactForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const userInput = document.getElementById('captchaInput').value.toUpperCase();
+        const modal = document.getElementById('customModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMsg = document.getElementById('modalMsg');
+
+        if (userInput === currentCaptcha) {
+            modalTitle.innerText = "Success";
+            modalMsg.innerText = "感謝您的來信！我們將盡快與您聯繫。";
+            modal.classList.add('active');
+            contactForm.reset();
+            generateCaptcha();
+        } else {
+            alert("驗證碼錯誤，請重新輸入");
+            generateCaptcha();
+            document.getElementById('captchaInput').value = "";
+        }
+    });
+
+    // 6. 捲動顯現動畫 (Intersection Observer)
+    const observerOptions = { threshold: 0.1 };
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-section').forEach(el => revealObserver.observe(el));
+});
+
+// Modal 關閉函數 (全域)
+function closeModal() {
+    document.getElementById('customModal').classList.remove('active');
+}
