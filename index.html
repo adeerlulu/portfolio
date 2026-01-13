@@ -64,26 +64,26 @@
   <footer class="contact-section">
     <div class="container-1024">
         <h2 class="contact-title">Contact us</h2>
-        <form id="contactForm" class="contact-form">
+        <form id="contactForm" action="https://formspree.io/f/ayunina103@gmail.com" method="POST" class="contact-form">
             <div class="form-row">
                 <div class="form-group">
                     <label>聯絡人 (Required)</label>
-                    <input type="text" id="name" required placeholder="Your name">
+                    <input type="text" name="name" id="name" required placeholder="Your name">
                 </div>
                 <div class="form-group">
                     <label>信箱 (Required)</label>
-                    <input type="email" id="email" required placeholder="email@example.com">
+                    <input type="email" name="email" id="email" required placeholder="email@example.com">
                 </div>
             </div>
 
             <div class="form-group">
                 <label>LINE ID (Optional)</label>
-                <input type="text" id="line" placeholder="Your LINE ID">
+                <input type="text" name="line_id" id="line" placeholder="Your LINE ID">
             </div>
 
             <div class="form-group">
                 <label>欲洽詢項目</label>
-                <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
+                <textarea name="message" id="message" rows="4" placeholder="How can we help you?"></textarea>
             </div>
 
             <div class="captcha-container">
@@ -99,44 +99,7 @@
     </div>
 </footer>
 
-<style>
-    /* --- Contact Form Styling --- */
-    .contact-section { padding: 120px 5% 80px; text-align: left; border-top: 1px solid #eee; background: #fff; }
-    .contact-title { font-family: "Lora", serif; font-size: 32px; font-weight: 400; margin-bottom: 50px; text-align: center; letter-spacing: 1px; }
-    .contact-form { max-width: 700px; margin: 0 auto; font-family: "Lora", serif; }
-    
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
-    .form-group { margin-bottom: 30px; display: flex; flex-direction: column; }
-    
-    .form-group label, .captcha-container label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
-    
-    .form-group input, .form-group textarea, #captchaInput {
-        border: none; border-bottom: 1px solid #ddd; padding: 10px 0; font-family: "Lora", serif; font-size: 14px;
-        outline: none; transition: border-color 0.3s ease; background: transparent;
-    }
-    .form-group input:focus, .form-group textarea:focus, #captchaInput:focus { border-bottom: 1px solid #1a1a1a; }
-
-    /* Captcha Styling */
-    .captcha-container { margin-bottom: 40px; }
-    .captcha-box { display: flex; align-items: center; gap: 15px; }
-    .captcha-code { 
-        background: #f9f9f9; padding: 5px 15px; font-weight: 600; letter-spacing: 3px; 
-        color: #1a1a1a; border: 1px dashed #ccc; user-select: none; font-style: italic;
-    }
-    #captchaInput { width: 120px; text-align: center; }
-
-    .submit-btn {
-        display: block; width: 100%; padding: 15px; background: transparent; border: 1px solid #1a1a1a;
-        font-family: "Lora", serif; font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
-        cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
-    }
-    .submit-btn:hover { background: #1a1a1a; color: #fff; }
-
-    @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
-</style>
-
 <script>
-    // Verification Code Logic
     let currentCaptcha = "";
 
     function generateCaptcha() {
@@ -149,25 +112,43 @@
         document.getElementById('captchaDisplay').innerText = result;
     }
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
         const userInput = document.getElementById('captchaInput').value;
         
+        // 1. 先驗證驗證碼
         if (userInput !== currentCaptcha) {
+            e.preventDefault();
             alert("驗證碼錯誤，請重新輸入。");
             generateCaptcha();
             document.getElementById('captchaInput').value = "";
             return;
         }
 
-        // Simulate successful send
-        alert("送出成功！我們會盡快與您聯繫。");
-        this.reset();
-        generateCaptcha();
+        // 2. 驗證碼正確，使用 AJAX 送出表單 (避免跳轉頁面)
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const button = form.querySelector('.submit-btn');
+        
+        button.innerText = "Sending...";
+        
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            alert("送出成功！我們會盡快與您聯繫。");
+            form.reset();
+            generateCaptcha();
+            button.innerText = "Send Message";
+        } else {
+            alert("抱歉，送出失敗，請稍後再試或直接 E-mail 聯繫我們。");
+            button.innerText = "Send Message";
+        }
     });
 
-    // Initialize Captcha on load
     window.onload = generateCaptcha;
 </script>
     <script src="data.js"></script>
