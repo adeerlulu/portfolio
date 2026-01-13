@@ -253,6 +253,11 @@ nav.scrolled {
     color: #1a1a1a;
 }
 
+.back-to-top svg line,
+.back-to-top svg polyline {
+    stroke: currentColor !important;
+}
+
 .back-to-top.active {
     opacity: 1;
     visibility: visible;
