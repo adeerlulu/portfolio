@@ -12,18 +12,14 @@
     <style>
         /* --- Layout & Basic --- */
         .container-1024 { max-width: 1024px; margin: 0 auto; padding: 0 40px; }
-        /* Adjusted padding for header-first look */
         .project-container { padding-top: 180px; } 
         .project-info { text-align: left; margin-bottom: 100px; }
 
-        /* --- Image Protection (CSS) --- */
+        /* --- Image Protection --- */
         img { 
             -webkit-user-drag: none; 
-            -khtml-user-drag: none; 
-            -moz-user-drag: none; 
-            -o-user-drag: none; 
             user-select: none;
-            pointer-events: none; /* Prevents right-click and selection */
+            pointer-events: none; 
         }
 
         /* --- Typography --- */
@@ -42,8 +38,22 @@
 
         #proj-desc { font-size: 14px; line-height: 2.2; color: #333; white-space: pre-line; max-width: 750px; font-family: "Lora", serif; }
 
-        /* --- Project Gallery --- */
-        .gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; pointer-events: none; }
+        /* --- Scroll Reveal Animation --- */
+        .gallery-item { 
+            width: 100%; 
+            height: auto; 
+            margin-bottom: 60px; 
+            display: block; 
+            opacity: 0; /* Initial state: transparent */
+            transform: translateY(30px); /* Initial state: slightly down */
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .gallery-item.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* --- More Works Grid --- */
         .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 120px; }
@@ -58,11 +68,12 @@
         @media (max-width: 768px) {
             .container-1024 { padding: 0 20px; }
             .more-grid { grid-template-columns: 1fr; }
-            .project-container { padding-top: 140px; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;"> <nav>
+<body oncontextmenu="return false;">
+
+    <nav>
         <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
         <div class="nav-links"><a href="index.html">Back to Works</a></div>
     </nav>
@@ -89,10 +100,8 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Disable Image Dragging for extra security
-            document.addEventListener('dragstart', (e) => {
-                if (e.target.nodeName === 'IMG') e.preventDefault();
-            });
+            // Disable dragging
+            document.addEventListener('dragstart', (e) => { if (e.target.nodeName === 'IMG') e.preventDefault(); });
 
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
@@ -113,6 +122,8 @@
                             img.className = "gallery-item";
                             gallery.appendChild(img);
                         });
+                        // Initialize Reveal Effect after images are created
+                        initScrollReveal();
                     }
 
                     const moreGrid = document.getElementById('more-works-grid');
@@ -131,6 +142,26 @@
                 } else {
                     window.location.href = 'index.html';
                 }
+            }
+
+            // Scroll Reveal Logic
+            function initScrollReveal() {
+                const observerOptions = {
+                    threshold: 0.1 // Triggers when 10% of the image is visible
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('reveal');
+                            // Once revealed, no need to observe anymore
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                const images = document.querySelectorAll('.gallery-item');
+                images.forEach(img => observer.observe(img));
             }
         });
     </script>
