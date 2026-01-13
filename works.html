@@ -26,7 +26,7 @@
         #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
         #proj-title { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 400; margin: 0; line-height: 1.1; font-family: "Lora", serif; }
 
-        /* Animation: Black Line */
+        /* Animation: Black Line (Title) */
         .title-wrapper { position: relative; display: inline-block; margin-bottom: 35px; }
         .title-line { 
             position: absolute; bottom: -12px; left: 0; 
@@ -44,8 +44,8 @@
             height: auto; 
             margin-bottom: 60px; 
             display: block; 
-            opacity: 0; /* Initial state: transparent */
-            transform: translateY(30px); /* Initial state: slightly down */
+            opacity: 0; 
+            transform: translateY(30px); 
             transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
                         transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -55,15 +55,10 @@
             transform: translateY(0);
         }
 
-/* --- More Works Section --- */
-        .more-works-section { 
-            margin-top: 100px; 
-            padding-top: 60px; 
-            border-top: 1px solid #eee; 
-            margin-bottom: 120px; 
-        }
-
+        /* --- More Works Grid --- */
+        .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 120px; }
         
+        /* More Works 標題：簡約底線動畫 */
         .more-works-title { 
             font-size: 14px; 
             letter-spacing: 3px; 
@@ -75,46 +70,46 @@
             position: relative;
             color: #1a1a1a;
         }
-
-       
+        
+        /* 改為黑色極細線條 */
         .more-works-title::after {
             content: "";
             position: absolute;
             left: 0;
-            bottom: -10px;
-            width: 40px; 
-            height: 2px;
-            background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
+            bottom: -8px;
+            width: 30px; 
+            height: 1px;
+            background: #1a1a1a;
             transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
         .more-works-section:hover .more-works-title::after {
-            width: 100%; 
+            width: 100%;
         }
 
-        /* More Works Grid /
         .more-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 30px; }
-        .more-item { text-decoration: none; color: #1a1a1a; transition: opacity 0.3s; }
-        .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; background: #f9f9f9; }
-        .more-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
+        .more-item { text-decoration: none; color: #1a1a1a; font-family: "Lora", serif; display: block; transition: opacity 0.3s; }
+        .more-item:hover { opacity: 0.85; }
         
-        .more-item:hover img { transform: scale(1.05); }
-        .more-item:hover { opacity: 0.8; }
-
+        .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; background: #f5f5f5; }
+        .more-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
+        .more-item:hover img { transform: scale(1.08); }
+        
         .more-item h3 { 
-            font-family: "Lora", serif !important; 
             font-size: 16px; 
             font-weight: 500; 
-            margin-bottom: 5px; 
-            letter-spacing: 0.5px; 
-            color: #1a1a1a; /* 同首頁設計 */
+            margin-top: 15px; 
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
         }
 
+        /* 敘述文字改淡 (同步首頁設計) */
         .more-item p { 
             font-size: 11px; 
             color: #b0b0b0; 
             text-transform: uppercase; 
-            letter-spacing: 1px; 
+            letter-spacing: 1.5px; 
         }
 
         @media (max-width: 768px) {
@@ -174,7 +169,6 @@
                             img.className = "gallery-item";
                             gallery.appendChild(img);
                         });
-                        // Initialize Reveal Effect after images are created
                         initScrollReveal();
                     }
 
@@ -196,17 +190,12 @@
                 }
             }
 
-            // Scroll Reveal Logic
             function initScrollReveal() {
-                const observerOptions = {
-                    threshold: 0.1 // Triggers when 10% of the image is visible
-                };
-
+                const observerOptions = { threshold: 0.1 };
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('reveal');
-                            // Once revealed, no need to observe anymore
                             observer.unobserve(entry.target);
                         }
                     });
