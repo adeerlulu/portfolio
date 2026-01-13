@@ -11,7 +11,7 @@ function initPortfolio() {
     const btt = document.getElementById('backToTop');
     const revealTarget = document.getElementById('revealContact');
 
-    // --- 1. Render Works Grid ---
+    // --- 1. Render Works Grid (含標籤渲染) ---
     if (grid && data && data.length > 0) {
         grid.innerHTML = data.map(work => `
             <a href="${work.link || '#'}" class="work-item">
@@ -21,6 +21,9 @@ function initPortfolio() {
                 <div class="work-info">
                     <h3>${work.title}</h3>
                     <p>${work.category}</p>
+                    <div class="work-tags">
+                        ${work.tags ? work.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+                    </div>
                 </div>
             </a>
         `).join('');
@@ -62,12 +65,35 @@ function initPortfolio() {
         }
     });
 
-    // --- 3. Click Events ---
+    // --- 3. Click Events (平滑滾動) ---
+    
+    // Back to Top 按鈕
     if (btt) {
         btt.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    // 導覽列平滑捲動與補償 (Works & Contact)
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // 取得目標位置並扣除導覽列高度 (約 70-80px) 以免遮擋
+                const offset = 80; 
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 
     // --- 4. Work Item Hover Effects ---
     function initWorkItemHovers() {
@@ -82,7 +108,8 @@ function initPortfolio() {
             item.addEventListener('mouseenter', () => {
                 const cols = getColumnCount();
                 const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
-                item.style.background = `linear-gradient(to bottom, ${color}CC 5%, ${color}33 60%)`;
+                // 優化：當 Hover 時背景顏色稍微透明，讓標籤更明顯
+                item.style.background = `linear-gradient(to bottom, ${color}1A 5%, ${color}05 60%)`;
             });
             item.addEventListener('mouseleave', () => {
                 item.style.background = 'transparent';
