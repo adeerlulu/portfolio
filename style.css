@@ -1,4 +1,4 @@
-/* --- 保持您提供的原始樣式，僅同步 ID 與 變數 --- */
+/* --- 保持原始樣式，修正編碼與數字錯誤 --- */
 html {
     scroll-behavior: smooth;
 }
@@ -41,13 +41,11 @@ h1, .banner h1, #proj-title {
     height: auto; 
     display: block; 
     fill: currentColor !important; 
-    /* 這裡同步 JS 傳入的旋轉變數，同時保留基礎過渡 */
     transform: rotate(var(--scroll-rotate, 0deg));
     transition: transform 0.1s ease-out; 
 }
 
 /* --- 3. Navigation --- */
-/* 同步 HTML 的 ID 使用 #main-nav */
 #main-nav {
     display: flex; 
     justify-content: space-between; 
@@ -116,7 +114,15 @@ h1, .banner h1, #proj-title {
 /* --- 5. Works Grid --- */
 .works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
 .grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-.work-item { display: flex; flex-direction: column; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; padding: 35px; transition: background 0.８s ease-in-out; }
+.work-item { 
+    display: flex; 
+    flex-direction: column; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    aspect-ratio: 1/1; 
+    padding: 35px; 
+    transition: background-color 0.8s ease-in-out; 
+}
 .img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
 .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
 .work-item:hover .img-container img { transform: scale(1.08); }
@@ -204,7 +210,6 @@ h1, .banner h1, #proj-title {
 @media (max-width: 768px) {
     .fixed-sun-icon { width: 126px; left: -50px; }
     .sun-svg { width: 126px; }
-    
     .works-section { padding: 20px 5% 40px; }
     .grid { gap: 10px; }
     .work-item { padding: 15px; }
@@ -216,87 +221,13 @@ h1, .banner h1, #proj-title {
 }
 
 @media (max-width: 375px) {
-    .grid { 
-        grid-template-columns: 1fr; 
-    }
-    .work-item { 
-        aspect-ratio: auto; 
-        padding: 20px 10px;
-        border-bottom: 1px solid #f0f0f0; 
-    }
-    .banner h1 { 
-        font-size: 2.5rem !important;
-    }
+    .grid { grid-template-columns: 1fr; }
+    .work-item { aspect-ratio: auto; padding: 20px 10px; border-bottom: 1px solid #f0f0f0; }
+    .banner h1 { font-size: 2.5rem !important; }
 }
 
 .footer-bottom {
     padding: 40px 0;
     text-align: center;
     font-family: "Lora", serif;
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: #999;
-}
-
-/* --- Back to Top --- */
-.back-to-top {
-    position: fixed;
-    right: 40px;
-    bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    z-index: 100;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    transform: translateY(20px);
-    color: #1a1a1a;
-}
-
-.back-to-top svg line,
-.back-to-top svg polyline {
-    stroke: currentColor !important;
-}
-
-.back-to-top.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.btt-text {
-    font-family: "Lora", serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    writing-mode: vertical-rl;
-    margin-bottom: 15px;
-    color: #1a1a1a;
-}
-
-.btt-arrow {
-    width: 1px;
-    height: 40px;
-    background: #1a1a1a;
-    position: relative;
-    transition: height 0.4s ease;
-    color: #1a1a1a;
-}
-
-.btt-arrow svg {
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%) rotate(90deg); 
-    width: 30px;
-    color: #1a1a1a;
-}
-
-.back-to-top:hover .btt-arrow {
-    height: 60px;
-}
-
-@media (max-width: 768px) {
-    .back-to-top { right: 20px; bottom: 20px; }
-}
+    font-size:
