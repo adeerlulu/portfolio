@@ -1,4 +1,4 @@
-/* --- 保持原始樣式，修正 Work Item 過渡邏輯 --- */
+/* --- 保持您提供的原始樣式，僅同步 ID 與 變數 --- */
 html {
     scroll-behavior: smooth;
 }
@@ -41,11 +41,13 @@ h1, .banner h1, #proj-title {
     height: auto; 
     display: block; 
     fill: currentColor !important; 
+    /* 這裡同步 JS 傳入的旋轉變數，同時保留基礎過渡 */
     transform: rotate(var(--scroll-rotate, 0deg));
     transition: transform 0.1s ease-out; 
 }
 
 /* --- 3. Navigation --- */
+/* 同步 HTML 的 ID 使用 #main-nav */
 #main-nav {
     display: flex; 
     justify-content: space-between; 
@@ -114,19 +116,7 @@ h1, .banner h1, #proj-title {
 /* --- 5. Works Grid --- */
 .works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
 .grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-
-.work-item { 
-    display: flex; 
-    flex-direction: column; 
-    text-decoration: none; 
-    color: #1a1a1a; 
-    aspect-ratio: 1/1; 
-    padding: 35px;
-    background-color: transparent;
-    /* 核心修正：讓背景顏色支援 1.5s 淡出 */
-    transition: background-color 1.5s ease-in-out;
-}
-
+.work-item { display: flex; flex-direction: column; text-decoration: none; color: #1a1a1a; aspect-ratio: 1/1; padding: 35px; transition: background 0.８s ease-in-out; }
 .img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
 .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
 .work-item:hover .img-container img { transform: scale(1.08); }
@@ -214,6 +204,7 @@ h1, .banner h1, #proj-title {
 @media (max-width: 768px) {
     .fixed-sun-icon { width: 126px; left: -50px; }
     .sun-svg { width: 126px; }
+    
     .works-section { padding: 20px 5% 40px; }
     .grid { gap: 10px; }
     .work-item { padding: 15px; }
@@ -225,9 +216,17 @@ h1, .banner h1, #proj-title {
 }
 
 @media (max-width: 375px) {
-    .grid { grid-template-columns: 1fr; }
-    .work-item { aspect-ratio: auto; padding: 20px 10px; border-bottom: 1px solid #f0f0f0; }
-    .banner h1 { font-size: 2.5rem !important; }
+    .grid { 
+        grid-template-columns: 1fr; 
+    }
+    .work-item { 
+        aspect-ratio: auto; 
+        padding: 20px 10px;
+        border-bottom: 1px solid #f0f0f0; 
+    }
+    .banner h1 { 
+        font-size: 2.5rem !important;
+    }
 }
 
 .footer-bottom {
@@ -282,6 +281,7 @@ h1, .banner h1, #proj-title {
     background: #1a1a1a;
     position: relative;
     transition: height 0.4s ease;
+    color: #1a1a1a;
 }
 
 .btt-arrow svg {
