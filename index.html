@@ -176,7 +176,7 @@
 <footer class="contact-section" id="contact">
     <div class="container-700 reveal-section">
         <h2 class="contact-title">Contact us</h2>
-        <form id="contactForm" action="https://formspree.io/f/ayunina103@gmail.com" method="POST" class="contact-form">
+        <form id="contactForm" action="https://formspree.io/f/xlggeplo" method="POST" class="contact-form">
             
             <div class="form-row">
                 <div class="form-group">
@@ -200,7 +200,7 @@
             </div>
 
             <div class="captcha-row">
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0;">
                     <label>Verification Code</label>
                     <div class="captcha-input-group">
                         <span id="captchaDisplay"></span>
@@ -211,8 +211,8 @@
                     <button type="submit" class="submit-btn" id="submitBtn">
                         <span>送出訊息</span>
                         <svg class="arrow-icon" viewBox="0 0 50 12">
-                            <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.8" />
-                            <polyline points="43,1 48,6 43,11" fill="none" stroke="currentColor" stroke-width="0.8" />
+                            <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.5" />
+                            <polyline points="44,2 48,6 44,10" fill="none" stroke="currentColor" stroke-width="0.5" />
                         </svg>
                     </button>
                 </div>
@@ -222,12 +222,12 @@
 </footer>
 
 <style>
-    /* --- 1. Contact Title 動畫 --- */
+    /* --- 1. Contact Title 浮現動畫 --- */
     .reveal-section .contact-title {
         opacity: 0;
-        letter-spacing: 10px;
-        transform: translateY(20px);
-        transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        letter-spacing: 12px;
+        transform: translateY(30px);
+        transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1);
     }
     .reveal-section.active .contact-title {
         opacity: 1;
@@ -235,75 +235,90 @@
         transform: translateY(0);
     }
 
-    /* --- 2. 圓角按鈕與四色跳轉 --- */
+    /* --- 2. 圓角按鈕與隨機四色跳轉 --- */
     .submit-btn {
         background: #1a1a1a;
         color: #fff;
         border: 1px solid #1a1a1a;
-        padding: 10px 28px; /* 縮小尺寸符合文字 */
-        border-radius: 30px; /* 圓框 */
+        padding: 8px 24px;
+        border-radius: 40px; 
         font-size: 13px;
         font-family: "Noto Sans TC", sans-serif;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 12px;
-        transition: all 0.5s ease;
+        gap: 15px;
+        transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         position: relative;
+        overflow: hidden;
     }
 
-    /* 四色循環跳轉預設配色 (滑過時) */
-    .submit-btn:hover {
-        background: #f4f1ea; /* 米白 */
-        color: #1a1a1a;
-        border-color: #d1cfc7;
-    }
-    
-    /* 這裡可以透過 JS 或 CSS 動畫實作多色，我們先設一個優雅的米褐色轉場 */
-    .submit-btn:active {
-        background: #e2e2e2; /* 冷灰 */
-    }
-
-    /* 極細長箭頭 */
+    /* 極細箭頭樣式 */
     .arrow-icon {
-        width: 35px;
-        height: 10px;
-        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        width: 40px;
+        height: 12px;
+        transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
     }
     .submit-btn:hover .arrow-icon {
-        transform: translateX(8px);
+        transform: translateX(10px);
     }
 
-    /* --- 其他樣式修正 --- */
-    .contact-section { padding: 120px 5%; background: #fff; scroll-margin-top: 80px; }
+    /* --- 3. 表單細節修正 --- */
+    .contact-section { padding: 120px 5%; background: #fff; scroll-margin-top: 100px; }
     .container-700 { max-width: 700px; margin: 0 auto; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
     .form-group { margin-bottom: 35px; }
-    .form-group label { font-size: 10px; color: #aaa; letter-spacing: 1px; display: block; margin-bottom: 8px; }
-    .form-group input, .form-group textarea { width: 100%; border: none; border-bottom: 1px solid #e0e0e0; padding: 8px 0; font-size: 14px; outline: none; background: transparent; }
+    .form-group label { font-size: 10px; color: #bbb; letter-spacing: 1.5px; display: block; margin-bottom: 10px; text-transform: uppercase; }
+    .form-group input, .form-group textarea { width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 14px; outline: none; background: transparent; transition: border-color 0.4s; border-radius: 0; }
+    .form-group input:focus { border-bottom: 1px solid #1a1a1a; }
     
-    #captchaDisplay { font-family: "Lora", serif; font-style: italic; color: #999; background: #f9f9f9; padding: 4px 12px; border: 1px solid #eee; margin-right: 10px; }
-    #captchaInput { width: 80px; text-align: center; }
+    #captchaDisplay { font-family: "Lora", serif; font-style: italic; color: #aaa; background: #fdfdfd; padding: 4px 15px; border: 1px solid #f0f0f0; margin-right: 15px; letter-spacing: 3px; }
+    #captchaInput { width: 80px; text-align: center; border-bottom: 1px solid #eee; }
     .captcha-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
 
-    @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .captcha-row { flex-direction: column; align-items: flex-start; gap: 20px; } }
+    @media (max-width: 768px) { 
+        .form-row { grid-template-columns: 1fr; gap: 0; } 
+        .captcha-row { flex-direction: column; align-items: flex-start; gap: 30px; }
+        .submit-btn { width: 100%; justify-content: center; }
+    }
 </style>
 
 <script>
     let currentCaptcha = "";
+    const brandColors = [
+        { bg: '#f4f1ea', text: '#1a1a1a', border: '#d1cfc7' }, // 米白
+        { bg: '#e2e2e2', text: '#1a1a1a', border: '#cccccc' }, // 冷灰
+        { bg: '#d7c4b7', text: '#fff', border: '#c5b0a2' },    // 淺褐
+        { bg: '#1a1a1a', text: '#fff', border: '#1a1a1a' }     // 深黑
+    ];
 
     function generateCaptcha() {
         const chars = "0123456789";
         let result = "";
         for (let i = 0; i < 4; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
         currentCaptcha = result;
-        if(document.getElementById('captchaDisplay')) document.getElementById('captchaDisplay').innerText = result;
+        const display = document.getElementById('captchaDisplay');
+        if(display) display.innerText = result;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
         generateCaptcha();
 
-        // 啟動浮現動畫
+        // 隨機跳轉顏色功能
+        const btn = document.getElementById('submitBtn');
+        btn.addEventListener('mouseenter', () => {
+            const randomColor = brandColors[Math.floor(Math.random() * (brandColors.length - 1))]; // 排除最後一個黑色
+            btn.style.backgroundColor = randomColor.bg;
+            btn.style.color = randomColor.text;
+            btn.style.borderColor = randomColor.border;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.backgroundColor = '#1a1a1a';
+            btn.style.color = '#fff';
+            btn.style.borderColor = '#1a1a1a';
+        });
+
+        // 浮現動畫偵測
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -311,20 +326,19 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
 
-        // 表單送出邏輯
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', async function(e) {
+        // 表單送出
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             if (document.getElementById('captchaInput').value !== currentCaptcha) {
                 alert("驗證碼錯誤");
                 generateCaptcha();
                 return;
             }
 
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = "傳送中...";
-            btn.disabled = true;
+            const submitBtn = document.getElementById('submitBtn');
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.innerText = "SENDING...";
+            submitBtn.disabled = true;
 
             try {
                 const response = await fetch(this.action, {
@@ -332,90 +346,21 @@
                     body: new FormData(this),
                     headers: { 'Accept': 'application/json' }
                 });
-
                 if (response.ok) {
                     alert("送出成功！我們會盡快與您聯繫。");
                     this.reset();
                     generateCaptcha();
                 } else {
-                    const data = await response.json();
-                    alert("送出失敗: " + (data.errors ? data.errors[0].message : "原因不明"));
+                    alert("目前無法送出，請檢查 Formspree 設定。");
                 }
             } catch (error) {
                 alert("網路異常，請稍後再試。");
             } finally {
-                btn.innerHTML = `<span>送出訊息</span><svg class="arrow-icon" viewBox="0 0 50 12"><line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.8" /><polyline points="43,1 48,6 43,11" fill="none" stroke="currentColor" stroke-width="0.8" /></svg>`;
-                btn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+                submitBtn.disabled = false;
             }
         });
     });
 </script>
-
-    <script src="data.js"></script>
-    <script src="script.js"></script>
-
-    <script>
-        let currentCaptcha = "";
-
-        // 生成驗證碼
-        function generateCaptcha() {
-            const chars = "0123456789";
-            let result = "";
-            for (let i = 0; i < 4; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            currentCaptcha = result;
-            const display = document.getElementById('captchaDisplay');
-            if (display) {
-                display.innerText = result;
-            }
-        }
-
-        // 監聽表單送出
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const userInput = document.getElementById('captchaInput').value;
-            
-            if (userInput !== currentCaptcha) {
-                alert("驗證碼錯誤，請重新輸入。");
-                generateCaptcha();
-                document.getElementById('captchaInput').value = "";
-                return;
-            }
-
-            const form = e.target;
-            const data = new FormData(form);
-            const button = form.querySelector('.submit-btn');
-            const originalText = button.innerText;
-            
-            button.innerText = "Sending...";
-            button.disabled = true;
-
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (response.ok) {
-                    alert("送出成功！我們會盡快與您聯繫。");
-                    form.reset();
-                    generateCaptcha();
-                } else {
-                    alert("抱歉，送出失敗，請稍後再試。");
-                }
-            } catch (error) {
-                alert("網路連線異常，請稍後再試。");
-            } finally {
-                button.innerText = originalText;
-                button.disabled = false;
-            }
-        });
-
-        // 頁面載入時生成驗證碼
-        document.addEventListener('DOMContentLoaded', generateCaptcha);
-    </script>
 </body>
 </html>
