@@ -7,27 +7,58 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Layout & Basic --- */
+        /* --- Works 專屬佈局 --- */
         .container-1024 { max-width: 1024px; margin: 0 auto; padding: 0 40px; }
-        .project-container { padding-top: 180px; } 
-        .project-info { text-align: left; margin-bottom: 60px; }
+        .project-container { padding-top: 180px; min-height: 100vh; } 
+        .project-info { text-align: left; margin-bottom: 80px; }
 
-        /* --- Image Protection --- */
+        /* --- 圖片保護與質感 --- */
         img { 
             -webkit-user-drag: none; 
             user-select: none;
-            pointer-events: none; 
+            /* 允許點擊但防止拖曳，確保滾動流暢 */
+            pointer-events: auto; 
         }
 
-        /* --- Typography --- */
-        #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
-        #proj-title { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 400; margin: 0; line-height: 1.1; font-family: "Lora", serif; }
+        /* --- 字體與細節 --- */
+        #proj-category { 
+            font-size: 13px; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            color: #999; 
+            display: block; 
+            margin-bottom: 12px; 
+            font-family: "Lora", serif; 
+        }
 
-        /* Animation: Black Line (Title) */
-        .title-wrapper { position: relative; display: inline-block; margin-bottom: 35px; }
+        #proj-title { 
+            font-size: clamp(2rem, 5vw, 3.5rem); 
+            font-weight: 300; 
+            margin: 0; 
+            line-height: 1.1; 
+            font-family: 'Cormorant Garamond', serif !important; 
+        }
+
+        /* 標籤容器樣式 (同步 index.html) */
+        .proj-tags-container {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0 40px;
+        }
+        .proj-tags-container .tag {
+            font-size: 11px;
+            padding: 4px 12px;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        /* 標題底線動畫 */
+        .title-wrapper { position: relative; display: inline-block; }
         .title-line { 
             position: absolute; bottom: -12px; left: 0; 
             height: 1px; background: #1a1a1a; width: 0;
@@ -36,18 +67,27 @@
         }
         @keyframes lineReveal { from { width: 0; } to { width: 100%; } }
 
-        #proj-desc { font-size: 14px; line-height: 2.2; color: #333; white-space: pre-line; max-width: 750px; font-family: "Lora", serif; }
+        #proj-desc { 
+            font-size: 15px; 
+            line-height: 2; 
+            color: #444; 
+            white-space: pre-line; 
+            max-width: 800px; 
+            font-family: "Noto Sans TC", sans-serif; 
+            font-weight: 300;
+        }
 
-        /* --- Scroll Reveal Animation --- */
+        /* --- 畫廊滾動顯現 --- */
         .gallery-item { 
             width: 100%; 
             height: auto; 
-            margin-bottom: 60px; 
+            margin-bottom: 80px; 
             display: block; 
             opacity: 0; 
-            transform: translateY(30px); 
-            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
-                        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(40px); 
+            transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            background: #fcfcfc;
         }
 
         .gallery-item.reveal {
@@ -55,71 +95,48 @@
             transform: translateY(0);
         }
 
-        /* --- More Works Section (Auto-scroll) --- */
+        /* --- More Works Section --- */
         .more-works-section { 
-            margin-top: 100px; 
-            padding-top: 60px; 
-            border-top: 1px solid #eee; 
-            margin-bottom: 80px;
+            margin-top: 150px; 
+            padding: 80px 0; 
+            border-top: 1px solid #f0f0f0; 
             overflow: hidden; 
         }
         
         .more-works-title { 
-            font-size: 14px; 
-            letter-spacing: 3px; 
+            font-size: 13px; 
+            letter-spacing: 4px; 
             text-transform: uppercase; 
             margin-bottom: 50px; 
-            font-weight: 600; 
+            font-weight: 500; 
             font-family: "Lora", serif; 
-            display: inline-block;
-            position: relative;
             color: #1a1a1a;
-        }
-        
-        .more-works-title::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 30px; 
-            height: 1px;
-            background: #1a1a1a;
-            transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+            text-align: center;
         }
 
-        .more-works-section:hover .more-works-title::after {
-            width: 100%;
-        }
-
-        /* 滾動容器設定 */
         .more-grid-wrapper {
             overflow-x: auto;
             white-space: nowrap;
-            padding-bottom: 40px; /* 增加底部空間 */
+            padding: 20px 0;
             scrollbar-width: none; 
-            -ms-overflow-style: none;
+            cursor: grab;
         }
+        .more-grid-wrapper:active { cursor: grabbing; }
         .more-grid-wrapper::-webkit-scrollbar { display: none; } 
 
-        .more-grid { 
-            display: inline-flex; 
-            gap: 20px; 
-        }
+        .more-grid { display: inline-flex; gap: 30px; }
 
         .more-item { 
             text-decoration: none; 
             display: inline-block;
-            transition: opacity 0.3s;
-            width: 350px; /* 調整圖片寬度讓滾動更密集 */
-            vertical-align: top;
+            width: 400px;
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
         }
         
-        .more-item:hover { opacity: 0.85; }
-        
         .more-item .img-box { 
-            aspect-ratio: 3/2; 
+            aspect-ratio: 16/10; 
             overflow: hidden; 
-            background: #f5f5f5; 
+            background: #f9f9f9; 
         }
         
         .more-item img { 
@@ -130,123 +147,122 @@
             transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); 
         }
         
-        .more-item:hover img { transform: scale(1.05); }
+        .more-item:hover img { transform: scale(1.08); }
 
         @media (max-width: 768px) {
-            .container-1024 { padding: 0 20px; }
-            .more-item { width: 75vw; } /* 手機版寬度 */
-            .more-grid { gap: 15px; }
+            .project-container { padding-top: 120px; }
+            .container-1024 { padding: 0 25px; }
+            .more-item { width: 80vw; }
+            #proj-title { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <nav>
-        <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
-        <div class="nav-links"><a href="index.html">Back to Works</a></div>
+    <nav id="works-nav">
+        <div class="logo"><a href="index.html">+1 DESIGN</a></div>
+        <div class="nav-links"><a href="index.html#works">Close Project</a></div>
     </nav>
 
     <main class="project-container">
         <section class="project-info container-1024">
-            <span id="proj-category"></span>
+            <span id="proj-category">Category</span>
             <div class="title-wrapper">
-                <h1 id="proj-title"></h1>
+                <h1 id="proj-title">Project Title</h1>
                 <div class="title-line"></div>
             </div>
-            <p id="proj-desc"></p>
+            
+            <div id="proj-tags" class="proj-tags-container"></div>
+            
+            <p id="proj-desc">Description loading...</p>
         </section>
 
         <section id="proj-gallery" class="container-1024"></section>
 
-        <section class="more-works-section container-1024">
-            <h2 class="more-works-title">More Works</h2>
+        <section class="more-works-section">
+            <h2 class="more-works-title">Continue Exploring</h2>
             <div class="more-grid-wrapper" id="moreScrollWrapper">
                 <div id="more-works-grid" class="more-grid"></div>
             </div>
         </section>
     </main>
 
+    <footer class="footer-bottom">
+        &copy; 2026 +1 DESIGN. All Rights Reserved.
+    </footer>
+
     <script src="data.js"></script>
-    <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // 1. 防拖拽
             document.addEventListener('dragstart', (e) => { if (e.target.nodeName === 'IMG') e.preventDefault(); });
 
+            // 2. 導覽列滾動效果 (複刻主頁邏輯)
+            const nav = document.getElementById('works-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) nav.classList.add('scrolled');
+                else nav.classList.remove('scrolled');
+            });
+
+            // 3. 獲取專案 ID
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
 
             if (window.projectData) {
                 const project = window.projectData.find(p => p.id === projectID);
+                
                 if (project) {
+                    // 更新內容
                     document.title = `${project.title} | +1 Design`;
                     document.getElementById('proj-title').innerText = project.title;
                     document.getElementById('proj-category').innerText = project.category;
                     document.getElementById('proj-desc').innerText = project.description;
 
+                    // 渲染標籤
+                    const tagsContainer = document.getElementById('proj-tags');
+                    if (project.tags) {
+                        tagsContainer.innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                    }
+
+                    // 渲染畫廊圖片
                     const gallery = document.getElementById('proj-gallery');
-                    if (project.details) {
+                    if (project.details && project.details.length > 0) {
                         project.details.forEach(imgSrc => {
                             const img = document.createElement('img');
                             img.src = imgSrc;
                             img.className = "gallery-item";
+                            img.alt = project.title;
+                            // 錯誤處理：如果大圖不存在，顯示預覽圖
+                            img.onerror = () => { img.src = project.image; };
                             gallery.appendChild(img);
                         });
                         initScrollReveal();
                     }
 
-                    // --- More Works 渲染 (純圖片版) ---
-                    const moreGrid = document.getElementById('more-works-grid');
-                    const scrollWrapper = document.getElementById('moreScrollWrapper');
-                    const otherProjects = window.projectData.filter(p => p.id !== projectID);
-                    
-                    // 複製兩次內容以達成無縫循環
-                    const projectsToDisplay = [...otherProjects, ...otherProjects]; 
-
-                    projectsToDisplay.forEach(p => {
-                        const item = document.createElement('a');
-                        item.href = `works.html?id=${p.id}`; 
-                        item.className = 'more-item';
-                        // 只保留 img-box，移除了 h3 和 p
-                        item.innerHTML = `
-                            <div class="img-box"><img src="${p.image}" alt="${p.title}"></div>
-                        `;
-                        moreGrid.appendChild(item);
-                    });
-
-                    // 自動滾動邏輯
-                    let isHovered = false;
-                    scrollWrapper.addEventListener('mouseenter', () => isHovered = true);
-                    scrollWrapper.addEventListener('mouseleave', () => isHovered = false);
-
-                    function autoScroll() {
-                        if (!isHovered) {
-                            scrollWrapper.scrollLeft += 0.6; // 稍微調慢一點點，增加優雅感
-                            if (scrollWrapper.scrollLeft >= moreGrid.scrollWidth / 2) {
-                                scrollWrapper.scrollLeft = 0;
-                            }
-                        }
-                        requestAnimationFrame(autoScroll);
-                    }
-                    setTimeout(autoScroll, 1000);
+                    // 渲染 "More Works"
+                    renderMoreWorks(projectID);
 
                 } else {
                     window.location.href = 'index.html';
                 }
             }
 
-            function initScrollReveal() {
-                const observerOptions = { threshold: 0.1 };
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('reveal');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-                document.querySelectorAll('.gallery-item').forEach(img => observer.observe(img));
-            }
-        });
-    </script>
-</body>
-</html>
+            // 推薦專案渲染邏輯
+            function renderMoreWorks(currentID) {
+                const moreGrid = document.getElementById('more-works-grid');
+                const scrollWrapper = document.getElementById('moreScrollWrapper');
+                const others = window.projectData.filter(p => p.id !== currentID);
+                
+                // 兩倍長度達成平滑循環
+                const displayList = [...others, ...others];
+
+                displayList.forEach(p => {
+                    const item = document.createElement('a');
+                    item.href = `works.html?id=${p.id}`; 
+                    item.className = 'more-item';
+                    item.innerHTML = `<div class="img-box"><img src="${p.image}" alt="${p.title}"></div>`;
+                    moreGrid.appendChild(item);
+                });
+
+                // 自動滾動邏輯
+                let isHovered = false;
