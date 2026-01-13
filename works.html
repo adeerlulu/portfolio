@@ -7,58 +7,24 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Works 專屬佈局 --- */
+        /* --- 作品頁專屬細節樣式 (不影響全局 style.css) --- */
         .container-1024 { max-width: 1024px; margin: 0 auto; padding: 0 40px; }
-        .project-container { padding-top: 180px; min-height: 100vh; } 
-        .project-info { text-align: left; margin-bottom: 80px; }
+        .project-container { padding-top: 180px; } 
+        .project-info { text-align: left; margin-bottom: 60px; }
 
-        /* --- 圖片保護與質感 --- */
-        img { 
-            -webkit-user-drag: none; 
-            user-select: none;
-            /* 允許點擊但防止拖曳，確保滾動流暢 */
-            pointer-events: auto; 
-        }
+        /* 圖片保護 */
+        img { -webkit-user-drag: none; user-select: none; }
 
-        /* --- 字體與細節 --- */
-        #proj-category { 
-            font-size: 13px; 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-            color: #999; 
-            display: block; 
-            margin-bottom: 12px; 
-            font-family: "Lora", serif; 
-        }
+        /* 文字排版 */
+        #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
+        #proj-title { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 400; margin: 0; line-height: 1.1; font-family: "Lora", serif; }
 
-        #proj-title { 
-            font-size: clamp(2rem, 5vw, 3.5rem); 
-            font-weight: 300; 
-            margin: 0; 
-            line-height: 1.1; 
-            font-family: 'Cormorant Garamond', serif !important; 
-        }
-
-        /* 標籤容器樣式 (同步 index.html) */
-        .proj-tags-container {
-            display: flex;
-            gap: 10px;
-            margin: 25px 0 40px;
-        }
-        .proj-tags-container .tag {
-            font-size: 11px;
-            padding: 4px 12px;
-            border: 1px solid #eee;
-            border-radius: 20px;
-            color: #666;
-            letter-spacing: 1px;
-        }
-
-        /* 標題底線動畫 */
-        .title-wrapper { position: relative; display: inline-block; }
+        /* 標題黑線動畫 */
+        .title-wrapper { position: relative; display: inline-block; margin-bottom: 35px; }
         .title-line { 
             position: absolute; bottom: -12px; left: 0; 
             height: 1px; background: #1a1a1a; width: 0;
@@ -67,202 +33,167 @@
         }
         @keyframes lineReveal { from { width: 0; } to { width: 100%; } }
 
-        #proj-desc { 
-            font-size: 15px; 
-            line-height: 2; 
-            color: #444; 
-            white-space: pre-line; 
-            max-width: 800px; 
-            font-family: "Noto Sans TC", sans-serif; 
-            font-weight: 300;
-        }
+        #proj-desc { font-size: 14px; line-height: 2.2; color: #333; white-space: pre-line; max-width: 750px; font-family: "Lora", serif; }
 
-        /* --- 畫廊滾動顯現 --- */
+        /* 圖片捲動顯現特效 */
         .gallery-item { 
-            width: 100%; 
-            height: auto; 
-            margin-bottom: 80px; 
-            display: block; 
-            opacity: 0; 
-            transform: translateY(40px); 
-            transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
-                        transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-            background: #fcfcfc;
+            width: 100%; height: auto; margin-bottom: 60px; display: block; 
+            opacity: 0; transform: translateY(30px); 
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .gallery-item.reveal { opacity: 1; transform: translateY(0); }
 
-        .gallery-item.reveal {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* More Works 區塊 */
+        .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 80px; overflow: hidden; }
+        .more-works-title { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 50px; font-weight: 600; font-family: "Lora", serif; display: inline-block; position: relative; color: #1a1a1a; }
+        .more-works-title::after { content: ""; position: absolute; left: 0; bottom: -8px; width: 30px; height: 1px; background: #1a1a1a; transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1); }
+        .more-works-section:hover .more-works-title::after { width: 100%; }
 
-        /* --- More Works Section --- */
-        .more-works-section { 
-            margin-top: 150px; 
-            padding: 80px 0; 
-            border-top: 1px solid #f0f0f0; 
-            overflow: hidden; 
-        }
-        
-        .more-works-title { 
-            font-size: 13px; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            margin-bottom: 50px; 
-            font-weight: 500; 
-            font-family: "Lora", serif; 
-            color: #1a1a1a;
-            text-align: center;
-        }
-
-        .more-grid-wrapper {
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 20px 0;
-            scrollbar-width: none; 
-            cursor: grab;
-        }
-        .more-grid-wrapper:active { cursor: grabbing; }
+        /* 橫向滾動容器 */
+        .more-grid-wrapper { overflow-x: auto; white-space: nowrap; padding-bottom: 40px; scrollbar-width: none; -ms-overflow-style: none; }
         .more-grid-wrapper::-webkit-scrollbar { display: none; } 
-
-        .more-grid { display: inline-flex; gap: 30px; }
-
-        .more-item { 
-            text-decoration: none; 
-            display: inline-block;
-            width: 400px;
-            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        
-        .more-item .img-box { 
-            aspect-ratio: 16/10; 
-            overflow: hidden; 
-            background: #f9f9f9; 
-        }
-        
-        .more-item img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            display: block; 
-            transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); 
-        }
-        
-        .more-item:hover img { transform: scale(1.08); }
+        .more-grid { display: inline-flex; gap: 20px; }
+        .more-item { text-decoration: none; display: inline-block; width: 350px; vertical-align: top; }
+        .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; background: #f5f5f5; }
+        .more-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); pointer-events: auto !important; }
+        .more-item:hover img { transform: scale(1.05); }
 
         @media (max-width: 768px) {
-            .project-container { padding-top: 120px; }
-            .container-1024 { padding: 0 25px; }
-            .more-item { width: 80vw; }
-            #proj-title { font-size: 2.2rem; }
+            .container-1024 { padding: 0 20px; }
+            .more-item { width: 75vw; }
+            .more-grid { gap: 15px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <nav id="works-nav">
-        <div class="logo"><a href="index.html">+1 DESIGN</a></div>
-        <div class="nav-links"><a href="index.html#works">Close Project</a></div>
+    <div class="fixed-sun-icon">
+        <svg class="sun-svg" viewBox="0 0 100 100">
+            <path d="M50 10 L52 35 L75 25 L65 48 L90 50 L65 52 L75 75 L52 65 L50 90 L48 65 L25 75 L35 52 L10 50 L35 48 L25 25 L48 35 Z" />
+        </svg>
+    </div>
+
+    <nav id="main-nav">
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
+        <div class="nav-links">
+            <a href="index.html#works">Back to Works</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
     </nav>
 
     <main class="project-container">
         <section class="project-info container-1024">
-            <span id="proj-category">Category</span>
+            <span id="proj-category"></span>
             <div class="title-wrapper">
-                <h1 id="proj-title">Project Title</h1>
+                <h1 id="proj-title"></h1>
                 <div class="title-line"></div>
             </div>
-            
-            <div id="proj-tags" class="proj-tags-container"></div>
-            
-            <p id="proj-desc">Description loading...</p>
+            <p id="proj-desc"></p>
         </section>
 
         <section id="proj-gallery" class="container-1024"></section>
 
-        <section class="more-works-section">
-            <h2 class="more-works-title">Continue Exploring</h2>
+        <section class="more-works-section container-1024">
+            <h2 class="more-works-title">More Works</h2>
             <div class="more-grid-wrapper" id="moreScrollWrapper">
                 <div id="more-works-grid" class="more-grid"></div>
             </div>
         </section>
     </main>
 
+    <div class="back-to-top" id="backToTop">
+        <span class="btt-text">BACK TO TOP</span>
+        <div class="btt-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </div>
+    </div>
+
     <footer class="footer-bottom">
-        &copy; 2026 +1 DESIGN. All Rights Reserved.
+        &copy; 2024 +1 DESIGN. All Rights Reserved.
     </footer>
 
     <script src="data.js"></script>
+    <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. 防拖拽
+            // 禁止圖片拖拽
             document.addEventListener('dragstart', (e) => { if (e.target.nodeName === 'IMG') e.preventDefault(); });
 
-            // 2. 導覽列滾動效果 (複刻主頁邏輯)
-            const nav = document.getElementById('works-nav');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) nav.classList.add('scrolled');
-                else nav.classList.remove('scrolled');
-            });
-
-            // 3. 獲取專案 ID
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
 
             if (window.projectData) {
                 const project = window.projectData.find(p => p.id === projectID);
-                
                 if (project) {
-                    // 更新內容
+                    // 填充內容
                     document.title = `${project.title} | +1 Design`;
                     document.getElementById('proj-title').innerText = project.title;
                     document.getElementById('proj-category').innerText = project.category;
                     document.getElementById('proj-desc').innerText = project.description;
 
-                    // 渲染標籤
-                    const tagsContainer = document.getElementById('proj-tags');
-                    if (project.tags) {
-                        tagsContainer.innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-                    }
-
-                    // 渲染畫廊圖片
+                    // 渲染詳情圖片
                     const gallery = document.getElementById('proj-gallery');
-                    if (project.details && project.details.length > 0) {
+                    if (project.details) {
                         project.details.forEach(imgSrc => {
                             const img = document.createElement('img');
                             img.src = imgSrc;
                             img.className = "gallery-item";
-                            img.alt = project.title;
-                            // 錯誤處理：如果大圖不存在，顯示預覽圖
-                            img.onerror = () => { img.src = project.image; };
                             gallery.appendChild(img);
                         });
                         initScrollReveal();
                     }
 
-                    // 渲染 "More Works"
-                    renderMoreWorks(projectID);
+                    // --- More Works 渲染 ---
+                    const moreGrid = document.getElementById('more-works-grid');
+                    const scrollWrapper = document.getElementById('moreScrollWrapper');
+                    const otherProjects = window.projectData.filter(p => p.id !== projectID);
+                    
+                    // 複製兩次達成無縫循環
+                    const projectsToDisplay = [...otherProjects, ...otherProjects]; 
+
+                    projectsToDisplay.forEach(p => {
+                        const item = document.createElement('a');
+                        item.href = `works.html?id=${p.id}`; 
+                        item.className = 'more-item';
+                        item.innerHTML = `<div class="img-box"><img src="${p.image}" alt="${p.title}"></div>`;
+                        moreGrid.appendChild(item);
+                    });
+
+                    // 自動滾動邏輯
+                    let isHovered = false;
+                    scrollWrapper.addEventListener('mouseenter', () => isHovered = true);
+                    scrollWrapper.addEventListener('mouseleave', () => isHovered = false);
+
+                    function autoScroll() {
+                        if (!isHovered) {
+                            scrollWrapper.scrollLeft += 0.6; 
+                            if (scrollWrapper.scrollLeft >= moreGrid.scrollWidth / 2) {
+                                scrollWrapper.scrollLeft = 0;
+                            }
+                        }
+                        requestAnimationFrame(autoScroll);
+                    }
+                    setTimeout(autoScroll, 1000);
 
                 } else {
                     window.location.href = 'index.html';
                 }
             }
 
-            // 推薦專案渲染邏輯
-            function renderMoreWorks(currentID) {
-                const moreGrid = document.getElementById('more-works-grid');
-                const scrollWrapper = document.getElementById('moreScrollWrapper');
-                const others = window.projectData.filter(p => p.id !== currentID);
-                
-                // 兩倍長度達成平滑循環
-                const displayList = [...others, ...others];
-
-                displayList.forEach(p => {
-                    const item = document.createElement('a');
-                    item.href = `works.html?id=${p.id}`; 
-                    item.className = 'more-item';
-                    item.innerHTML = `<div class="img-box"><img src="${p.image}" alt="${p.title}"></div>`;
-                    moreGrid.appendChild(item);
-                });
-
-                // 自動滾動邏輯
-                let isHovered = false;
+            // 圖片漸顯偵測
+            function initScrollReveal() {
+                const observerOptions = { threshold: 0.1 };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('reveal');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                document.querySelectorAll('.gallery-item').forEach(img => observer.observe(img));
+            }
+        });
+    </script>
+</body>
+</html>
