@@ -1,4 +1,4 @@
-/* --- 保持您提供的原始樣式，僅針對 Work Item 動畫邏輯進行修正 --- */
+/* --- 保持原始樣式，修正 Work Item 過渡邏輯 --- */
 html {
     scroll-behavior: smooth;
 }
@@ -111,7 +111,7 @@ h1, .banner h1, #proj-title {
 .banner h1 span:hover:nth-child(4n+4) { color: #34A853; }
 .banner p { font-size: 16px; color: #666; max-width: 650px; line-height: 1.8; }
 
-/* --- 5. Works Grid (修正重點) --- */
+/* --- 5. Works Grid --- */
 .works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
 .grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
 
@@ -122,25 +122,9 @@ h1, .banner h1, #proj-title {
     color: #1a1a1a; 
     aspect-ratio: 1/1; 
     padding: 35px;
-    position: relative; /* 必須為相對定位 */
-    z-index: 1;
-    background: transparent !important; /* 移除 JS 產生的背景干擾 */
-}
-
-/* 建立偽元素層處理背景動畫 */
-.work-item::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--hover-bg, transparent); /* 接收 JS 傳入的漸層顏色 */
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out; /* 這裡設定消失的秒數 */
-    z-index: -1;
-}
-
-.work-item:hover::after {
-    opacity: 1;
-    transition: opacity 0.3s ease; /* 進入時快一點 */
+    background-color: transparent;
+    /* 核心修正：讓背景顏色支援 1.5s 淡出 */
+    transition: background-color 1.5s ease-in-out;
 }
 
 .img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
@@ -230,7 +214,6 @@ h1, .banner h1, #proj-title {
 @media (max-width: 768px) {
     .fixed-sun-icon { width: 126px; left: -50px; }
     .sun-svg { width: 126px; }
-    
     .works-section { padding: 20px 5% 40px; }
     .grid { gap: 10px; }
     .work-item { padding: 15px; }
@@ -242,17 +225,9 @@ h1, .banner h1, #proj-title {
 }
 
 @media (max-width: 375px) {
-    .grid { 
-        grid-template-columns: 1fr; 
-    }
-    .work-item { 
-        aspect-ratio: auto; 
-        padding: 20px 10px;
-        border-bottom: 1px solid #f0f0f0; 
-    }
-    .banner h1 { 
-        font-size: 2.5rem !important;
-    }
+    .grid { grid-template-columns: 1fr; }
+    .work-item { aspect-ratio: auto; padding: 20px 10px; border-bottom: 1px solid #f0f0f0; }
+    .banner h1 { font-size: 2.5rem !important; }
 }
 
 .footer-bottom {
@@ -307,7 +282,6 @@ h1, .banner h1, #proj-title {
     background: #1a1a1a;
     position: relative;
     transition: height 0.4s ease;
-    color: #1a1a1a;
 }
 
 .btt-arrow svg {
