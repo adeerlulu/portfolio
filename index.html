@@ -68,35 +68,35 @@
             <form id="contactForm" action="https://formspree.io/f/xlggeplo" method="POST" class="contact-form" autocomplete="off" novalidate>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" placeholder="聯絡人">
+                        <label for="nameInput">Name</label>
+                        <input type="text" id="nameInput" name="name" placeholder="聯絡人">
                         <div class="error-message">此欄位為必填 Please fill in your name</div>
                     </div>
                     <div class="form-group">
-                        <label>LINE ID</label>
-                        <input type="text" name="line_id" placeholder="選填">
+                        <label for="lineInput">LINE ID</label>
+                        <input type="text" id="lineInput" name="line_id" placeholder="選填">
                         <div class="error-message"></div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="電子信箱">
+                    <label for="emailInput">Email</label>
+                    <input type="email" id="emailInput" name="email" placeholder="電子信箱">
                     <div class="error-message">請輸入正確的 Email 格式 Invalid email address</div>
                 </div>
 
                 <div class="form-group">
-                    <label>Message</label>
-                    <textarea name="message" rows="2" placeholder="請輸入欲洽詢內容"></textarea>
+                    <label for="messageInput">Message</label>
+                    <textarea id="messageInput" name="message" rows="2" placeholder="請輸入欲洽詢內容"></textarea>
                     <div class="error-message">請輸入訊息內容 Please leave a message</div>
                 </div>
 
                 <div class="captcha-row">
                     <div class="form-group" style="margin-bottom: 0;">
-                        <label>Verification Code</label>
+                        <label for="captchaInput">Verification Code</label>
                         <div class="captcha-input-group">
                             <span id="captchaDisplay"></span>
-                            <input type="text" id="captchaInput" placeholder="驗證碼" style="width: 100px;">
+                            <input type="text" id="captchaInput" name="captcha" placeholder="驗證碼" style="width: 100px;">
                         </div>
                         <div class="error-message">驗證碼錯誤 Captcha incorrect</div>
                     </div>
@@ -141,20 +141,15 @@
     <script src="script.js"></script>
 
     <script>
-        /**
-         * 頁面專屬邏輯 (表單、驗證碼、太陽自動旋轉)
-         */
         let currentCaptcha = "";
         const brandColors = ['#d7c4b7', '#1a1a1a', '#4285F4', '#EA4335'];
 
-        // 1. 太陽自動旋轉與滾動旋轉疊加
         function initSunRotation() {
             const sun = document.querySelector('.sun-svg');
             if (!sun) return;
             let autoRotation = 0;
             function animate() {
                 autoRotation += 0.4;
-                // 從 script.js 獲取捲動產生的變數
                 const scrollRotate = parseFloat(sun.style.getPropertyValue('--scroll-rotate')) || 0;
                 sun.style.transform = `rotate(${autoRotation + scrollRotate}deg)`;
                 requestAnimationFrame(animate);
@@ -162,7 +157,6 @@
             animate();
         }
 
-        // 2. 驗證碼生成 (數字)
         function generateCaptcha() {
             const chars = "0123456789";
             let result = "";
@@ -175,7 +169,6 @@
             }
         }
 
-        // 3. 跳窗控制
         function showModal(title, text) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalText').innerText = text;
@@ -183,7 +176,6 @@
         }
         function closeModal() { document.getElementById('infoModal').classList.remove('active'); }
 
-        // 4. 初始化與表單事件
         document.addEventListener('DOMContentLoaded', () => {
             initSunRotation();
             generateCaptcha();
@@ -194,12 +186,11 @@
                     e.preventDefault();
                     let hasError = false;
 
-                    // 重置錯誤狀態
                     document.querySelectorAll('.form-group').forEach(el => el.classList.remove('error'));
 
-                    const name = this.querySelector('[name="name"]');
-                    const email = this.querySelector('[name="email"]');
-                    const message = this.querySelector('[name="message"]');
+                    const name = document.getElementById('nameInput');
+                    const email = document.getElementById('emailInput');
+                    const message = document.getElementById('messageInput');
                     const captchaInput = document.getElementById('captchaInput');
 
                     if (!name.value.trim()) { name.parentElement.classList.add('error'); hasError = true; }
