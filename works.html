@@ -7,49 +7,43 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     
     <style>
         /* --- Layout & Basic --- */
         .container-1024 { max-width: 1024px; margin: 0 auto; padding: 0 40px; }
-        .project-container { padding-top: 140px; }
-        .project-hero { margin-bottom: 60px; }
-        .project-info { text-align: left; margin-bottom: 80px; }
+        /* Adjusted padding for header-first look */
+        .project-container { padding-top: 180px; } 
+        .project-info { text-align: left; margin-bottom: 100px; }
 
-        /* --- Typography (Unified to Lora) --- */
-        #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
-        
-        /* Updated: Font-weight 400 for non-bold title */
-        #proj-title { 
-            font-size: clamp(2rem, 5vw, 3rem); 
-            font-weight: 400; 
-            margin: 0; 
-            line-height: 1.1; 
-            font-family: "Lora", serif; 
+        /* --- Image Protection (CSS) --- */
+        img { 
+            -webkit-user-drag: none; 
+            -khtml-user-drag: none; 
+            -moz-user-drag: none; 
+            -o-user-drag: none; 
+            user-select: none;
+            pointer-events: none; /* Prevents right-click and selection */
         }
 
-        /* Entrance Animation: Black Line */
-        .title-wrapper { position: relative; display: inline-block; margin-bottom: 30px; }
+        /* --- Typography --- */
+        #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
+        #proj-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; margin: 0; line-height: 1.1; font-family: "Lora", serif; }
+
+        /* Animation: Black Line */
+        .title-wrapper { position: relative; display: inline-block; margin-bottom: 35px; }
         .title-line { 
-            position: absolute; bottom: -10px; left: 0; 
+            position: absolute; bottom: -12px; left: 0; 
             height: 1px; background: #1a1a1a; width: 0;
             animation: lineReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
             animation-delay: 0.5s;
         }
         @keyframes lineReveal { from { width: 0; } to { width: 100%; } }
 
-        /* Updated: 14px Font size for description */
-        #proj-desc { 
-            font-size: 14px; 
-            line-height: 2.2; 
-            color: #333; 
-            white-space: pre-line; 
-            max-width: 750px; 
-            font-family: "Lora", serif; 
-        }
+        #proj-desc { font-size: 14px; line-height: 2.2; color: #333; white-space: pre-line; max-width: 750px; font-family: "Lora", serif; }
 
         /* --- Project Gallery --- */
-        .gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; }
+        .gallery-item { width: 100%; height: auto; margin-bottom: 40px; display: block; pointer-events: none; }
 
         /* --- More Works Grid --- */
         .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 120px; }
@@ -64,23 +58,16 @@
         @media (max-width: 768px) {
             .container-1024 { padding: 0 20px; }
             .more-grid { grid-template-columns: 1fr; }
+            .project-container { padding-top: 140px; }
         }
     </style>
 </head>
-<body>
-
-    <nav>
+<body oncontextmenu="return false;"> <nav>
         <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
         <div class="nav-links"><a href="index.html">Back to Works</a></div>
     </nav>
 
     <main class="project-container">
-        <section class="project-hero container-1024">
-            <div class="img-container">
-                <img id="hero-img" src="" alt="Loading..." style="width:100%;">
-            </div>
-        </section>
-
         <section class="project-info container-1024">
             <span id="proj-category"></span>
             <div class="title-wrapper">
@@ -102,18 +89,21 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Disable Image Dragging for extra security
+            document.addEventListener('dragstart', (e) => {
+                if (e.target.nodeName === 'IMG') e.preventDefault();
+            });
+
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
 
             if (window.projectData) {
                 const project = window.projectData.find(p => p.id === projectID);
-
                 if (project) {
                     document.title = `${project.title} | +1 Design`;
                     document.getElementById('proj-title').innerText = project.title;
                     document.getElementById('proj-category').innerText = project.category;
                     document.getElementById('proj-desc').innerText = project.description;
-                    document.getElementById('hero-img').src = project.image;
 
                     const gallery = document.getElementById('proj-gallery');
                     if (project.details) {
@@ -127,7 +117,6 @@
 
                     const moreGrid = document.getElementById('more-works-grid');
                     const otherProjects = window.projectData.filter(p => p.id !== projectID);
-
                     otherProjects.slice(0, 2).forEach(p => {
                         const item = document.createElement('a');
                         item.href = `works.html?id=${p.id}`; 
