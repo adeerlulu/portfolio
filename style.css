@@ -282,13 +282,14 @@ nav.scrolled {
     background: #1a1a1a;
     position: relative;
     transition: height 0.4s ease;
+    color: #1a1a1a;
 }
 
 .btt-arrow svg {
     position: absolute;
     top: -5px;
     left: 50%;
-    transform: translateX(-50%) rotate(90deg); /* 箭頭朝上 */
+    transform: translateX(-50%) rotate(90deg); 
     width: 30px;
     color: #1a1a1a;
 }
