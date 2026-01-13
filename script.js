@@ -5,7 +5,7 @@
 function initPortfolio() {
     const data = window.projectData || window.worksData;
     const grid = document.getElementById('works-grid');
-    const nav = document.getElementById('main-nav'); // 同步 HTML ID
+    const nav = document.getElementById('main-nav'); 
     const bannerBg = document.querySelector('.banner-bg');
     const banner = document.querySelector('.banner');
     const sunSvg = document.querySelector('.sun-svg');
@@ -70,10 +70,9 @@ function initPortfolio() {
         });
     }
 
-    // --- 4. Work Item Hover Effects (恢復 80%-20% 原始設定) ---
+    // --- 4. Work Item Hover Effects (恢復 80%-20% 並加入顏色停留感) ---
     function initWorkItemHovers() {
         const items = document.querySelectorAll('.work-item');
-        // 恢復原始 Google 品牌色
         const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
         
         const getColumnCount = () => {
@@ -86,10 +85,15 @@ function initPortfolio() {
             item.addEventListener('mouseenter', () => {
                 const cols = getColumnCount();
                 const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
-                // 恢復為 CC (80%) 到 33 (20%) 的漸層
+                
+                // 滑鼠進入：顏色反應較快
+                item.style.transition = 'background 0.3s ease-out';
                 item.style.background = `linear-gradient(to bottom, ${color}CC 5%, ${color}33 60%)`;
             });
+
             item.addEventListener('mouseleave', () => {
+                // 滑鼠離開：讓背景顏色緩慢淡出 (0.8s)，達成停留效果
+                item.style.transition = 'background 0.8s ease-in-out';
                 item.style.background = 'transparent';
             });
         });
