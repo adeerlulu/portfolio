@@ -95,54 +95,46 @@
         .more-grid-wrapper {
             overflow-x: auto;
             white-space: nowrap;
-            padding-bottom: 20px;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
+            padding-bottom: 40px; /* 增加底部空間 */
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
         }
-        .more-grid-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .more-grid-wrapper::-webkit-scrollbar { display: none; } 
 
         .more-grid { 
             display: inline-flex; 
-            gap: 30px; 
+            gap: 20px; 
         }
 
         .more-item { 
             text-decoration: none; 
-            color: #1a1a1a; 
-            font-family: "Lora", serif; 
             display: inline-block;
             transition: opacity 0.3s;
-            width: 400px; /* 網頁版固定寬度 */
-            white-space: normal; 
+            width: 350px; /* 調整圖片寬度讓滾動更密集 */
             vertical-align: top;
         }
         
         .more-item:hover { opacity: 0.85; }
         
-        .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; background: #f5f5f5; }
-        .more-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
-        .more-item:hover img { transform: scale(1.08); }
+        .more-item .img-box { 
+            aspect-ratio: 3/2; 
+            overflow: hidden; 
+            background: #f5f5f5; 
+        }
         
-        .more-item h3 { 
-            font-size: 16px; 
-            font-weight: 500; 
-            margin-top: 15px; 
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-            color: #1a1a1a;
+        .more-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
+            transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); 
         }
-
-        /* 敘述文字改淡 */
-        .more-item p { 
-            font-size: 11px; 
-            color: #b0b0b0; 
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
-        }
+        
+        .more-item:hover img { transform: scale(1.05); }
 
         @media (max-width: 768px) {
             .container-1024 { padding: 0 20px; }
-            .more-item { width: 80vw; } /* 手機版呈現單排，寬度 80% */
+            .more-item { width: 75vw; } /* 手機版寬度 */
             .more-grid { gap: 15px; }
         }
     </style>
@@ -202,7 +194,7 @@
                         initScrollReveal();
                     }
 
-                    // --- More Works 渲染與自動滾動邏輯 ---
+                    // --- More Works 渲染 (純圖片版) ---
                     const moreGrid = document.getElementById('more-works-grid');
                     const scrollWrapper = document.getElementById('moreScrollWrapper');
                     const otherProjects = window.projectData.filter(p => p.id !== projectID);
@@ -214,10 +206,9 @@
                         const item = document.createElement('a');
                         item.href = `works.html?id=${p.id}`; 
                         item.className = 'more-item';
+                        // 只保留 img-box，移除了 h3 和 p
                         item.innerHTML = `
                             <div class="img-box"><img src="${p.image}" alt="${p.title}"></div>
-                            <h3>${p.title}</h3>
-                            <p>${p.category}</p>
                         `;
                         moreGrid.appendChild(item);
                     });
@@ -229,7 +220,7 @@
 
                     function autoScroll() {
                         if (!isHovered) {
-                            scrollWrapper.scrollLeft += 0.5; 
+                            scrollWrapper.scrollLeft += 0.6; // 稍微調慢一點點，增加優雅感
                             if (scrollWrapper.scrollLeft >= moreGrid.scrollWidth / 2) {
                                 scrollWrapper.scrollLeft = 0;
                             }
