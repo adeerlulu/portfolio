@@ -71,18 +71,23 @@ function initPortfolio() {
         };
 
         items.forEach((item, index) => {
+            // 初始化背景
+            item.style.backgroundColor = 'transparent';
+
             item.addEventListener('mouseenter', () => {
                 const cols = getColumnCount();
                 const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
                 
+                // 進入時：反應快速
                 item.style.transition = 'background 0.3s ease';
                 item.style.background = `linear-gradient(to bottom, ${color}CC 5%, ${color}33 60%)`;
             });
 
             item.addEventListener('mouseleave', () => {
-                // 強制套用長秒數淡出
+                // 離開時：強制設定 1.5s 的長效淡出
+                // 同時針對 background 和 background-color 確保各瀏覽器相容性
                 item.style.transition = 'background 1.5s ease-in-out, background-color 1.5s ease-in-out';
-                item.style.background = 'rgba(255, 255, 255, 0)';
+                item.style.background = 'rgba(255, 255, 255, 0)'; 
                 item.style.backgroundColor = 'transparent';
             });
         });
