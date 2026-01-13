@@ -55,10 +55,15 @@
             transform: translateY(0);
         }
 
-        /* --- More Works Grid --- */
-        .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 120px; }
+        /* --- More Works Section (Auto-scroll) --- */
+        .more-works-section { 
+            margin-top: 100px; 
+            padding-top: 60px; 
+            border-top: 1px solid #eee; 
+            margin-bottom: 80px;
+            overflow: hidden; 
+        }
         
-        /* More Works 標題：簡約底線動畫 */
         .more-works-title { 
             font-size: 14px; 
             letter-spacing: 3px; 
@@ -71,7 +76,6 @@
             color: #1a1a1a;
         }
         
-        /* 改為黑色極細線條 */
         .more-works-title::after {
             content: "";
             position: absolute;
@@ -87,8 +91,32 @@
             width: 100%;
         }
 
-        .more-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 30px; }
-        .more-item { text-decoration: none; color: #1a1a1a; font-family: "Lora", serif; display: block; transition: opacity 0.3s; }
+        /* 滾動容器設定 */
+        .more-grid-wrapper {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        .more-grid-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+        .more-grid { 
+            display: inline-flex; 
+            gap: 30px; 
+        }
+
+        .more-item { 
+            text-decoration: none; 
+            color: #1a1a1a; 
+            font-family: "Lora", serif; 
+            display: inline-block;
+            transition: opacity 0.3s;
+            width: 400px; /* 網頁版固定寬度 */
+            white-space: normal; 
+            vertical-align: top;
+        }
+        
         .more-item:hover { opacity: 0.85; }
         
         .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; margin-bottom: 15px; background: #f5f5f5; }
@@ -104,7 +132,7 @@
             color: #1a1a1a;
         }
 
-        /* 敘述文字改淡 (同步首頁設計) */
+        /* 敘述文字改淡 */
         .more-item p { 
             font-size: 11px; 
             color: #b0b0b0; 
@@ -114,7 +142,8 @@
 
         @media (max-width: 768px) {
             .container-1024 { padding: 0 20px; }
-            .more-grid { grid-template-columns: 1fr; }
+            .more-item { width: 80vw; } /* 手機版呈現單排，寬度 80% */
+            .more-grid { gap: 15px; }
         }
     </style>
 </head>
@@ -139,7 +168,9 @@
 
         <section class="more-works-section container-1024">
             <h2 class="more-works-title">More Works</h2>
-            <div id="more-works-grid" class="more-grid"></div>
+            <div class="more-grid-wrapper" id="moreScrollWrapper">
+                <div id="more-works-grid" class="more-grid"></div>
+            </div>
         </section>
     </main>
 
@@ -147,7 +178,6 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Disable dragging
             document.addEventListener('dragstart', (e) => { if (e.target.nodeName === 'IMG') e.preventDefault(); });
 
             const params = new URLSearchParams(window.location.search);
@@ -172,9 +202,15 @@
                         initScrollReveal();
                     }
 
+                    // --- More Works 渲染與自動滾動邏輯 ---
                     const moreGrid = document.getElementById('more-works-grid');
+                    const scrollWrapper = document.getElementById('moreScrollWrapper');
                     const otherProjects = window.projectData.filter(p => p.id !== projectID);
-                    otherProjects.slice(0, 2).forEach(p => {
+                    
+                    // 複製兩次內容以達成無縫循環
+                    const projectsToDisplay = [...otherProjects, ...otherProjects]; 
+
+                    projectsToDisplay.forEach(p => {
                         const item = document.createElement('a');
                         item.href = `works.html?id=${p.id}`; 
                         item.className = 'more-item';
@@ -185,6 +221,23 @@
                         `;
                         moreGrid.appendChild(item);
                     });
+
+                    // 自動滾動邏輯
+                    let isHovered = false;
+                    scrollWrapper.addEventListener('mouseenter', () => isHovered = true);
+                    scrollWrapper.addEventListener('mouseleave', () => isHovered = false);
+
+                    function autoScroll() {
+                        if (!isHovered) {
+                            scrollWrapper.scrollLeft += 0.8; // 滾動速度，可調整
+                            if (scrollWrapper.scrollLeft >= moreGrid.scrollWidth / 2) {
+                                scrollWrapper.scrollLeft = 0;
+                            }
+                        }
+                        requestAnimationFrame(autoScroll);
+                    }
+                    setTimeout(autoScroll, 1000);
+
                 } else {
                     window.location.href = 'index.html';
                 }
@@ -200,9 +253,7 @@
                         }
                     });
                 }, observerOptions);
-
-                const images = document.querySelectorAll('.gallery-item');
-                images.forEach(img => observer.observe(img));
+                document.querySelectorAll('.gallery-item').forEach(img => observer.observe(img));
             }
         });
     </script>
