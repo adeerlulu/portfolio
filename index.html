@@ -8,6 +8,118 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* 平滑捲動 */
+        html { scroll-behavior: smooth; }
+
+        /* --- 精緻化表單樣式 --- */
+        .contact-section { 
+            padding: 120px 5%; 
+            border-top: 1px solid #f2f2f2; 
+            background: #fff;
+            scroll-margin-top: 80px; /* 防止選單遮擋標題 */
+        }
+        .container-700 { max-width: 700px; margin: 0 auto; }
+        
+        .contact-title { 
+            font-family: "Lora", serif; 
+            font-size: 28px; 
+            font-weight: 300; 
+            margin-bottom: 60px; 
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            text-align: left;
+        }
+
+        .contact-form { font-family: "Lora", "Noto Sans TC", serif; }
+        
+        .form-row { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 50px; 
+        }
+
+        .form-group { margin-bottom: 45px; display: flex; flex-direction: column; }
+        
+        .form-group label { 
+            font-size: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: #aaa; 
+            margin-bottom: 12px; 
+        }
+        
+        .form-group input, .form-group textarea {
+            border: none; 
+            border-bottom: 1px solid #e0e0e0; 
+            padding: 10px 0; 
+            font-size: 14px;
+            outline: none; 
+            background: transparent;
+            transition: border-color 0.4s ease;
+            color: #1a1a1a;
+            border-radius: 0;
+        }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #ccc;
+            font-size: 13px;
+        }
+
+        .form-group input:focus, .form-group textarea:focus { 
+            border-bottom: 1px solid #1a1a1a; 
+        }
+
+        /* 驗證碼與按鈕排列 */
+        .captcha-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 10px;
+        }
+
+        .captcha-input-group { display: flex; align-items: center; gap: 20px; }
+        
+        #captchaDisplay { 
+            font-family: "Lora", serif;
+            font-style: italic;
+            font-size: 18px;
+            letter-spacing: 4px;
+            color: #999;
+            background: #fcfcfc;
+            padding: 5px 15px;
+            border: 1px solid #eee;
+            user-select: none;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        #captchaInput { width: 100px; text-align: center; }
+
+        .submit-wrap { padding-bottom: 45px; }
+
+        .submit-btn {
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .submit-btn:hover { opacity: 0.8; }
+
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .captcha-row { flex-direction: column; align-items: flex-start; gap: 30px; }
+            .submit-wrap { width: 100%; padding-bottom: 0; }
+            .submit-btn { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <div class="fixed-sun-icon">
@@ -39,173 +151,134 @@
         </svg>
     </div>
 
-<nav>
-    <div class="logo">+1 DESIGN</div>
-    <div class="nav-links">
-        <a href="#works">Works</a>
-        <a href="#contact">Contact</a>
-    </div>
-</nav>
+    <nav>
+        <div class="logo">+1 DESIGN</div>
+        <div class="nav-links">
+            <a href="#works">Works</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
 
-<header class="banner">
-    <div class="banner-bg"></div>
-    <div class="banner-content">
-<h1 id="hero-title">
-        <span>S</span><span>h</span><span>a</span><span>p</span><span>i</span><span>n</span><span>g</span><span>&nbsp;</span><span>t</span><span>h</span><span>e</span><span>&nbsp;</span><span>E</span><span>s</span><span>s</span><span>e</span><span>n</span><span>c</span><span>e</span>
-    </h1>
-    <p>從品牌輪廓、版面節奏到視覺重心，一一形塑，一起找到適合它的樣子。</p>
-    </div>
-</header>
+    <header class="banner">
+        <div class="banner-bg"></div>
+        <div class="banner-content">
+            <h1 id="hero-title">
+                <span>S</span><span>h</span><span>a</span><span>p</span><span>i</span><span>n</span><span>g</span><span>&nbsp;</span><span>t</span><span>h</span><span>e</span><span>&nbsp;</span><span>E</span><span>s</span><span>s</span><span>e</span><span>n</span><span>c</span><span>e</span>
+            </h1>
+            <p>從品牌輪廓、版面節奏到視覺重心，一一形塑，一起找到適合它的樣子。</p>
+        </div>
+    </header>
 
     <main class="works-section" id="works">
         <div id="works-grid" class="grid"></div>
     </main>
 
-  <footer class="contact-section" id="contact">
-    <div class="container-700">
-        <h2 class="contact-title">Contact us</h2>
-        <form id="contactForm" action="https://formspree.io/f/ayunina103@gmail.com" method="POST" class="contact-form">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" name="name" required placeholder="聯絡人">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" required placeholder="電子信箱">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>LINE ID</label>
-                <input type="text" name="line_id" placeholder="選填">
-            </div>
-
-            <div class="form-group">
-                <label>Message</label>
-                <textarea name="message" rows="3" placeholder="請輸入欲洽詢內容"></textarea>
-            </div>
-
-            <div class="captcha-row">
-                <div class="form-group">
-                    <label>Verification Code</label>
-                    <div class="captcha-input-group">
-                        <span id="captchaDisplay"></span>
-                        <input type="text" id="captchaInput" required placeholder="輸入驗證碼">
+    <footer class="contact-section" id="contact">
+        <div class="container-700">
+            <h2 class="contact-title">Contact us</h2>
+            <form id="contactForm" action="https://formspree.io/f/ayunina103@gmail.com" method="POST" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" required placeholder="聯絡人">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required placeholder="電子信箱">
                     </div>
                 </div>
-                <div class="submit-wrap">
-                    <button type="submit" class="submit-btn">Send Message</button>
+
+                <div class="form-group">
+                    <label>LINE ID</label>
+                    <input type="text" name="line_id" placeholder="選填">
                 </div>
-            </div>
-        </form>
-    </div>
-</footer>
 
-<style>
-    /* --- 精緻化表單樣式 --- */
-    .contact-section { 
-        padding: 120px 5%; 
-        border-top: 1px solid #f2f2f2; 
-        background: #fff;
-    }
-    .container-700 { max-width: 700px; margin: 0 auto; }
-    
-    .contact-title { 
-        font-family: "Lora", serif; 
-        font-size: 28px; 
-        font-weight: 300; 
-        margin-bottom: 60px; 
-        letter-spacing: 2px;
-        color: #1a1a1a;
-    }
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" rows="3" placeholder="請輸入欲洽詢內容"></textarea>
+                </div>
 
-    .contact-form { font-family: "Lora", "Noto Sans TC", serif; }
-    
-    .form-row { 
-        display: grid; 
-        grid-template-columns: 1fr 1fr; 
-        gap: 50px; 
-    }
+                <div class="captcha-row">
+                    <div class="form-group">
+                        <label>Verification Code</label>
+                        <div class="captcha-input-group">
+                            <span id="captchaDisplay"></span>
+                            <input type="text" id="captchaInput" required placeholder="輸入驗證碼">
+                        </div>
+                    </div>
+                    <div class="submit-wrap">
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </footer>
 
-    .form-group { margin-bottom: 45px; display: flex; flex-direction: column; }
-    
-    .form-group label { 
-        font-size: 10px; 
-        text-transform: uppercase; 
-        letter-spacing: 2px; 
-        color: #aaa; 
-        margin-bottom: 12px; 
-    }
-    
-    .form-group input, .form-group textarea {
-        border: none; 
-        border-bottom: 1px solid #e0e0e0; 
-        padding: 10px 0; 
-        font-size: 14px;
-        outline: none; 
-        background: transparent;
-        transition: border-color 0.4s ease;
-        color: #1a1a1a;
-    }
-
-    .form-group input::placeholder, .form-group textarea::placeholder {
-        color: #ccc;
-        font-size: 13px;
-    }
-
-    .form-group input:focus, .form-group textarea:focus { 
-        border-bottom: 1px solid #1a1a1a; 
-    }
-
-    /* 驗證碼與按鈕排列 */
-    .captcha-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-top: 10px;
-    }
-
-    .captcha-input-group { display: flex; align-items: center; gap: 20px; }
-    
-    #captchaDisplay { 
-        font-family: "Lora", serif;
-        font-style: italic;
-        font-size: 18px;
-        letter-spacing: 4px;
-        color: #999;
-        background: #fcfcfc;
-        padding: 5px 15px;
-        border: 1px solid #eee;
-        user-select: none;
-    }
-
-    #captchaInput { width: 100px; text-align: center; }
-
-    .submit-wrap { padding-bottom: 45px; }
-
-    .submit-btn {
-        background: #1a1a1a;
-        color: #fff;
-        border: none;
-        padding: 12px 40px;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        cursor: pointer;
-        transition: opacity 0.3s ease;
-    }
-
-    .submit-btn:hover { opacity: 0.8; }
-
-    @media (max-width: 768px) {
-        .form-row { grid-template-columns: 1fr; gap: 0; }
-        .captcha-row { flex-direction: column; align-items: flex-start; gap: 30px; }
-        .submit-wrap { width: 100%; padding-bottom: 0; }
-        .submit-btn { width: 100%; }
-    }
-</style>
     <script src="data.js"></script>
     <script src="script.js"></script>
+
+    <script>
+        let currentCaptcha = "";
+
+        // 生成驗證碼
+        function generateCaptcha() {
+            const chars = "0123456789";
+            let result = "";
+            for (let i = 0; i < 4; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptcha = result;
+            const display = document.getElementById('captchaDisplay');
+            if (display) {
+                display.innerText = result;
+            }
+        }
+
+        // 監聽表單送出
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const userInput = document.getElementById('captchaInput').value;
+            
+            if (userInput !== currentCaptcha) {
+                alert("驗證碼錯誤，請重新輸入。");
+                generateCaptcha();
+                document.getElementById('captchaInput').value = "";
+                return;
+            }
+
+            const form = e.target;
+            const data = new FormData(form);
+            const button = form.querySelector('.submit-btn');
+            const originalText = button.innerText;
+            
+            button.innerText = "Sending...";
+            button.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    alert("送出成功！我們會盡快與您聯繫。");
+                    form.reset();
+                    generateCaptcha();
+                } else {
+                    alert("抱歉，送出失敗，請稍後再試。");
+                }
+            } catch (error) {
+                alert("網路連線異常，請稍後再試。");
+            } finally {
+                button.innerText = originalText;
+                button.disabled = false;
+            }
+        });
+
+        // 頁面載入時生成驗證碼
+        document.addEventListener('DOMContentLoaded', generateCaptcha);
+    </script>
 </body>
 </html>
