@@ -9,17 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
-    
     <style>
         .container-1024 { max-width: 1024px; margin: 0 auto; padding: 0 40px; }
         .project-container { padding-top: 180px; } 
         .project-info { text-align: left; margin-bottom: 60px; }
-
         img { -webkit-user-drag: none; user-select: none; }
-
         #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
         #proj-title { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 400; margin: 0; line-height: 1.1; font-family: "Lora", serif; }
-
         .title-wrapper { position: relative; display: inline-block; margin-bottom: 35px; }
         .title-line { 
             position: absolute; bottom: -12px; left: 0; 
@@ -28,21 +24,17 @@
             animation-delay: 0.5s;
         }
         @keyframes lineReveal { from { width: 0; } to { width: 100%; } }
-
         #proj-desc { font-size: 14px; line-height: 2.2; color: #333; white-space: pre-line; max-width: 750px; font-family: "Lora", serif; }
-
         .gallery-item { 
             width: 100%; height: auto; margin-bottom: 60px; display: block; 
             opacity: 0; transform: translateY(30px); 
             transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .gallery-item.reveal { opacity: 1; transform: translateY(0); }
-
         .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 80px; overflow: hidden; }
         .more-works-title { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 50px; font-weight: 600; font-family: "Lora", serif; display: inline-block; position: relative; color: #1a1a1a; }
         .more-works-title::after { content: ""; position: absolute; left: 0; bottom: -8px; width: 30px; height: 1px; background: #1a1a1a; transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1); }
         .more-works-section:hover .more-works-title::after { width: 100%; }
-
         .more-grid-wrapper { overflow-x: auto; white-space: nowrap; padding-bottom: 40px; scrollbar-width: none; -ms-overflow-style: none; }
         .more-grid-wrapper::-webkit-scrollbar { display: none; } 
         .more-grid { display: inline-flex; gap: 20px; }
@@ -50,7 +42,6 @@
         .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; background: #f5f5f5; }
         .more-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
         .more-item:hover img { transform: scale(1.05); }
-
         @media (max-width: 768px) {
             .container-1024 { padding: 0 20px; }
             .more-item { width: 75vw; }
@@ -59,14 +50,13 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
-
-    <nav id="main-nav" class="scrolled"> <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
+    <nav id="main-nav" class="scrolled">
+        <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
         <div class="nav-links">
             <a href="index.html#works">Back to Works</a>
             <a href="index.html#contact">Contact</a>
         </div>
     </nav>
-
     <main class="project-container">
         <section class="project-info container-1024">
             <span id="proj-category"></span>
@@ -76,9 +66,7 @@
             </div>
             <p id="proj-desc"></p>
         </section>
-
         <section id="proj-gallery" class="container-1024"></section>
-
         <section class="more-works-section container-1024">
             <h2 class="more-works-title">More Works</h2>
             <div class="more-grid-wrapper" id="moreScrollWrapper">
@@ -86,38 +74,29 @@
             </div>
         </section>
     </main>
-
     <div class="back-to-top" id="backToTop">
         <span class="btt-text">BACK TO TOP</span>
         <div class="btt-arrow">
             <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
         </div>
     </div>
-
     <footer class="footer-bottom">
         &copy; 2024 +1 DESIGN. All Rights Reserved.
     </footer>
-
     <script src="data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 禁止圖片拖拽
             document.addEventListener('dragstart', (e) => { if (e.target.nodeName === 'IMG') e.preventDefault(); });
-
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
             const allData = window.projectData || window.worksData;
-
             if (allData) {
                 const project = allData.find(p => p.id === projectID);
                 if (project) {
-                    // 填充內容
                     document.title = `${project.title} | +1 Design`;
                     document.getElementById('proj-title').innerText = project.title;
                     document.getElementById('proj-category').innerText = project.category;
                     document.getElementById('proj-desc').innerText = project.description;
-
-                    // 渲染詳情圖片
                     const gallery = document.getElementById('proj-gallery');
                     if (project.details) {
                         project.details.forEach(imgSrc => {
@@ -126,7 +105,6 @@
                             img.className = "gallery-item";
                             gallery.appendChild(img);
                         });
-                        
                         const observer = new IntersectionObserver((entries) => {
                             entries.forEach(entry => {
                                 if (entry.isIntersecting) {
@@ -137,14 +115,10 @@
                         }, { threshold: 0.1 });
                         document.querySelectorAll('.gallery-item').forEach(img => observer.observe(img));
                     }
-
-                    // More Works 渲染
                     const moreGrid = document.getElementById('more-works-grid');
                     const scrollWrapper = document.getElementById('moreScrollWrapper');
                     const otherProjects = allData.filter(p => p.id !== projectID);
-                    
                     const projectsToDisplay = [...otherProjects, ...otherProjects]; 
-
                     projectsToDisplay.forEach(p => {
                         const item = document.createElement('a');
                         item.href = `works.html?id=${p.id}`; 
@@ -152,12 +126,9 @@
                         item.innerHTML = `<div class="img-box"><img src="${p.image}" alt="${p.title}"></div>`;
                         moreGrid.appendChild(item);
                     });
-
-                    // 自動滾動
                     let isHovered = false;
                     scrollWrapper.addEventListener('mouseenter', () => isHovered = true);
                     scrollWrapper.addEventListener('mouseleave', () => isHovered = false);
-
                     function autoScroll() {
                         if (!isHovered) {
                             scrollWrapper.scrollLeft += 0.8; 
@@ -168,13 +139,10 @@
                         requestAnimationFrame(autoScroll);
                     }
                     setTimeout(autoScroll, 1000);
-
                 } else {
                     window.location.href = 'index.html';
                 }
             }
-
-            // Back to top 功能
             const btt = document.getElementById('backToTop');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 400) btt.classList.add('active');
