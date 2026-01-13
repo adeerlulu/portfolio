@@ -1,10 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Portfolio Core Logic - script.js
+ * 結合進階視覺特效與首頁渲染邏輯
+ */
+
+function initPortfolio() {
+    // 優先讀取 window.projectData (由 data.js 提供)
+    const data = window.projectData || window.worksData;
     const grid = document.getElementById('works-grid');
-    if (grid && window.projectData) {
-        grid.innerHTML = window.projectData.map(work => `
+    const nav = document.getElementById('main-nav');
+    const bannerBg = document.querySelector('.banner-bg');
+    const banner = document.querySelector('.banner');
+    const sunSvg = document.querySelector('.sun-svg');
+    const btt = document.getElementById('backToTop');
+    const revealTarget = document.getElementById('revealContact');
+
+    // --- 1. Render Works Grid (首頁專用，不顯示 Tags) ---
+    if (grid && data && data.length > 0) {
+        grid.innerHTML = data.map(work => `
             <a href="works.html?id=${work.id}" class="work-item">
                 <div class="img-container">
-                    <img src="${work.image}" alt="${work.title}" loading="lazy">
+                    <img src="${work.image}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Missing'">
                 </div>
                 <div class="work-info">
                     <h3>${work.title}</h3>
@@ -12,91 +27,80 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </a>
         `).join('');
+        initWorkItemHovers();
     }
 
-    // 2. 太陽特效：隨捲動旋轉與變色
-    const sunSvg = document.querySelector('.sun-svg');
-    const colors = ['#87CEEB', '#FF6B6B', '#4ECDC4', '#FFE66D', '#1a1a1a'];
-    
+    // --- 2. Scroll Interaction (捲動特效) ---
     window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        // 旋轉
+        const scrollPos = window.scrollY;
+
+        // Nav 樣式切換 (捲動超過 50px 加入背景)
+        if (nav) {
+            scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        }
+
+        // Banner 背景淡出特效
+        if (bannerBg && banner) {
+            let bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
+            bannerBg.style.opacity = Math.max(0, bgOpacity);
+        }
+
+        // 太陽捲動特效：包含旋轉變數與顏色切換
         if (sunSvg) {
-            sunSvg.style.transform = `rotate(${scrolled * 0.2}deg)`;
-            // 隨機變色 (每捲動 500px 換一次色)
-            const colorIndex = Math.floor(scrolled / 500) % colors.length;
-            sunSvg.style.color = colors[colorIndex];
+            const extraRotate = scrollPos * 0.2;
+            sunSvg.style.setProperty('--scroll-rotate', `${extraRotate}deg`);
+            
+            // 隨捲動深度切換太陽色系
+            const sunColors = ['#d7c4b7', '#B497BD', '#B0CADE', '#AFEEEE'];
+            const colorIndex = Math.floor(scrollPos / 400) % sunColors.length;
+            sunSvg.style.color = sunColors[colorIndex];
         }
 
-        // 導覽列背景切換
-        const nav = document.querySelector('nav');
-        if (scrolled > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
+        // Back to Top 顯示邏輯 (超過 600px 顯示)
+        if (btt) {
+            scrollPos > 600 ? btt.classList.add('active') : btt.classList.remove('active');
         }
 
-        // Back to Top 按鈕顯示
-        const btt = document.getElementById('backToTop');
-        if (scrolled > 300) {
-            btt.classList.add('active');
-        } else {
-            btt.classList.remove('active');
-        }
-    });
-
-    // 3. Back to Top 點擊事件
-    document.getElementById('backToTop')?.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // 4. 聯絡表單：驗證碼邏輯
-    const captchaDisplay = document.getElementById('captchaDisplay');
-    let currentCaptcha = "";
-
-    function generateCaptcha() {
-        currentCaptcha = Math.random().toString(36).substring(2, 6).toUpperCase();
-        if (captchaDisplay) captchaDisplay.innerText = currentCaptcha;
-    }
-    generateCaptcha();
-
-    // 5. 表單提交處理
-    const contactForm = document.getElementById('portfolioContactForm');
-    contactForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const userInput = document.getElementById('captchaInput').value.toUpperCase();
-        const modal = document.getElementById('customModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalMsg = document.getElementById('modalMsg');
-
-        if (userInput === currentCaptcha) {
-            modalTitle.innerText = "Success";
-            modalMsg.innerText = "感謝您的來信！我們將盡快與您聯繫。";
-            modal.classList.add('active');
-            contactForm.reset();
-            generateCaptcha();
-        } else {
-            alert("驗證碼錯誤，請重新輸入");
-            generateCaptcha();
-            document.getElementById('captchaInput').value = "";
-        }
-    });
-
-    // 6. 捲動顯現動畫 (Intersection Observer)
-    const observerOptions = { threshold: 0.1 };
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+        // Contact Section 顯現動畫
+        if (revealTarget) {
+            const rect = revealTarget.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                revealTarget.classList.add('active');
             }
+        }
+    });
+
+    // --- 3. Click Events ---
+    if (btt) {
+        btt.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    }, observerOptions);
+    }
 
-    document.querySelectorAll('.reveal-section').forEach(el => revealObserver.observe(el));
-});
+    // --- 4. Work Item Hover Effects (格線 Hover 多彩特效) ---
+    function initWorkItemHovers() {
+        const items = document.querySelectorAll('.work-item');
+        const baseColors = ['#d7c4b7', '#f4f1ee', '#e5ddd5', '#c2b2a6'];
+        
+        const getColumnCount = () => {
+            if (window.innerWidth <= 768) return 1;
+            if (window.innerWidth <= 1024) return 2;
+            return 4;
+        };
 
-// Modal 關閉函數 (全域)
-function closeModal() {
-    document.getElementById('customModal').classList.remove('active');
+        items.forEach((item, index) => {
+            item.addEventListener('mouseenter', () => {
+                const cols = getColumnCount();
+                const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
+                // 使用 CSS 變數或直接修改背景
+                item.style.background = `linear-gradient(to bottom, ${color}33 0%, ${color}11 100%)`;
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.background = 'transparent';
+            });
+        });
+    }
 }
+
+// 啟動初始化
+document.addEventListener('DOMContentLoaded', initPortfolio);
