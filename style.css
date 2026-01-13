@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+}
 /* --- 1. Global Reset --- */
 * { 
     margin: 0; 
