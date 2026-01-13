@@ -8,28 +8,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
     <style>
         /* 平滑捲動 */
         html { scroll-behavior: smooth; }
 
-        /* --- 精緻化表單樣式 --- */
+        /* --- 1. Contact Section 樣式與動畫 --- */
         .contact-section { 
             padding: 120px 5%; 
             border-top: 1px solid #f2f2f2; 
-            background: #fff;
-            scroll-margin-top: 80px; /* 防止選單遮擋標題 */
+            background: #fff; 
+            scroll-margin-top: 100px; 
         }
         .container-700 { max-width: 700px; margin: 0 auto; }
         
+        /* 標題動畫初始狀態 */
+        .reveal-section .contact-title {
+            opacity: 0;
+            letter-spacing: 12px;
+            transform: translateY(30px);
+            transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .reveal-section.active .contact-title {
+            opacity: 1;
+            letter-spacing: 2px;
+            transform: translateY(0);
+        }
+
         .contact-title { 
             font-family: "Lora", serif; 
             font-size: 28px; 
             font-weight: 300; 
             margin-bottom: 60px; 
-            letter-spacing: 2px;
-            color: #1a1a1a;
-            text-align: left;
+            color: #1a1a1a; 
         }
 
         .contact-form { font-family: "Lora", "Noto Sans TC", serif; }
@@ -37,87 +47,78 @@
         .form-row { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 50px; 
+            gap: 40px; 
         }
 
-        .form-group { margin-bottom: 45px; display: flex; flex-direction: column; }
-        
+        .form-group { margin-bottom: 35px; }
         .form-group label { 
             font-size: 10px; 
+            color: #bbb; 
+            letter-spacing: 1.5px; 
+            display: block; 
+            margin-bottom: 10px; 
             text-transform: uppercase; 
-            letter-spacing: 2px; 
-            color: #aaa; 
-            margin-bottom: 12px; 
         }
         
-        .form-group input, .form-group textarea {
+        .form-group input, .form-group textarea { 
+            width: 100%; 
             border: none; 
-            border-bottom: 1px solid #e0e0e0; 
+            border-bottom: 1px solid #eee; 
             padding: 10px 0; 
-            font-size: 14px;
+            font-size: 14px; 
             outline: none; 
-            background: transparent;
-            transition: border-color 0.4s ease;
-            color: #1a1a1a;
-            border-radius: 0;
+            background: transparent; 
+            transition: border-color 0.4s; 
+            border-radius: 0; 
         }
+        .form-group input:focus { border-bottom: 1px solid #1a1a1a; }
 
-        .form-group input::placeholder, .form-group textarea::placeholder {
-            color: #ccc;
-            font-size: 13px;
-        }
-
-        .form-group input:focus, .form-group textarea:focus { 
-            border-bottom: 1px solid #1a1a1a; 
-        }
-
-        /* 驗證碼與按鈕排列 */
-        .captcha-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 10px;
-        }
-
-        .captcha-input-group { display: flex; align-items: center; gap: 20px; }
-        
-        #captchaDisplay { 
-            font-family: "Lora", serif;
-            font-style: italic;
-            font-size: 18px;
-            letter-spacing: 4px;
-            color: #999;
-            background: #fcfcfc;
-            padding: 5px 15px;
-            border: 1px solid #eee;
-            user-select: none;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        #captchaInput { width: 100px; text-align: center; }
-
-        .submit-wrap { padding-bottom: 45px; }
-
+        /* --- 2. 圓框按鈕與箭頭 --- */
         .submit-btn {
             background: #1a1a1a;
             color: #fff;
-            border: none;
-            padding: 12px 40px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            border: 1px solid #1a1a1a;
+            padding: 8px 24px;
+            border-radius: 40px; 
+            font-size: 13px;
+            font-family: "Noto Sans TC", sans-serif;
             cursor: pointer;
-            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+            position: relative;
         }
 
-        .submit-btn:hover { opacity: 0.8; }
+        .arrow-icon {
+            width: 40px;
+            height: 12px;
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .submit-btn:hover .arrow-icon {
+            transform: translateX(10px);
+        }
 
-        @media (max-width: 768px) {
-            .form-row { grid-template-columns: 1fr; gap: 0; }
+        /* 驗證碼樣式 */
+        .captcha-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
+        .captcha-input-group { display: flex; align-items: center; }
+        #captchaDisplay { 
+            font-family: "Lora", serif; 
+            font-style: italic; 
+            color: #aaa; 
+            background: #fdfdfd; 
+            padding: 4px 15px; 
+            border: 1px solid #f0f0f0; 
+            margin-right: 15px; 
+            letter-spacing: 3px; 
+            user-select: none;
+        }
+        #captchaInput { width: 80px; text-align: center; }
+
+        @media (max-width: 768px) { 
+            .form-row { grid-template-columns: 1fr; gap: 0; } 
             .captcha-row { flex-direction: column; align-items: flex-start; gap: 30px; }
-            .submit-wrap { width: 100%; padding-bottom: 0; }
-            .submit-btn { width: 100%; }
+            .submit-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -173,194 +174,160 @@
         <div id="works-grid" class="grid"></div>
     </main>
 
-<footer class="contact-section" id="contact">
-    <div class="container-700 reveal-section">
-        <h2 class="contact-title">Contact us</h2>
-        <form id="contactForm" action="https://formspree.io/f/xlggeplo" method="POST" class="contact-form">
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" name="name" required placeholder="聯絡人">
-                </div>
-                <div class="form-group">
-                    <label>LINE ID</label>
-                    <input type="text" name="line_id" placeholder="選填">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" required placeholder="電子信箱">
-            </div>
-
-            <div class="form-group">
-                <label>Message</label>
-                <textarea name="message" rows="2" placeholder="請輸入欲洽詢內容"></textarea>
-            </div>
-
-            <div class="captcha-row">
-                <div class="form-group" style="margin-bottom: 0;">
-                    <label>Verification Code</label>
-                    <div class="captcha-input-group">
-                        <span id="captchaDisplay"></span>
-                        <input type="text" id="captchaInput" required placeholder="驗證碼">
+    <footer class="contact-section" id="contact">
+        <div class="container-700 reveal-section">
+            <h2 class="contact-title">Contact us</h2>
+            <form id="contactForm" action="https://formspree.io/f/xlggeplo" method="POST" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" required placeholder="聯絡人">
+                    </div>
+                    <div class="form-group">
+                        <label>LINE ID</label>
+                        <input type="text" name="line_id" placeholder="選填">
                     </div>
                 </div>
-                <div class="submit-wrap">
-                    <button type="submit" class="submit-btn" id="submitBtn">
-                        <span>送出訊息</span>
-                        <svg class="arrow-icon" viewBox="0 0 50 12">
-                            <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.5" />
-                            <polyline points="44,2 48,6 44,10" fill="none" stroke="currentColor" stroke-width="0.5" />
-                        </svg>
-                    </button>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required placeholder="電子信箱">
                 </div>
-            </div>
-        </form>
-    </div>
-</footer>
 
-<style>
-    /* --- 1. Contact Title 浮現動畫 --- */
-    .reveal-section .contact-title {
-        opacity: 0;
-        letter-spacing: 12px;
-        transform: translateY(30px);
-        transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-    .reveal-section.active .contact-title {
-        opacity: 1;
-        letter-spacing: 2px;
-        transform: translateY(0);
-    }
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" rows="2" placeholder="請輸入欲洽詢內容"></textarea>
+                </div>
 
-    /* --- 2. 圓角按鈕與隨機四色跳轉 --- */
-    .submit-btn {
-        background: #1a1a1a;
-        color: #fff;
-        border: 1px solid #1a1a1a;
-        padding: 8px 24px;
-        border-radius: 40px; 
-        font-size: 13px;
-        font-family: "Noto Sans TC", sans-serif;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
-        position: relative;
-        overflow: hidden;
-    }
+                <div class="captcha-row">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Verification Code</label>
+                        <div class="captcha-input-group">
+                            <span id="captchaDisplay"></span>
+                            <input type="text" id="captchaInput" required placeholder="驗證碼">
+                        </div>
+                    </div>
+                    <div class="submit-wrap">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span>送出訊息</span>
+                            <svg class="arrow-icon" viewBox="0 0 50 12">
+                                <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.5" />
+                                <polyline points="44,2 48,6 44,10" fill="none" stroke="currentColor" stroke-width="0.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </footer>
 
-    /* 極細箭頭樣式 */
-    .arrow-icon {
-        width: 40px;
-        height: 12px;
-        transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-    .submit-btn:hover .arrow-icon {
-        transform: translateX(10px);
-    }
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 
-    /* --- 3. 表單細節修正 --- */
-    .contact-section { padding: 120px 5%; background: #fff; scroll-margin-top: 100px; }
-    .container-700 { max-width: 700px; margin: 0 auto; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-    .form-group { margin-bottom: 35px; }
-    .form-group label { font-size: 10px; color: #bbb; letter-spacing: 1.5px; display: block; margin-bottom: 10px; text-transform: uppercase; }
-    .form-group input, .form-group textarea { width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 14px; outline: none; background: transparent; transition: border-color 0.4s; border-radius: 0; }
-    .form-group input:focus { border-bottom: 1px solid #1a1a1a; }
-    
-    #captchaDisplay { font-family: "Lora", serif; font-style: italic; color: #aaa; background: #fdfdfd; padding: 4px 15px; border: 1px solid #f0f0f0; margin-right: 15px; letter-spacing: 3px; }
-    #captchaInput { width: 80px; text-align: center; border-bottom: 1px solid #eee; }
-    .captcha-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
-
-    @media (max-width: 768px) { 
-        .form-row { grid-template-columns: 1fr; gap: 0; } 
-        .captcha-row { flex-direction: column; align-items: flex-start; gap: 30px; }
-        .submit-btn { width: 100%; justify-content: center; }
-    }
-</style>
-
-<script>
-    let currentCaptcha = "";
-    const brandColors = [
-        { bg: '#f4f1ea', text: '#1a1a1a', border: '#d1cfc7' }, // 米白
-        { bg: '#e2e2e2', text: '#1a1a1a', border: '#cccccc' }, // 冷灰
-        { bg: '#d7c4b7', text: '#fff', border: '#c5b0a2' },    // 淺褐
-        { bg: '#1a1a1a', text: '#fff', border: '#1a1a1a' }     // 深黑
-    ];
-
-    function generateCaptcha() {
-        const chars = "0123456789";
-        let result = "";
-        for (let i = 0; i < 4; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
-        currentCaptcha = result;
-        const display = document.getElementById('captchaDisplay');
-        if(display) display.innerText = result;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        generateCaptcha();
-
-        // 隨機跳轉顏色功能
-        const btn = document.getElementById('submitBtn');
-        btn.addEventListener('mouseenter', () => {
-            const randomColor = brandColors[Math.floor(Math.random() * (brandColors.length - 1))]; // 排除最後一個黑色
-            btn.style.backgroundColor = randomColor.bg;
-            btn.style.color = randomColor.text;
-            btn.style.borderColor = randomColor.border;
-        });
-        btn.addEventListener('mouseleave', () => {
-            btn.style.backgroundColor = '#1a1a1a';
-            btn.style.color = '#fff';
-            btn.style.borderColor = '#1a1a1a';
-        });
-
-        // 浮現動畫偵測
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
-
-        // 表單送出
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            if (document.getElementById('captchaInput').value !== currentCaptcha) {
-                alert("驗證碼錯誤");
-                generateCaptcha();
-                return;
-            }
-
-            const submitBtn = document.getElementById('submitBtn');
-            const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerText = "SENDING...";
-            submitBtn.disabled = true;
-
-            try {
-                const response = await fetch(this.action, {
-                    method: 'POST',
-                    body: new FormData(this),
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    alert("送出成功！我們會盡快與您聯繫。");
-                    this.reset();
-                    generateCaptcha();
-                } else {
-                    alert("目前無法送出，請檢查 Formspree 設定。");
+    <script>
+        // --- 1. 太陽 Icon 旋轉初始化 ---
+        function initSunIcon() {
+            const sunIcon = document.querySelector('.fixed-sun-icon');
+            if (sunIcon) {
+                let rotation = 0;
+                function rotate() {
+                    rotation += 0.4; // 控制速度
+                    sunIcon.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
+                    requestAnimationFrame(rotate);
                 }
-            } catch (error) {
-                alert("網路異常，請稍後再試。");
-            } finally {
-                submitBtn.innerHTML = originalHTML;
-                submitBtn.disabled = false;
+                rotate();
+            }
+        }
+
+        // --- 2. 驗證碼邏輯 ---
+        let currentCaptcha = "";
+        const brandColors = [
+            { bg: '#f4f1ea', text: '#1a1a1a', border: '#d1cfc7' }, // 米白
+            { bg: '#e2e2e2', text: '#1a1a1a', border: '#cccccc' }, // 冷灰
+            { bg: '#d7c4b7', text: '#fff', border: '#c5b0a2' }     // 淺褐
+        ];
+
+        function generateCaptcha() {
+            const chars = "0123456789";
+            let result = "";
+            for (let i = 0; i < 4; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+            currentCaptcha = result;
+            const display = document.getElementById('captchaDisplay');
+            if (display) display.innerText = result;
+        }
+
+        // --- 3. 全域初始化 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // A. 太陽旋轉
+            initSunIcon();
+            
+            // B. 生成驗證碼
+            generateCaptcha();
+
+            // C. 隨機按鈕顏色切換
+            const btn = document.getElementById('submitBtn');
+            if (btn) {
+                btn.addEventListener('mouseenter', () => {
+                    const randomColor = brandColors[Math.floor(Math.random() * brandColors.length)];
+                    btn.style.backgroundColor = randomColor.bg;
+                    btn.style.color = randomColor.text;
+                    btn.style.borderColor = randomColor.border;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.backgroundColor = '#1a1a1a';
+                    btn.style.color = '#fff';
+                    btn.style.borderColor = '#1a1a1a';
+                });
+            }
+
+            // D. 聯絡區塊浮現動畫偵測
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
+
+            // E. 表單發送 (AJAX 方式)
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    if (document.getElementById('captchaInput').value !== currentCaptcha) {
+                        alert("驗證碼錯誤，請重新輸入");
+                        generateCaptcha();
+                        return;
+                    }
+
+                    const submitBtn = document.getElementById('submitBtn');
+                    const originalHTML = submitBtn.innerHTML;
+                    submitBtn.innerText = "SENDING...";
+                    submitBtn.disabled = true;
+
+                    try {
+                        const response = await fetch(this.action, {
+                            method: 'POST',
+                            body: new FormData(this),
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        if (response.ok) {
+                            alert("送出成功！我們會盡快與您聯繫。");
+                            this.reset();
+                            generateCaptcha();
+                        } else {
+                            alert("送出失敗，請確認 Formspree 設定。");
+                        }
+                    } catch (error) {
+                        alert("網路異常，請稍後再試。");
+                    } finally {
+                        submitBtn.innerHTML = originalHTML;
+                        submitBtn.disabled = false;
+                    }
+                });
             }
         });
-    });
-</script>
+    </script>
 </body>
 </html>
