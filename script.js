@@ -29,25 +29,20 @@ function initPortfolio() {
 
     window.addEventListener('scroll', () => {
         const scrollPos = window.scrollY;
-
         if (nav) scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
-
         if (bannerBg && banner) {
             let bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
             bannerBg.style.opacity = Math.max(0, bgOpacity);
         }
-
         if (sunSvg) {
             const extraRotate = scrollPos * 0.2;
             sunSvg.style.setProperty('--scroll-rotate', `${extraRotate}deg`);
             const sunColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
             sunSvg.style.color = sunColors[Math.floor(scrollPos / 400) % sunColors.length];
         }
-
         if (btt) {
             scrollPos > 600 ? btt.classList.add('active') : btt.classList.remove('active');
         }
-
         if (revealTarget) {
             const rect = revealTarget.getBoundingClientRect();
             if (rect.top < window.innerHeight - 100) revealTarget.classList.add('active');
@@ -71,23 +66,18 @@ function initPortfolio() {
         };
 
         items.forEach((item, index) => {
-            // 初始化背景
-            item.style.backgroundColor = 'transparent';
-
             item.addEventListener('mouseenter', () => {
                 const cols = getColumnCount();
                 const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
                 
-                // 進入時：反應快速
-                item.style.transition = 'background 0.3s ease';
-                item.style.background = `linear-gradient(to bottom, ${color}CC 5%, ${color}33 60%)`;
+                // 進入時：使用純色透明度 (0.4) 以確保動畫流暢
+                item.style.transition = 'background-color 0.3s ease-out';
+                item.style.backgroundColor = `${color}66`; // 66 是約 40% 透明度
             });
 
             item.addEventListener('mouseleave', () => {
-                // 離開時：強制設定 1.5s 的長效淡出
-                // 同時針對 background 和 background-color 確保各瀏覽器相容性
-                item.style.transition = 'background 1.5s ease-in-out, background-color 1.5s ease-in-out';
-                item.style.background = 'rgba(255, 255, 255, 0)'; 
+                // 離開時：設定 1.5s 淡出
+                item.style.transition = 'background-color 1.5s ease-in-out';
                 item.style.backgroundColor = 'transparent';
             });
         });
