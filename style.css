@@ -113,7 +113,7 @@ nav.scrolled {
 .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
 .work-item:hover .img-container img { transform: scale(1.08); }
 .work-info h3 { font-family: "Lora", serif !important; font-size: 16px; font-weight: 500; margin-bottom: 5px; letter-spacing: 0.5px; }
-.work-info p { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+.work-info p { font-size: 11px; color: #b0b0b0; text-transform: uppercase; letter-spacing: 1px; } /* 文字顏色調淡 */
 
 /* --- 6. Contact Section & Reveal Animation --- */
 .reveal-section {
@@ -126,9 +126,25 @@ nav.scrolled {
     transform: translateY(0);
 }
 
+/* Contact Title 動畫效果 */
+.contact-title { 
+    font-family: "Lora", serif; 
+    font-size: 28px; 
+    font-weight: 300; 
+    margin-bottom: 60px; 
+    color: #1a1a1a;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out 0.3s; /* 延遲 0.3s 顯現 */
+}
+
+.reveal-section.active .contact-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid #eee; }
 .container-700 { max-width: 700px; margin: 0 auto; }
-.contact-title { font-family: "Lora", serif; font-size: 28px; font-weight: 300; margin-bottom: 60px; color: #1a1a1a; }
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .form-group { margin-bottom: 35px; position: relative; }
@@ -139,19 +155,11 @@ nav.scrolled {
 }
 .form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid #1a1a1a; }
 
-/* Captcha & Submit Alignment */
-.captcha-row { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: flex-start; 
-    margin-top: 20px; 
-}
-
+.captcha-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; }
 #captchaDisplay { 
     font-family: "Lora", serif; font-weight: 700; font-size: 20px; padding: 5px 18px; 
     border: 1px solid #f0f0f0; margin-right: 20px; letter-spacing: 5px; user-select: none; background: #fafafa;
 }
-
 .submit-wrap { margin-top: 25px; }
 .submit-btn {
     background: #1a1a1a; color: #ffffff; border: 1px solid #1a1a1a; padding: 10px 28px;
@@ -160,15 +168,11 @@ nav.scrolled {
 .arrow-icon { width: 40px; height: 12px; transition: transform 0.6s ease; }
 .submit-btn:hover .arrow-icon { transform: translateX(10px); }
 
-/* Error Styling */
-.error-message { font-size: 10px; color: #e74c3c; margin-top: 5px; height: 12px; opacity: 0; transition: opacity 0.3s; }
-.form-group.error input, .form-group.error textarea { border-bottom: 1px solid #e74c3c !important; }
-.form-group.error .error-message { opacity: 1; }
-
 /* --- 7. Custom Modal --- */
 .custom-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.5s ease; }
 .custom-modal.active { opacity: 1; visibility: visible; }
 .modal-content { background: #fff; padding: 60px; border: 1px solid #f0f0f0; text-align: center; max-width: 450px; width: 90%; }
+.modal-btn { background: #1a1a1a; color: #fff; border: none; padding: 10px 30px; margin-top: 20px; cursor: pointer; letter-spacing: 2px; font-size: 12px; }
 
 /* --- 8. Responsive --- */
 @media (max-width: 1024px) { 
@@ -176,8 +180,10 @@ nav.scrolled {
 }
 
 @media (max-width: 768px) {
-    .fixed-sun-icon { width: 105px; left: -40px; }
-    .sun-svg { width: 105px; }
+    /* 手機版太陽放大 20% (105px * 1.2 = 126px) */
+    .fixed-sun-icon { width: 126px; left: -50px; }
+    .sun-svg { width: 126px; }
+    
     .works-section { padding: 20px 5% 40px; }
     .grid { gap: 10px; }
     .work-item { padding: 15px; }
@@ -188,16 +194,10 @@ nav.scrolled {
     .submit-btn { width: 100%; justify-content: center; }
 }
 
+/* 針對尺寸小於 375px：一排呈現一個 */
 @media (max-width: 375px) {
-    .grid { 
-        grid-template-columns: 1fr; 
-    }
-    .work-item { 
-        aspect-ratio: auto; 
-        padding: 20px 10px;
-        border-bottom: 1px solid #f0f0f0; 
-    }
-    .banner h1 { 
-        font-size: 2.5rem !important; /* 縮小標題避免斷字 */
-    }
+    .grid { grid-template-columns: 1fr; }
+    .work-item { aspect-ratio: auto; padding: 20px 10px; }
+    .img-container { aspect-ratio: 16/9; }
+    .banner h1 { font-size: 2.4rem !important; }
 }
