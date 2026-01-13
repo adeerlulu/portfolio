@@ -11,173 +11,76 @@
     <style>
         html { scroll-behavior: smooth; }
 
-        /* --- 1. Contact Section 佈局與標題動畫 --- */
-        .contact-section { 
-            padding: 120px 5%; 
-            border-top: 1px solid #f2f2f2; 
-            background: #fff; 
-            scroll-margin-top: 100px; 
-        }
+        /* --- 1. Contact Section --- */
+        .contact-section { padding: 120px 5%; background: #fff; scroll-margin-top: 100px; }
         .container-700 { max-width: 700px; margin: 0 auto; }
         
-        .reveal-section .contact-title {
-            opacity: 0;
-            letter-spacing: 12px;
-            transform: translateY(30px);
-            transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        .reveal-section.active .contact-title {
-            opacity: 1;
-            letter-spacing: 2px;
-            transform: translateY(0);
-        }
+        .contact-title { font-family: "Lora", serif; font-size: 28px; font-weight: 300; margin-bottom: 60px; color: #1a1a1a; text-align: left; }
 
-        .contact-title { 
-            font-family: "Lora", serif; 
-            font-size: 28px; 
-            font-weight: 300; 
-            margin-bottom: 60px; 
-            color: #1a1a1a; 
-        }
-
-        /* --- 2. 表單顏色修正：標籤深色 / 提示字淺色 --- */
+        /* --- 2. 表單與輸入框 --- */
         .contact-form { font-family: "Lora", "Noto Sans TC", serif; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .form-group { margin-bottom: 35px; }
+        .form-group { margin-bottom: 35px; text-align: left; position: relative; }
 
-        /* 項目標題：改為深色 */
-        .form-group label { 
-            font-size: 11px; 
-            color: #1a1a1a; /* 深色 */
-            font-weight: 500;
-            letter-spacing: 1.5px; 
-            display: block; 
-            margin-bottom: 10px; 
-            text-transform: uppercase; 
-        }
+        .form-group label { font-size: 11px; color: #1a1a1a; font-weight: 500; letter-spacing: 1.5px; display: block; margin-bottom: 10px; text-transform: uppercase; }
         
-        /* 輸入框與提示字 */
         .form-group input, .form-group textarea { 
-            width: 100%; 
-            border: none; 
-            border-bottom: 1px solid #eee; 
-            padding: 10px 0; 
-            font-size: 14px; 
-            outline: none; 
-            background: transparent; 
-            transition: all 0.4s; 
-            border-radius: 0; 
-            color: #1a1a1a;
+            width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; 
+            font-size: 14px; outline: none; background: transparent; transition: all 0.4s; border-radius: 0; color: #1a1a1a;
         }
 
-        /* 提示字（Placeholder）：改為淡灰色 */
-        .form-group input::placeholder, 
-        .form-group textarea::placeholder {
-            color: #d1d1d1; /* 淡灰色 */
-            font-weight: 300;
-        }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: #d1d1d1; font-weight: 300; }
+        .form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid #1a1a1a; }
 
-        .form-group input:focus, 
-        .form-group textarea:focus { 
-            border-bottom: 1px solid #1a1a1a; 
-        }
+        /* 錯誤狀態樣式 */
+        .form-group.error input, .form-group.error textarea { border-bottom: 1px solid #e74c3c; }
 
-        /* --- 3. 圓框按鈕與極細箭頭 --- */
-        .submit-btn {
-            background: #1a1a1a;
-            color: #fff;
-            border: 1px solid #1a1a1a;
-            padding: 10px 28px;
-            border-radius: 40px; 
-            font-size: 13px;
-            font-family: "Noto Sans TC", sans-serif;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-        }
-
-        .arrow-icon {
-            width: 40px;
-            height: 12px;
-            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        .submit-btn:hover .arrow-icon {
-            transform: translateX(10px);
-        }
-
-        /* 驗證碼樣式 */
+        /* --- 3. 驗證碼 --- */
         .captcha-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
         .captcha-input-group { display: flex; align-items: center; }
         #captchaDisplay { 
-            font-family: "Lora", serif; 
-            font-style: italic; 
-            color: #999; 
-            background: #fdfdfd; 
-            padding: 4px 15px; 
-            border: 1px solid #f0f0f0; 
-            margin-right: 15px; 
-            letter-spacing: 3px; 
-            user-select: none;
+            font-family: "Lora", serif; font-weight: 700; font-size: 20px; padding: 5px 18px; 
+            border: 1px solid #f0f0f0; margin-right: 20px; letter-spacing: 5px; user-select: none; background: #fafafa;
         }
         #captchaInput { width: 80px; text-align: center; }
+
+        /* --- 4. 圓框按鈕 --- */
+        .submit-btn {
+            background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; padding: 10px 28px;
+            border-radius: 40px; font-size: 13px; font-family: "Noto Sans TC", sans-serif;
+            cursor: pointer; display: flex; align-items: center; gap: 15px; transition: all 0.4s ease;
+        }
+        .arrow-icon { width: 40px; height: 12px; transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); }
+        .submit-btn:hover .arrow-icon { transform: translateX(10px); }
+
+        /* --- 5. 自定義跳窗 (Modal) --- */
+        .custom-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center;
+            z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.5s ease;
+        }
+        .custom-modal.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: #fff; padding: 50px 80px; border: 1px solid #f0f0f0; text-align: center;
+            max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transform: translateY(20px); transition: all 0.5s ease;
+        }
+        .custom-modal.active .modal-content { transform: translateY(0); }
+        .modal-title { font-family: "Lora", serif; font-size: 24px; margin-bottom: 15px; color: #1a1a1a; }
+        .modal-text { font-family: "Noto Sans TC", sans-serif; font-size: 14px; color: #666; margin-bottom: 30px; letter-spacing: 1px; }
+        .modal-btn {
+            background: #1a1a1a; color: #fff; border: none; padding: 10px 40px; border-radius: 40px;
+            font-size: 12px; cursor: pointer; transition: opacity 0.3s;
+        }
+        .modal-btn:hover { opacity: 0.8; }
 
         @media (max-width: 768px) { 
             .form-row { grid-template-columns: 1fr; gap: 0; } 
             .captcha-row { flex-direction: column; align-items: flex-start; gap: 30px; }
-            .submit-btn { width: 100%; justify-content: center; }
+            .modal-content { padding: 40px 10%; width: 80%; }
         }
     </style>
 </head>
 <body>
-    <div class="fixed-sun-icon">
-        <svg class="sun-svg" id="圖層_1" data-name="圖層 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-            <polygon class="cls-1" points="500 26.41 502.79 144.81 505.58 263.21 508.38 381.6 511.17 500 505.58 500 500 500 494.42 500 488.84 500 491.63 381.6 494.42 263.21 497.21 144.81 500 26.41"/>
-            <polygon class="cls-1" points="377.43 42.55 410.77 156.19 444.11 269.83 477.45 383.47 510.79 497.11 505.39 498.56 500 500 494.61 501.44 489.22 502.89 461.27 387.8 433.33 272.72 405.38 157.63 377.43 42.55"/>
-            <polygon class="cls-1" points="263.21 89.86 324.82 191 386.44 292.14 448.06 393.28 509.67 494.42 504.84 497.21 500 500 495.17 502.79 490.34 505.58 433.56 401.65 376.77 297.72 319.99 193.79 263.21 89.86"/>
-            <polygon class="cls-1" points="165.13 165.12 250.82 246.87 336.51 328.62 422.2 410.36 507.9 492.11 503.95 496.06 500 500 496.06 503.95 492.11 507.89 410.37 422.2 328.62 336.51 246.87 250.81 165.13 165.12"/>
-            <polygon class="cls-1" points="89.86 263.21 193.79 319.99 297.73 376.77 401.65 433.55 505.58 490.34 502.8 495.17 500 500 497.21 504.83 494.42 509.67 393.28 448.05 292.14 386.44 191 324.82 89.86 263.21"/>
-            <polygon class="cls-1" points="42.55 377.43 157.64 405.38 272.72 433.32 387.81 461.27 502.89 489.22 501.45 494.61 500 500 498.56 505.39 497.12 510.78 383.48 477.44 269.83 444.11 156.19 410.77 42.55 377.43"/>
-            <polygon class="cls-1" points="26.41 500 144.81 497.21 263.21 494.42 381.61 491.63 500 488.84 500 494.42 500 500 500 505.58 500 511.16 381.61 508.37 263.21 505.58 144.81 502.79 26.41 500"/>
-            <polygon class="cls-1" points="42.55 622.57 156.19 589.24 269.83 555.9 383.47 522.56 497.12 489.22 498.56 494.61 500 500 501.45 505.39 502.89 510.78 387.81 538.73 272.72 566.68 157.64 594.63 42.55 622.57"/>
-            <polygon class="cls-1" points="89.86 736.8 191 675.18 292.14 613.57 393.28 551.95 494.42 490.34 497.21 495.17 500 500 502.8 504.83 505.58 509.67 401.65 566.45 297.73 623.23 193.79 680.01 89.86 736.8"/>
-            <polygon class="cls-1" points="165.13 834.88 246.87 749.18 328.62 663.49 410.37 577.8 492.11 492.11 496.06 496.06 500 500 503.95 503.95 507.9 507.89 422.2 589.64 336.51 671.38 250.82 753.13 165.13 834.88"/>
-            <polygon class="cls-1" points="263.21 910.14 319.99 806.21 376.77 702.28 433.56 598.35 490.34 494.42 495.17 497.21 500 500 504.84 502.79 509.67 505.58 448.06 606.72 386.44 707.86 324.82 809 263.21 910.14"/>
-            <polygon class="cls-1" points="377.43 957.45 405.38 842.37 433.33 727.28 461.28 612.2 489.22 497.11 494.61 498.56 500 500 505.39 501.44 510.79 502.89 477.45 616.53 444.11 730.17 410.77 843.81 377.43 957.45"/>
-            <polygon class="cls-1" points="500.01 973.59 497.21 855.19 494.43 736.79 491.63 618.4 488.84 500 494.42 500 500 500 505.58 500 511.17 500 508.38 618.4 505.59 736.79 502.8 855.19 500.01 973.59"/>
-            <polygon class="cls-1" points="622.58 957.45 589.24 843.81 555.9 730.17 522.56 616.53 489.22 502.89 494.61 501.44 500 500 505.39 498.56 510.79 497.11 538.73 612.2 566.68 727.28 594.63 842.36 622.58 957.45"/>
-            <polygon class="cls-1" points="736.8 910.14 675.18 809 613.57 707.86 551.95 606.72 490.34 505.58 495.17 502.79 500 500 504.84 497.21 509.67 494.42 566.45 598.35 623.23 702.28 680.02 806.21 736.8 910.14"/>
-            <polygon class="cls-1" points="834.88 834.87 749.19 753.13 663.5 671.38 577.8 589.64 492.11 507.89 496.06 503.95 500 500 503.95 496.06 507.9 492.11 589.64 577.8 671.39 663.49 753.13 749.18 834.88 834.87"/>
-            <polygon class="cls-1" points="910.14 736.79 806.21 680.01 702.28 623.23 598.35 566.45 494.42 509.67 497.21 504.83 500 500 502.8 495.17 505.58 490.34 606.72 551.95 707.86 613.56 809 675.18 910.14 736.79"/>
-            <polygon class="cls-1" points="957.45 622.57 842.37 594.63 727.28 566.68 612.2 538.73 497.12 510.78 498.56 505.39 500 500 501.45 494.61 502.89 489.22 616.53 522.56 730.17 555.9 843.81 589.24 957.45 622.57"/>
-            <polygon class="cls-1" points="973.59 500 855.19 502.79 736.79 505.58 618.4 508.37 500 511.16 500 505.58 500 500 500 494.42 500 488.84 618.4 491.63 736.79 494.42 855.19 497.21 973.59 500"/>
-            <polygon class="cls-1" points="957.45 377.43 843.81 410.77 730.17 444.11 616.53 477.44 502.89 510.78 501.45 505.39 500 500 498.56 494.61 497.12 489.22 612.2 461.27 727.28 433.32 842.37 405.38 957.45 377.43"/>
-            <polygon class="cls-1" points="910.14 263.21 809 324.82 707.86 386.44 606.72 448.05 505.58 509.67 502.8 504.83 500 500 497.21 495.17 494.42 490.34 598.35 433.55 702.28 376.77 806.21 319.99 910.14 263.21"/>
-            <polygon class="cls-1" points="834.88 165.13 753.13 250.82 671.39 336.51 589.64 422.2 507.9 507.89 503.95 503.95 500 500 496.06 496.06 492.11 492.11 577.8 410.37 663.5 328.62 749.19 246.88 834.88 165.13"/>
-            <polygon class="cls-1" points="736.8 89.87 680.02 193.79 623.23 297.72 566.45 401.65 509.67 505.58 504.84 502.79 500 500 495.17 497.21 490.34 494.42 551.95 393.28 613.57 292.14 675.18 191 736.8 89.87"/>
-            <polygon class="cls-1" points="622.58 42.56 594.63 157.64 566.68 272.72 538.73 387.81 510.79 502.89 505.39 501.44 500 500 494.61 498.56 489.22 497.11 522.56 383.47 555.9 269.83 589.24 156.2 622.58 42.56"/>
-        </svg>
-    </div>
-
-    <nav>
-        <div class="logo">+1 DESIGN</div>
-        <div class="nav-links">
-            <a href="#works">Works</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
-
-    <header class="banner">
-        <div class="banner-bg"></div>
-        <div class="banner-content">
-            <h1 id="hero-title">
-                <span>S</span><span>h</span><span>a</span><span>p</span><span>i</span><span>n</span><span>g</span><span>&nbsp;</span><span>t</span><span>h</span><span>e</span><span>&nbsp;</span><span>E</span><span>s</span><span>s</span><span>e</span><span>n</span><span>c</span><span>e</span>
-            </h1>
-            <p>從品牌輪廓、版面節奏到視覺重心，一一形塑，一起找到適合它的樣子。</p>
-        </div>
-    </header>
 
     <main class="works-section" id="works">
         <div id="works-grid" class="grid"></div>
@@ -197,17 +100,14 @@
                         <input type="text" name="line_id" placeholder="選填">
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" required placeholder="電子信箱">
                 </div>
-
                 <div class="form-group">
                     <label>Message</label>
                     <textarea name="message" rows="2" placeholder="請輸入欲洽詢內容"></textarea>
                 </div>
-
                 <div class="captcha-row">
                     <div class="form-group" style="margin-bottom: 0;">
                         <label>Verification Code</label>
@@ -230,30 +130,34 @@
         </div>
     </footer>
 
+    <div class="custom-modal" id="infoModal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalTitle">Success</h3>
+            <p class="modal-text" id="modalText">您的訊息已成功送出。</p>
+            <button class="modal-btn" onclick="closeModal()">CLOSE</button>
+        </div>
+    </div>
+
     <script src="data.js"></script>
     <script src="script.js"></script>
 
     <script>
-        // --- 1. 太陽 Icon 旋轉 (滑順驅動) ---
-        function initSunIcon() {
-            const sunIcon = document.querySelector('.fixed-sun-icon');
-            if (sunIcon) {
-                let rotation = 0;
-                function rotate() {
-                    rotation += 0.4;
-                    sunIcon.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
-                    requestAnimationFrame(rotate);
-                }
-                rotate();
-            }
+        // 跳窗控制功能
+        function showModal(title, text) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalText').innerText = text;
+            document.getElementById('infoModal').classList.add('active');
+        }
+        function closeModal() {
+            document.getElementById('infoModal').classList.remove('active');
         }
 
-        // --- 2. 驗證碼邏輯 ---
+        // 太陽旋轉與驗證碼邏輯 (保留上一版)
         let currentCaptcha = "";
         const brandColors = [
             { bg: '#f4f1ea', text: '#1a1a1a', border: '#d1cfc7' }, 
             { bg: '#e2e2e2', text: '#1a1a1a', border: '#cccccc' }, 
-            { bg: '#d7c4b7', text: '#fff', border: '#c5b0a2' }
+            { bg: '#d7c4b7', text: '#1a1a1a', border: '#c5b0a2' }
         ];
 
         function generateCaptcha() {
@@ -262,75 +166,57 @@
             for (let i = 0; i < 4; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
             currentCaptcha = result;
             const display = document.getElementById('captchaDisplay');
-            if (display) display.innerText = result;
+            if (display) {
+                display.innerText = result;
+                const randomColor = brandColors[Math.floor(Math.random() * brandColors.length)];
+                display.style.color = randomColor.bg === '#f4f1ea' ? '#d7c4b7' : randomColor.bg;
+            }
         }
 
-        // --- 3. 初始載入核心 ---
         document.addEventListener('DOMContentLoaded', () => {
-            initSunIcon();
             generateCaptcha();
 
-            // 按鈕隨機配色效果
-            const btn = document.getElementById('submitBtn');
-            if (btn) {
-                btn.addEventListener('mouseenter', () => {
-                    const randomColor = brandColors[Math.floor(Math.random() * brandColors.length)];
-                    btn.style.backgroundColor = randomColor.bg;
-                    btn.style.color = randomColor.text;
-                    btn.style.borderColor = randomColor.border;
-                });
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.backgroundColor = '#1a1a1a';
-                    btn.style.color = '#fff';
-                    btn.style.borderColor = '#1a1a1a';
-                });
-            }
-
-            // 區塊滾動浮現監測
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('active');
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
-
-            // 表單 AJAX 發送
+            // 表單校驗與送出
             const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    if (document.getElementById('captchaInput').value !== currentCaptcha) {
-                        alert("驗證碼錯誤");
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // 清除之前的錯誤狀態
+                document.querySelectorAll('.form-group').forEach(el => el.classList.remove('error'));
+
+                // 檢查驗證碼
+                if (document.getElementById('captchaInput').value !== currentCaptcha) {
+                    document.getElementById('captchaInput').parentElement.parentElement.classList.add('error');
+                    showModal("Verification Error", "驗證碼輸入錯誤，請重新確認。");
+                    generateCaptcha();
+                    return;
+                }
+
+                const submitBtn = document.getElementById('submitBtn');
+                const originalHTML = submitBtn.innerHTML;
+                submitBtn.innerText = "送出中...";
+                submitBtn.disabled = true;
+
+                try {
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        body: new FormData(this),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (response.ok) {
+                        showModal("Sent Successfully", "訊息已送出，我們會盡快與您聯繫。");
+                        this.reset();
                         generateCaptcha();
-                        return;
+                    } else {
+                        showModal("Error", "發送失敗，請檢查網路連線或稍後再試。");
                     }
-
-                    const submitBtn = document.getElementById('submitBtn');
-                    const originalHTML = submitBtn.innerHTML;
-                    submitBtn.innerText = "SENDING...";
-                    submitBtn.disabled = true;
-
-                    try {
-                        const response = await fetch(this.action, {
-                            method: 'POST',
-                            body: new FormData(this),
-                            headers: { 'Accept': 'application/json' }
-                        });
-                        if (response.ok) {
-                            alert("送出成功！我們會盡快與您聯繫。");
-                            this.reset();
-                            generateCaptcha();
-                        } else {
-                            alert("目前無法送出，請檢查 Formspree 設定。");
-                        }
-                    } catch (error) {
-                        alert("網路異常，請稍後再試。");
-                    } finally {
-                        submitBtn.innerHTML = originalHTML;
-                        submitBtn.disabled = false;
-                    }
-                });
-            }
+                } catch (error) {
+                    showModal("Error", "系統異常，目前無法送出。");
+                } finally {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }
+            });
         });
     </script>
 </body>
