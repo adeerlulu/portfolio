@@ -226,3 +226,68 @@ nav.scrolled {
         font-size: 2.5rem !important;
     }
 }
+/* --- Footer Bottom (Copyright) --- */
+.footer-bottom {
+    padding: 40px 0;
+    text-align: center;
+    font-family: "Lora", serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #999;
+}
+
+/* --- Back to Top --- */
+.back-to-top {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(20px);
+}
+
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.btt-text {
+    font-family: "Lora", serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    writing-mode: vertical-rl; /* 文字直向 */
+    margin-bottom: 15px;
+    color: #1a1a1a;
+}
+
+.btt-arrow {
+    width: 1px;
+    height: 40px;
+    background: #1a1a1a;
+    position: relative;
+    transition: height 0.4s ease;
+}
+
+.btt-arrow svg {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg); /* 箭頭朝上 */
+    width: 30px;
+    color: #1a1a1a;
+}
+
+.back-to-top:hover .btt-arrow {
+    height: 60px; /* 滑過時箭頭拉長 */
+}
+
+@media (max-width: 768px) {
+    .back-to-top { right: 20px; bottom: 20px; }
+}
