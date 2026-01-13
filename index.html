@@ -9,10 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 平滑捲動 */
         html { scroll-behavior: smooth; }
 
-        /* --- 1. Contact Section 樣式與動畫 --- */
+        /* --- 1. Contact Section 佈局與標題動畫 --- */
         .contact-section { 
             padding: 120px 5%; 
             border-top: 1px solid #f2f2f2; 
@@ -21,7 +20,6 @@
         }
         .container-700 { max-width: 700px; margin: 0 auto; }
         
-        /* 標題動畫初始狀態 */
         .reveal-section .contact-title {
             opacity: 0;
             letter-spacing: 12px;
@@ -42,24 +40,23 @@
             color: #1a1a1a; 
         }
 
+        /* --- 2. 表單顏色修正：標籤深色 / 提示字淺色 --- */
         .contact-form { font-family: "Lora", "Noto Sans TC", serif; }
-        
-        .form-row { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px; 
-        }
-
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .form-group { margin-bottom: 35px; }
+
+        /* 項目標題：改為深色 */
         .form-group label { 
-            font-size: 10px; 
-            color: #bbb; 
+            font-size: 11px; 
+            color: #1a1a1a; /* 深色 */
+            font-weight: 500;
             letter-spacing: 1.5px; 
             display: block; 
             margin-bottom: 10px; 
             text-transform: uppercase; 
         }
         
+        /* 輸入框與提示字 */
         .form-group input, .form-group textarea { 
             width: 100%; 
             border: none; 
@@ -68,17 +65,29 @@
             font-size: 14px; 
             outline: none; 
             background: transparent; 
-            transition: border-color 0.4s; 
+            transition: all 0.4s; 
             border-radius: 0; 
+            color: #1a1a1a;
         }
-        .form-group input:focus { border-bottom: 1px solid #1a1a1a; }
 
-        /* --- 2. 圓框按鈕與箭頭 --- */
+        /* 提示字（Placeholder）：改為淡灰色 */
+        .form-group input::placeholder, 
+        .form-group textarea::placeholder {
+            color: #d1d1d1; /* 淡灰色 */
+            font-weight: 300;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus { 
+            border-bottom: 1px solid #1a1a1a; 
+        }
+
+        /* --- 3. 圓框按鈕與極細箭頭 --- */
         .submit-btn {
             background: #1a1a1a;
             color: #fff;
             border: 1px solid #1a1a1a;
-            padding: 8px 24px;
+            padding: 10px 28px;
             border-radius: 40px; 
             font-size: 13px;
             font-family: "Noto Sans TC", sans-serif;
@@ -86,7 +95,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
         }
 
@@ -105,7 +114,7 @@
         #captchaDisplay { 
             font-family: "Lora", serif; 
             font-style: italic; 
-            color: #aaa; 
+            color: #999; 
             background: #fdfdfd; 
             padding: 4px 15px; 
             border: 1px solid #f0f0f0; 
@@ -225,13 +234,13 @@
     <script src="script.js"></script>
 
     <script>
-        // --- 1. 太陽 Icon 旋轉初始化 ---
+        // --- 1. 太陽 Icon 旋轉 (滑順驅動) ---
         function initSunIcon() {
             const sunIcon = document.querySelector('.fixed-sun-icon');
             if (sunIcon) {
                 let rotation = 0;
                 function rotate() {
-                    rotation += 0.4; // 控制速度
+                    rotation += 0.4;
                     sunIcon.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
                     requestAnimationFrame(rotate);
                 }
@@ -242,9 +251,9 @@
         // --- 2. 驗證碼邏輯 ---
         let currentCaptcha = "";
         const brandColors = [
-            { bg: '#f4f1ea', text: '#1a1a1a', border: '#d1cfc7' }, // 米白
-            { bg: '#e2e2e2', text: '#1a1a1a', border: '#cccccc' }, // 冷灰
-            { bg: '#d7c4b7', text: '#fff', border: '#c5b0a2' }     // 淺褐
+            { bg: '#f4f1ea', text: '#1a1a1a', border: '#d1cfc7' }, 
+            { bg: '#e2e2e2', text: '#1a1a1a', border: '#cccccc' }, 
+            { bg: '#d7c4b7', text: '#fff', border: '#c5b0a2' }
         ];
 
         function generateCaptcha() {
@@ -256,15 +265,12 @@
             if (display) display.innerText = result;
         }
 
-        // --- 3. 全域初始化 ---
+        // --- 3. 初始載入核心 ---
         document.addEventListener('DOMContentLoaded', () => {
-            // A. 太陽旋轉
             initSunIcon();
-            
-            // B. 生成驗證碼
             generateCaptcha();
 
-            // C. 隨機按鈕顏色切換
+            // 按鈕隨機配色效果
             const btn = document.getElementById('submitBtn');
             if (btn) {
                 btn.addEventListener('mouseenter', () => {
@@ -280,23 +286,21 @@
                 });
             }
 
-            // D. 聯絡區塊浮現動畫偵測
+            // 區塊滾動浮現監測
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('active');
                 });
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
 
-            // E. 表單發送 (AJAX 方式)
+            // 表單 AJAX 發送
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     if (document.getElementById('captchaInput').value !== currentCaptcha) {
-                        alert("驗證碼錯誤，請重新輸入");
+                        alert("驗證碼錯誤");
                         generateCaptcha();
                         return;
                     }
@@ -317,7 +321,7 @@
                             this.reset();
                             generateCaptcha();
                         } else {
-                            alert("送出失敗，請確認 Formspree 設定。");
+                            alert("目前無法送出，請檢查 Formspree 設定。");
                         }
                     } catch (error) {
                         alert("網路異常，請稍後再試。");
