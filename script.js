@@ -70,7 +70,7 @@ function initPortfolio() {
         });
     }
 
-    // --- 4. Work Item Hover Effects (恢復 80%-20% 並加入顏色停留感) ---
+    // --- 4. Work Item Hover Effects (強化停留感與漸層相容性) ---
     function initWorkItemHovers() {
         const items = document.querySelectorAll('.work-item');
         const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
@@ -82,19 +82,25 @@ function initPortfolio() {
         };
 
         items.forEach((item, index) => {
+            // 先確保初始狀態，這能幫助瀏覽器計算過渡
+            item.style.backgroundColor = 'rgba(255, 255, 255, 0)';
+
             item.addEventListener('mouseenter', () => {
                 const cols = getColumnCount();
                 const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
                 
-                // 滑鼠進入：顏色反應較快
+                // 進入時：取消延遲，快速顯現
                 item.style.transition = 'background 0.3s ease-out';
                 item.style.background = `linear-gradient(to bottom, ${color}CC 5%, ${color}33 60%)`;
             });
 
             item.addEventListener('mouseleave', () => {
-                // 滑鼠離開：讓背景顏色緩慢淡出 (0.8s)，達成停留效果
-                item.style.transition = 'background 1.5s ease-in-out';
-                item.style.background = 'transparent';
+                // 離開時：這是關鍵
+                // 1. 使用 transitionDelay 讓顏色在滑鼠移開後先「卡住」 0.1 秒不准動
+                // 2. 使用 1.2s 的長效淡出
+                item.style.transition = 'background 1.2s ease-in-out';
+                item.style.transitionDelay = '0.1s'; 
+                item.style.background = 'rgba(255, 255, 255, 0)'; // 變回透明
             });
         });
     }
