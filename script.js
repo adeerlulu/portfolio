@@ -93,7 +93,7 @@ function initPortfolio() {
 
             item.addEventListener('mouseleave', () => {
                 // 滑鼠離開：讓背景顏色緩慢淡出 (0.8s)，達成停留效果
-                item.style.transition = 'background 0.8s ease-in-out';
+                item.style.transition = 'background 1.5s ease-in-out';
                 item.style.background = 'transparent';
             });
         });
