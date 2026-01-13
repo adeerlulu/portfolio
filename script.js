@@ -1,7 +1,6 @@
 /**
  * Portfolio Core Logic - script.js
  */
-
 function initPortfolio() {
     const data = window.projectData || window.worksData;
     const grid = document.getElementById('works-grid');
@@ -31,57 +30,37 @@ function initPortfolio() {
         const scrollPos = window.scrollY;
         if (nav) scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
         if (bannerBg && banner) {
-            let bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
-            bannerBg.style.opacity = Math.max(0, bgOpacity);
+            bannerBg.style.opacity = Math.max(0, 1 - (scrollPos / (banner.offsetHeight * 0.6)));
         }
         if (sunSvg) {
-            const extraRotate = scrollPos * 0.2;
-            sunSvg.style.setProperty('--scroll-rotate', `${extraRotate}deg`);
+            sunSvg.style.setProperty('--scroll-rotate', `${scrollPos * 0.2}deg`);
             const sunColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
             sunSvg.style.color = sunColors[Math.floor(scrollPos / 400) % sunColors.length];
         }
-        if (btt) {
-            scrollPos > 600 ? btt.classList.add('active') : btt.classList.remove('active');
-        }
+        if (btt) scrollPos > 600 ? btt.classList.add('active') : btt.classList.remove('active');
         if (revealTarget) {
-            const rect = revealTarget.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) revealTarget.classList.add('active');
+            if (revealTarget.getBoundingClientRect().top < window.innerHeight - 100) revealTarget.classList.add('active');
         }
     });
 
-    if (btt) {
-        btt.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    if (btt) btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     function initWorkItemHovers() {
         const items = document.querySelectorAll('.work-item');
         const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
-        
-        const getColumnCount = () => {
-            if (window.innerWidth <= 768) return 1;
-            if (window.innerWidth <= 1024) return 2;
-            return 4;
-        };
+        const getCols = () => window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1024 ? 2 : 4);
 
         items.forEach((item, index) => {
             item.addEventListener('mouseenter', () => {
-                const cols = getColumnCount();
-                const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
-                
-                // 進入時：使用純色透明度 (0.4) 以確保動畫流暢
-                item.style.transition = 'background-color 0.3s ease-out';
-                item.style.backgroundColor = `${color}66`; // 66 是約 40% 透明度
+                const color = baseColors[(Math.floor(index / getCols()) + (index % getCols())) % baseColors.length];
+                item.style.transition = 'background-color 0.3s ease';
+                item.style.backgroundColor = color + '44'; // 使用純色 25% 透明度
             });
-
             item.addEventListener('mouseleave', () => {
-                // 離開時：設定 1.5s 淡出
                 item.style.transition = 'background-color 1.5s ease-in-out';
                 item.style.backgroundColor = 'transparent';
             });
         });
     }
 }
-
 document.addEventListener('DOMContentLoaded', initPortfolio);
