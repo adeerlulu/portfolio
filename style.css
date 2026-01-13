@@ -171,7 +171,9 @@ nav.scrolled {
 .modal-content { background: #fff; padding: 60px; border: 1px solid #f0f0f0; text-align: center; max-width: 450px; width: 90%; }
 
 /* --- 8. Responsive --- */
-@media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 1024px) { 
+    .grid { grid-template-columns: repeat(2, 1fr); } 
+}
 
 @media (max-width: 768px) {
     .fixed-sun-icon { width: 105px; left: -40px; }
@@ -184,4 +186,18 @@ nav.scrolled {
     .captcha-row { flex-direction: column; align-items: flex-start; gap: 20px; }
     .submit-wrap { margin-top: 0; width: 100%; }
     .submit-btn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 375px) {
+    .grid { 
+        grid-template-columns: 1fr; 
+    }
+    .work-item { 
+        aspect-ratio: auto; 
+        padding: 20px 10px;
+        border-bottom: 1px solid #f0f0f0; 
+    }
+    .banner h1 { 
+        font-size: 2.5rem !important; /* 縮小標題避免斷字 */
+    }
 }
