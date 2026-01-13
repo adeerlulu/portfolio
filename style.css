@@ -1,9 +1,7 @@
-/* --- 保持原始樣式，修正編碼與數字錯誤 --- */
 html {
     scroll-behavior: smooth;
 }
 
-/* --- 1. Global Reset --- */
 * { 
     margin: 0; 
     padding: 0; 
@@ -24,7 +22,6 @@ h1, .banner h1, #proj-title {
     font-weight: 300; 
 }
 
-/* --- 2. Floating Sun Icon --- */
 .fixed-sun-icon {
     position: fixed; 
     left: -150px; 
@@ -45,7 +42,6 @@ h1, .banner h1, #proj-title {
     transition: transform 0.1s ease-out; 
 }
 
-/* --- 3. Navigation --- */
 #main-nav {
     display: flex; 
     justify-content: space-between; 
@@ -71,7 +67,6 @@ h1, .banner h1, #proj-title {
 .nav-links { display: flex; align-items: center; list-style: none; }
 .nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
 
-/* --- 4. Banner --- */
 .banner { 
     position: relative; 
     height: 50vh; 
@@ -111,7 +106,6 @@ h1, .banner h1, #proj-title {
 .banner h1 span:hover:nth-child(4n+4) { color: #34A853; }
 .banner p { font-size: 16px; color: #666; max-width: 650px; line-height: 1.8; }
 
-/* --- 5. Works Grid --- */
 .works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
 .grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
 .work-item { 
@@ -129,7 +123,6 @@ h1, .banner h1, #proj-title {
 .work-info h3 { font-family: "Lora", serif !important; font-size: 16px; font-weight: 500; margin-bottom: 5px; letter-spacing: 0.5px; }
 .work-info p { font-size: 11px; color: #b0b0b0; text-transform: uppercase; letter-spacing: 1px; }
 
-/* --- 6. Contact Section & Reveal Animation --- */
 .reveal-section {
     opacity: 0;
     transform: translateY(40px);
@@ -197,12 +190,10 @@ h1, .banner h1, #proj-title {
 .form-group.error input, .form-group.error textarea { border-bottom: 1px solid #e74c3c !important; }
 .form-group.error .error-message { opacity: 1; }
 
-/* --- 7. Custom Modal --- */
 .custom-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.5s ease; }
 .custom-modal.active { opacity: 1; visibility: visible; }
 .modal-content { background: #fff; padding: 60px; border: 1px solid #f0f0f0; text-align: center; max-width: 450px; width: 90%; }
 
-/* --- 8. Responsive --- */
 @media (max-width: 1024px) { 
     .grid { grid-template-columns: repeat(2, 1fr); } 
 }
@@ -230,4 +221,7 @@ h1, .banner h1, #proj-title {
     padding: 40px 0;
     text-align: center;
     font-family: "Lora", serif;
-    font-size:
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #999;
+}
