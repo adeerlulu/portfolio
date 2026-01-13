@@ -28,7 +28,7 @@
             <polygon points="500.01 973.59 497.21 855.19 494.43 736.79 491.63 618.4 488.84 500 494.42 500 500 500 505.58 500 511.17 500 508.38 618.4 505.59 736.79 502.8 855.19 500.01 973.59"/>
             <polygon points="622.58 957.45 589.24 843.81 555.9 730.17 522.56 616.53 489.22 502.89 494.61 501.44 500 500 505.39 498.56 510.79 497.11 538.73 612.2 566.68 727.28 594.63 842.36 622.58 957.45"/>
             <polygon points="736.8 910.14 675.18 809 613.57 707.86 551.95 606.72 490.34 505.58 495.17 502.79 500 500 504.84 497.21 509.67 494.42 566.45 598.35 623.23 702.28 680.02 806.21 736.8 910.14"/>
-            <polygon points="834.88 834.87 749.19 753.13 663.5 671.38 577.8 589.64 492.11 507.89 496.06 503.95 500 500 503.95 496.06 507.9 492.11 589.64 577.8 671.39 663.49 753.13 749.18 834.88 834.87"/>
+            <polygon points="834.88 834.87 749.19 753.13 663.5 671.38 577.8 589.64 492.11 507.89 496.06 503.95 500 500 503.95 503.95 507.9 507.89 422.2 589.64 336.51 671.38 250.82 753.13 834.88 834.87"/>
             <polygon points="910.14 736.79 806.21 680.01 702.28 623.23 598.35 566.45 494.42 509.67 497.21 504.83 500 500 502.8 495.17 505.58 490.34 606.72 551.95 707.86 613.56 809 675.18 910.14 736.79"/>
             <polygon points="957.45 622.57 842.37 594.63 727.28 566.68 612.2 538.73 497.12 510.78 498.56 505.39 500 500 501.45 494.61 502.89 489.22 616.53 522.56 730.17 555.9 843.81 589.24 957.45 622.57"/>
             <polygon points="973.59 500 855.19 502.79 736.79 505.58 618.4 508.37 500 511.16 500 505.58 500 500 500 494.42 500 488.84 618.4 491.63 736.79 494.42 855.19 497.21 973.59 500"/>
@@ -105,8 +105,8 @@
                         <button type="submit" class="submit-btn" id="submitBtn">
                             <span>送出訊息</span>
                             <svg class="arrow-icon" viewBox="0 0 50 12">
-                                <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.5" />
-                                <polyline points="44,2 48,6 44,10" fill="none" stroke="currentColor" stroke-width="0.5" />
+                                <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="1.2" />
+                                <polyline points="44,2 48,6 44,10" fill="none" stroke="currentColor" stroke-width="1.2" />
                             </svg>
                         </button>
                     </div>
@@ -123,8 +123,8 @@
         <span class="btt-text">BACK TO TOP</span>
         <div class="btt-arrow">
             <svg viewBox="0 0 50 12">
-                <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.5" />
-                <polyline points="4,2 0,6 4,10" fill="none" stroke="currentColor" stroke-width="0.5" />
+                <line x1="2" y1="6" x2="50" y2="6" stroke="currentColor" stroke-width="1.2" />
+                <polyline points="6,2 2,6 6,10" fill="none" stroke="currentColor" stroke-width="1.2" />
             </svg>
         </div>
     </div>
@@ -142,13 +142,11 @@
 
     <script>
         /**
-         * 頁面專屬邏輯 (表單、驗證碼、太陽自動旋轉)
-         * 滾動相關功能 (BTT, Nav切換, Contact顯示) 已整合至 script.js
+         * 頁面專屬邏輯
          */
         let currentCaptcha = "";
         const brandColors = ['#d7c4b7', '#1a1a1a', '#4285F4', '#EA4335'];
 
-        // 1. 太陽自動旋轉
         function initSunRotation() {
             const sun = document.querySelector('.sun-svg');
             if (!sun) return;
@@ -162,7 +160,6 @@
             animate();
         }
 
-        // 2. 驗證碼生成
         function generateCaptcha() {
             const chars = "0123456789";
             let result = "";
@@ -175,7 +172,6 @@
             }
         }
 
-        // 3. 跳窗控制
         function showModal(title, text) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalText').innerText = text;
@@ -183,7 +179,6 @@
         }
         function closeModal() { document.getElementById('infoModal').classList.remove('active'); }
 
-        // 4. 初始化與表單事件
         document.addEventListener('DOMContentLoaded', () => {
             initSunRotation();
             generateCaptcha();
