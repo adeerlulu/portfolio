@@ -1,4 +1,3 @@
-works
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -12,19 +11,15 @@ works
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 作品頁專屬細節樣式 (不影響全局 style.css) --- */
         .container-1024 { max-width: 1024px; margin: 0 auto; padding: 0 40px; }
         .project-container { padding-top: 180px; } 
         .project-info { text-align: left; margin-bottom: 60px; }
 
-        /* 圖片保護 */
         img { -webkit-user-drag: none; user-select: none; }
 
-        /* 文字排版 */
         #proj-category { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; display: block; margin-bottom: 8px; font-family: "Lora", serif; }
         #proj-title { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 400; margin: 0; line-height: 1.1; font-family: "Lora", serif; }
 
-        /* 標題黑線動畫 */
         .title-wrapper { position: relative; display: inline-block; margin-bottom: 35px; }
         .title-line { 
             position: absolute; bottom: -12px; left: 0; 
@@ -36,7 +31,6 @@ works
 
         #proj-desc { font-size: 14px; line-height: 2.2; color: #333; white-space: pre-line; max-width: 750px; font-family: "Lora", serif; }
 
-        /* 圖片捲動顯現特效 */
         .gallery-item { 
             width: 100%; height: auto; margin-bottom: 60px; display: block; 
             opacity: 0; transform: translateY(30px); 
@@ -44,19 +38,17 @@ works
         }
         .gallery-item.reveal { opacity: 1; transform: translateY(0); }
 
-        /* More Works 區塊 */
         .more-works-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #eee; margin-bottom: 80px; overflow: hidden; }
         .more-works-title { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 50px; font-weight: 600; font-family: "Lora", serif; display: inline-block; position: relative; color: #1a1a1a; }
         .more-works-title::after { content: ""; position: absolute; left: 0; bottom: -8px; width: 30px; height: 1px; background: #1a1a1a; transition: width 0.6s cubic-bezier(0.2, 1, 0.3, 1); }
         .more-works-section:hover .more-works-title::after { width: 100%; }
 
-        /* 橫向滾動容器 */
         .more-grid-wrapper { overflow-x: auto; white-space: nowrap; padding-bottom: 40px; scrollbar-width: none; -ms-overflow-style: none; }
         .more-grid-wrapper::-webkit-scrollbar { display: none; } 
         .more-grid { display: inline-flex; gap: 20px; }
         .more-item { text-decoration: none; display: inline-block; width: 350px; vertical-align: top; }
         .more-item .img-box { aspect-ratio: 3/2; overflow: hidden; background: #f5f5f5; }
-        .more-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); pointer-events: auto !important; }
+        .more-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
         .more-item:hover img { transform: scale(1.05); }
 
         @media (max-width: 768px) {
@@ -68,8 +60,7 @@ works
 </head>
 <body oncontextmenu="return false;">
 
-    <nav id="main-nav">
-        <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
+    <nav id="main-nav" class="scrolled"> <div class="logo"><a href="index.html" style="text-decoration:none; color:#1a1a1a;">+1 DESIGN</a></div>
         <div class="nav-links">
             <a href="index.html#works">Back to Works</a>
             <a href="index.html#contact">Contact</a>
@@ -108,7 +99,6 @@ works
     </footer>
 
     <script src="data.js"></script>
-    <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // 禁止圖片拖拽
@@ -116,9 +106,10 @@ works
 
             const params = new URLSearchParams(window.location.search);
             const projectID = params.get('id');
+            const allData = window.projectData || window.worksData;
 
-            if (window.projectData) {
-                const project = window.projectData.find(p => p.id === projectID);
+            if (allData) {
+                const project = allData.find(p => p.id === projectID);
                 if (project) {
                     // 填充內容
                     document.title = `${project.title} | +1 Design`;
@@ -135,15 +126,23 @@ works
                             img.className = "gallery-item";
                             gallery.appendChild(img);
                         });
-                        initScrollReveal();
+                        
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('reveal');
+                                    observer.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.1 });
+                        document.querySelectorAll('.gallery-item').forEach(img => observer.observe(img));
                     }
 
-                    // --- More Works 渲染 ---
+                    // More Works 渲染
                     const moreGrid = document.getElementById('more-works-grid');
                     const scrollWrapper = document.getElementById('moreScrollWrapper');
-                    const otherProjects = window.projectData.filter(p => p.id !== projectID);
+                    const otherProjects = allData.filter(p => p.id !== projectID);
                     
-                    // 複製兩次達成無縫循環
                     const projectsToDisplay = [...otherProjects, ...otherProjects]; 
 
                     projectsToDisplay.forEach(p => {
@@ -154,14 +153,14 @@ works
                         moreGrid.appendChild(item);
                     });
 
-                    // 自動滾動邏輯
+                    // 自動滾動
                     let isHovered = false;
                     scrollWrapper.addEventListener('mouseenter', () => isHovered = true);
                     scrollWrapper.addEventListener('mouseleave', () => isHovered = false);
 
                     function autoScroll() {
                         if (!isHovered) {
-                            scrollWrapper.scrollLeft += 0.6; 
+                            scrollWrapper.scrollLeft += 0.8; 
                             if (scrollWrapper.scrollLeft >= moreGrid.scrollWidth / 2) {
                                 scrollWrapper.scrollLeft = 0;
                             }
@@ -175,19 +174,13 @@ works
                 }
             }
 
-            // 圖片漸顯偵測
-            function initScrollReveal() {
-                const observerOptions = { threshold: 0.1 };
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('reveal');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-                document.querySelectorAll('.gallery-item').forEach(img => observer.observe(img));
-            }
+            // Back to top 功能
+            const btt = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) btt.classList.add('active');
+                else btt.classList.remove('active');
+            });
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         });
     </script>
 </body>
