@@ -12,7 +12,7 @@ function initPortfolio() {
     const btt = document.getElementById('backToTop');
     const revealTarget = document.getElementById('revealContact');
 
-    // 1. 初始化作品集網格
+    // --- 1. Render Works Grid ---
     if (grid && data && data.length > 0) {
         grid.innerHTML = data.map(work => `
             <a href="works.html?id=${work.id}" class="work-item">
@@ -28,35 +28,33 @@ function initPortfolio() {
         initWorkItemHovers();
     }
 
-    // 2. 捲動相關監聽
+    // --- 2. Scroll Interaction ---
     window.addEventListener('scroll', () => {
         const scrollPos = window.scrollY;
-        
-        // 導航欄樣式
-        if (nav) {
-            scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
-        }
-        
-        // Banner 背景透明度
+
+        // Nav 樣式
+        if (nav) scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+
+        // Banner 背景淡出
         if (bannerBg && banner) {
             let bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
             bannerBg.style.opacity = Math.max(0, bgOpacity);
         }
-        
-        // 太陽 SVG 旋轉與變色
+
+        // 太陽捲動特效
         if (sunSvg) {
             const extraRotate = scrollPos * 0.2;
-            sunSvg.style.setProperty('--scroll-rotate', extraRotate + 'deg');
+            sunSvg.style.setProperty('--scroll-rotate', `${extraRotate}deg`);
             const sunColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
             sunSvg.style.color = sunColors[Math.floor(scrollPos / 400) % sunColors.length];
         }
-        
-        // 回到頂部按鈕
+
+        // Back to Top
         if (btt) {
             scrollPos > 600 ? btt.classList.add('active') : btt.classList.remove('active');
         }
-        
-        // 聯絡表單揭露動畫
+
+        // Contact Section 顯現
         if (revealTarget) {
             const rect = revealTarget.getBoundingClientRect();
             if (rect.top < window.innerHeight - 100) {
@@ -65,14 +63,14 @@ function initPortfolio() {
         }
     });
 
-    // 3. 回到頂部點擊事件
+    // --- 3. Click Events ---
     if (btt) {
         btt.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
-    // 4. 作品項目滑過特效
+    // --- 4. Work Item Hover Effects (恢復 80%-20% 並加入顏色停留感) ---
     function initWorkItemHovers() {
         const items = document.querySelectorAll('.work-item');
         const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
@@ -87,17 +85,19 @@ function initPortfolio() {
             item.addEventListener('mouseenter', () => {
                 const cols = getColumnCount();
                 const color = baseColors[(Math.floor(index / cols) + (index % cols)) % baseColors.length];
-                item.style.transition = 'background-color 0.3s ease-out';
-                item.style.backgroundColor = color + '66'; // 40% 透明度
+                
+                // 滑鼠進入：顏色反應較快
+                item.style.transition = 'background 0.3s ease-out';
+                item.style.background = `linear-gradient(to bottom, ${color}CC 5%, ${color}33 60%)`;
             });
 
             item.addEventListener('mouseleave', () => {
-                item.style.transition = 'background-color 1.5s ease-in-out';
-                item.style.backgroundColor = 'transparent';
+                // 滑鼠離開：讓背景顏色緩慢淡出 (0.8s)，達成停留效果
+                item.style.transition = 'background 0.8s ease-in-out';
+                item.style.background = 'transparent';
             });
         });
     }
 }
 
-// 確保 DOM 載入後執行
 document.addEventListener('DOMContentLoaded', initPortfolio);
