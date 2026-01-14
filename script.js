@@ -98,4 +98,4 @@ function initPortfolio() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', initPortfolio);
+document.addEventListener('DOMContentLoaded', initPortfolio); 
