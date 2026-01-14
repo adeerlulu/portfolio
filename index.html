@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="fixed-sun-icon" id="sunIcon">
+    <div class="fixed-sun-icon" id="sunIcon">
         <svg class="sun-svg" viewBox="0 0 1000 1000">
             <polygon points="500 26.41 502.79 144.81 505.58 263.21 508.38 381.6 511.17 500 505.58 500 500 500 494.42 500 488.84 500 491.63 381.6 494.42 263.21 497.21 144.81 500 26.41"/>
             <polygon points="377.43 42.55 410.77 156.19 444.11 269.83 477.45 383.47 510.79 497.11 505.39 498.56 500 500 494.61 501.44 489.22 502.89 461.27 387.8 433.33 272.72 405.38 157.63 377.43 42.55"/>
@@ -63,7 +63,50 @@
     </main>
 
     <footer class="contact-section" id="contact">
-        </footer>
+        <div class="container-700 reveal-section" id="revealContact">
+            <h2 class="contact-title">Contact us</h2>
+            <form id="contactForm" action="https://formspree.io/f/xlggeplo" method="POST" class="contact-form" autocomplete="off" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nameInput">Name</label>
+                        <input type="text" id="nameInput" name="name" placeholder="聯絡人">
+                        <div class="error-message">此欄位為必填</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lineInput">LINE ID</label>
+                        <input type="text" id="lineInput" name="line_id" placeholder="選填">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emailInput">Email</label>
+                    <input type="email" id="emailInput" name="email" placeholder="電子信箱">
+                    <div class="error-message">格式錯誤</div>
+                </div>
+                <div class="form-group">
+                    <label for="messageInput">Message</label>
+                    <textarea id="messageInput" name="message" rows="2" placeholder="請輸入欲洽詢內容"></textarea>
+                </div>
+                <div class="captcha-row">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="captchaInput">Verification</label>
+                        <div class="captcha-input-group">
+                            <span id="captchaDisplay"></span>
+                            <input type="text" id="captchaInput" name="captcha" placeholder="驗證碼" style="width: 100px;">
+                        </div>
+                    </div>
+                    <div class="submit-wrap">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span>送出訊息</span>
+                            <svg class="arrow-icon" viewBox="0 0 50 12">
+                                <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.5" />
+                                <polyline points="44,2 48,6 44,10" fill="none" stroke="currentColor" stroke-width="0.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </footer>
 
     <div class="footer-bottom">
         <p>2026 © +1 Studio All Rights Reserved.</p>
@@ -72,17 +115,22 @@
     <div class="back-to-top" id="backToTop">
         <span class="btt-text">BACK TO TOP</span>
         <div class="btt-arrow">
-            <svg viewBox="0 0 20 60">
-                <line x1="10" y1="60" x2="10" y2="2" stroke="currentColor" stroke-width="1.2" />
-                <polyline points="4,10 10,2 16,10" fill="none" stroke="currentColor" stroke-width="1.2" />
+            <svg viewBox="0 0 20 80">
+                <line x1="10" y1="80" x2="10" y2="2" stroke="currentColor" stroke-width="1.2" />
+                <polyline points="4,12 10,2 16,12" fill="none" stroke="currentColor" stroke-width="1.2" />
             </svg>
+        </div>
+    </div>
+
+    <div class="custom-modal" id="infoModal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalTitle">Success</h3>
+            <p class="modal-text" id="modalText"></p>
+            <button class="modal-btn" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
 
     <script src="data.js"></script>
     <script src="script.js"></script>
-    <script>
-        /* 保持你的 Script 內容不變 */
-    </script>
-</body>
+    </body>
 </html>
