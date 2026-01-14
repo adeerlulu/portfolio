@@ -225,4 +225,67 @@ h1, .banner h1, #proj-title {
     letter-spacing: 1px;
     color: #999;
 }
- 
+ .back-to-top {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    opacity: 0;           /* 初始隱藏 */
+    visibility: hidden;
+    transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+    color: #1a1a1a;       /* 配合你的主色調 */
+}
+
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:not(.active) {
+    transform: translateY(20px); /* 隱藏時稍微往下沉 */
+}
+
+.btt-text {
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-family: 'Lora', serif;
+    writing-mode: vertical-lr; /* 垂直文字，更具設計感 */
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.btt-arrow {
+    width: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+/* 讓箭頭顏色跟隨文字 */
+.btt-arrow svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.5;
+}
+
+.back-to-top:hover .btt-arrow {
+    transform: translateY(-5px); /* 懸停時往上跳動 */
+}
+
+/* 行動裝置調整 */
+@media (max-width: 768px) {
+    .back-to-top {
+        right: 20px;
+        bottom: 20px;
+    }
+}
