@@ -8,6 +8,7 @@ function initPortfolio() {
     const btt = document.getElementById('backToTop');
     const revealTarget = document.getElementById('revealContact');
 
+    // 1. 生成作品集網格
     if (grid && data && data.length > 0) {
         grid.innerHTML = data.map(work => `
             <a href="works.html?id=${work.id}" class="work-item">
@@ -23,6 +24,7 @@ function initPortfolio() {
         initWorkItemHovers();
     }
 
+    // 2. 滾動監聽優化 (使用 requestAnimationFrame 確保效能)
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -37,27 +39,24 @@ function initPortfolio() {
     function handleScroll() {
         const scrollPos = window.scrollY;
 
-        if (nav) {
-            scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
-        }
+        // 導覽列與 Back to Top
+        if (nav) scrollPos > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        if (btt) scrollPos > 400 ? btt.classList.add('active') : btt.classList.remove('active');
 
+        // Banner 視差
         if (bannerBg && banner) {
             const bgOpacity = 1 - (scrollPos / (banner.offsetHeight * 0.6));
             bannerBg.style.opacity = Math.max(0, bgOpacity).toString();
         }
 
+        // 太陽僅跟隨滾動旋轉與變色
         if (sunSvg) {
-            const extraRotate = scrollPos * 0.2;
-            sunSvg.style.setProperty('--scroll-rotate', `${extraRotate}deg`);
+            sunSvg.style.setProperty('--scroll-rotate', `${scrollPos * 0.2}deg`);
             const sunColors = ['#87CEEB', '#B497BD', '#B0CADE', '#AFEEEE'];
-            const colorIndex = Math.floor(scrollPos / 400) % sunColors.length;
-            sunSvg.style.color = sunColors[colorIndex];
+            sunSvg.style.color = sunColors[Math.floor(scrollPos / 400) % sunColors.length];
         }
 
-        if (btt) {
-            scrollPos > 600 ? btt.classList.add('active') : btt.classList.remove('active');
-        }
-
+        // 觸發 Contact 泡泡滑出
         if (revealTarget) {
             const rect = revealTarget.getBoundingClientRect();
             if (rect.top < window.innerHeight - 100) {
@@ -66,12 +65,14 @@ function initPortfolio() {
         }
     }
 
+    // 3. Back to Top 點擊事件
     if (btt) {
         btt.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
+    // 4. 作品集滑鼠懸停變色
     function initWorkItemHovers() {
         const items = document.querySelectorAll('.work-item');
         const baseColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
@@ -98,4 +99,4 @@ function initPortfolio() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', initPortfolio); 
+document.addEventListener('DOMContentLoaded', initPortfolio);
