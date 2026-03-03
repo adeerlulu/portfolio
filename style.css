@@ -243,7 +243,7 @@ h1, .banner h1, #proj-title {
 } 
 
 
-/* --- 總結文字與泡泡樣式 --- */
+/* --- 總結文字樣式 --- */
 .about-summary {
     font-family: "Noto Sans TC", sans-serif;
     font-size: 15px;
@@ -254,7 +254,7 @@ h1, .banner h1, #proj-title {
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
-    text-align: justify;
+    text-align: center; /* 🚨 已經改為強制置中 */
 }
 
 .about-summary p {
@@ -266,7 +266,7 @@ h1, .banner h1, #proj-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px; /* 泡泡群與圖片的間距 */
+    gap: 30px; 
     margin-top: 40px;
 }
 
@@ -274,7 +274,7 @@ h1, .banner h1, #proj-title {
 .bubble-stack {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* MAIL 和 LINE 之間的上下間距 */
+    gap: 12px; /* 稍微縮小泡泡之間的間距 */
 }
 
 /* --- 中心的 SVG (固定 100x100) --- */
@@ -292,20 +292,20 @@ h1, .banner h1, #proj-title {
     object-fit: contain;
 }
 
-/* --- 黑底白字純文字泡泡 --- */
+/* --- 黑底白字純文字泡泡 (縮小版) --- */
 .text-bubble {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12px 35px; /* 加寬一點讓短短的字也很好看 */
+    padding: 8px 24px; /* 🚨 縮小內距 (70%) */
     background-color: #1a1a1a; 
     color: #ffffff; 
     text-decoration: none;
     font-family: "Lora", "Noto Sans TC", serif;
-    font-size: 13px;
-    letter-spacing: 2px; /* 增加字距提升質感 */
+    font-size: 11px; /* 🚨 縮小字體 */
+    letter-spacing: 2px; 
     border-radius: 40px; 
-    min-width: 120px; /* 確保兩個按鈕寬度一致 */
+    min-width: 85px; /* 🚨 縮小整體寬度 (70%) */
     
     /* 初始狀態：稍微偏右(藏在圖片方向)且縮小透明 */
     transform: translateX(30px) scale(0.8);
@@ -336,16 +336,17 @@ h1, .banner h1, #proj-title {
 /* --- 手機版排版調整 --- */
 @media (max-width: 768px) {
     .contact-interaction-area {
-        flex-direction: column-reverse; /* 手機版讓圖片在上面，泡泡在下面 */
-        gap: 30px;
+        flex-direction: column-reverse; 
+        gap: 25px;
     }
     .bubble-stack {
-        flex-direction: row; /* 手機版讓 MAIL 跟 LINE 橫向並列 */
+        flex-direction: row; 
         width: 100%;
         justify-content: center;
+        gap: 15px; /* 手機版並排的間距 */
     }
     .text-bubble {
         min-width: auto;
-        padding: 12px 40px;
+        padding: 8px 28px; /* 手機版也維持精緻的小巧尺寸 */
     }
 }
