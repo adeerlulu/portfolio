@@ -50,6 +50,9 @@ h1, .banner h1, #proj-title { font-family: 'Cormorant Garamond', serif !importan
 .about-summary { font-family: "Noto Sans TC", sans-serif; font-size: 15px; line-height: 2.2; color: #4a4a4a; margin-bottom: 80px; letter-spacing: 0.5px; max-width: 650px; margin: 0 auto; text-align: center; }
 .about-summary p { margin-bottom: 20px; }
 
+/* 數字統計動畫樣式 */
+.stat-number { display: inline-block; font-weight: 600; color: #1a1a1a; min-width: 1.2em; font-family: "Lora", serif; }
+
 /* 泡泡互動 */
 .bubble-interaction-area { display: flex; justify-content: center; align-items: center; gap: 0; margin-top: 40px; transition: gap 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .reveal-section.active .bubble-interaction-area { gap: 20px; }
