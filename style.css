@@ -63,9 +63,27 @@ h1, .banner h1, #proj-title {
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
 }
 
-.logo { font-size: 18px; font-weight: 500; letter-spacing: 3px; font-family: "Lora", serif; }
-.nav-links { display: flex; align-items: center; list-style: none; }
-.nav-links a { margin-left: 25px; text-decoration: none; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
+.logo { 
+    font-size: 18px; 
+    font-weight: 500; 
+    letter-spacing: 3px; 
+    font-family: "Lora", serif; 
+}
+
+.nav-links { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+}
+
+.nav-links a { 
+    margin-left: 25px; 
+    text-decoration: none; 
+    color: #1a1a1a; 
+    font-size: 11px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
 
 .banner { 
     position: relative; 
@@ -91,23 +109,58 @@ h1, .banner h1, #proj-title {
     mask-image: linear-gradient(to bottom, black 0%, black 65%, rgba(0,0,0,0.5) 85%, transparent 100%);
 }
 
-.banner-content { width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; animation: fadeInUp 1.6s cubic-bezier(0.2, 1, 0.3, 1) both; }
+.banner-content { 
+    width: 90%; 
+    max-width: 1400px; 
+    margin: 0 auto; 
+    position: relative; 
+    z-index: 10; 
+    animation: fadeInUp 1.6s cubic-bezier(0.2, 1, 0.3, 1) both; 
+}
 
 @keyframes fadeInUp { 
     from { opacity: 0; transform: translateY(30px); } 
     to { opacity: 1; transform: translateY(0); } 
 }
 
-.banner h1 { font-size: clamp(2.5rem, 12vw, 5rem) !important; line-height: 0.9; margin-bottom: 25px; letter-spacing: -2px; }
-.banner h1 span { display: inline-block; transition: color 0.3s ease; }
+.banner h1 { 
+    font-size: clamp(2.5rem, 12vw, 5rem) !important; 
+    line-height: 0.9; 
+    margin-bottom: 25px; 
+    letter-spacing: -2px; 
+}
+
+.banner h1 span { 
+    display: inline-block; 
+    transition: color 0.3s ease; 
+}
+
 .banner h1 span:hover:nth-child(4n+1) { color: #4285F4; }
 .banner h1 span:hover:nth-child(4n+2) { color: #EA4335; }
 .banner h1 span:hover:nth-child(4n+3) { color: #FBBC05; }
 .banner h1 span:hover:nth-child(4n+4) { color: #34A853; }
-.banner p { font-size: 16px; color: #666; max-width: 650px; line-height: 1.8; }
 
-.works-section { position: relative; z-index: 5; padding: 40px 5% 80px; }
-.grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.banner p { 
+    font-size: 16px; 
+    color: #666; 
+    max-width: 650px; 
+    line-height: 1.8; 
+}
+
+.works-section { 
+    position: relative; 
+    z-index: 5; 
+    padding: 40px 5% 80px; 
+}
+
+.grid { 
+    max-width: 1400px; 
+    margin: 0 auto; 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 0; 
+}
+
 .work-item { 
     display: flex; 
     flex-direction: column; 
@@ -117,38 +170,58 @@ h1, .banner h1, #proj-title {
     padding: 35px; 
     transition: background-color 0.8s ease-in-out; 
 }
-.img-container { width: 100%; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px; }
-.img-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
-.work-item:hover .img-container img { transform: scale(1.08); }
-.work-info h3 { font-family: "Lora", serif !important; font-size: 16px; font-weight: 500; margin-bottom: 5px; letter-spacing: 0.5px; }
-.work-info p { font-size: 11px; color: #b0b0b0; text-transform: uppercase; letter-spacing: 1px; }
+
+.img-container { 
+    width: 100%; 
+    aspect-ratio: 3/2; 
+    overflow: hidden; 
+    margin-bottom: 20px; 
+}
+
+.img-container img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
+    transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1); 
+}
+
+.work-item:hover .img-container img { 
+    transform: scale(1.08); 
+}
+
+.work-info h3 { 
+    font-family: "Lora", serif !important; 
+    font-size: 16px; 
+    font-weight: 500; 
+    margin-bottom: 5px; 
+    letter-spacing: 0.5px; 
+}
+
+.work-info p { 
+    font-size: 11px; 
+    color: #b0b0b0; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
 
 .reveal-section {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
 }
+
 .reveal-section.active {
     opacity: 1;
     transform: translateY(0);
 }
 
-.contact-title { 
-    font-family: "Lora", serif; 
-    font-size: 28px; 
-    font-weight: 300; 
-    margin-bottom: 60px; 
-    color: #1a1a1a;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease-out 0.2s; 
+.contact-section { 
+    padding: 120px 5%; 
+    background: #ffffff; 
+    border-top: 1px solid #eee; 
+    text-align: center; 
 }
-.reveal-section.active .contact-title {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid #eee; text-align: center; }
 
 @media (max-width: 1024px) { 
     .grid { grid-template-columns: repeat(2, 1fr); } 
@@ -178,7 +251,6 @@ h1, .banner h1, #proj-title {
     color: #999;
 }
 
-/* --- Back to Top --- */
 .back-to-top {
     position: fixed;
     right: 40px;
@@ -240,10 +312,28 @@ h1, .banner h1, #proj-title {
         right: 20px;
         bottom: 20px;
     }
-} 
+}
 
+.contact-image-title-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1) 0.2s;
+}
 
-/* --- 總結文字樣式 --- */
+.reveal-section.active .contact-image-title-container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contact-title-svg {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
 .about-summary {
     font-family: "Noto Sans TC", sans-serif;
     font-size: 15px;
@@ -254,14 +344,13 @@ h1, .banner h1, #proj-title {
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
-    text-align: center; /* 🚨 已經改為強制置中 */
+    text-align: center;
 }
 
 .about-summary p {
     margin-bottom: 20px;
 }
 
-/* --- 圖文左右並排互動區 --- */
 .contact-interaction-area {
     display: flex;
     justify-content: center;
@@ -270,14 +359,12 @@ h1, .banner h1, #proj-title {
     margin-top: 40px;
 }
 
-/* 左側：泡泡上下堆疊 */
 .bubble-stack {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* 稍微縮小泡泡之間的間距 */
+    gap: 12px; 
 }
 
-/* --- 中心的 SVG (固定 100x100) --- */
 .main-svg-center {
     width: 100px;
     height: 100px;
@@ -292,29 +379,24 @@ h1, .banner h1, #proj-title {
     object-fit: contain;
 }
 
-/* --- 黑底白字純文字泡泡 (縮小版) --- */
 .text-bubble {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px 24px; /* 🚨 縮小內距 (70%) */
+    padding: 8px 24px; 
     background-color: #1a1a1a; 
     color: #ffffff; 
     text-decoration: none;
     font-family: "Lora", "Noto Sans TC", serif;
-    font-size: 11px; /* 🚨 縮小字體 */
+    font-size: 11px; 
     letter-spacing: 2px; 
     border-radius: 40px; 
-    min-width: 85px; /* 🚨 縮小整體寬度 (70%) */
-    
-    /* 初始狀態：稍微偏右(藏在圖片方向)且縮小透明 */
+    min-width: 85px; 
     transform: translateX(30px) scale(0.8);
     opacity: 0;
-    
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, background-color 0.3s;
 }
 
-/* 滾動到此區塊時，向左彈出 */
 .reveal-section.active .email-bubble {
     transform: translateX(0) scale(1);
     opacity: 1;
@@ -327,13 +409,11 @@ h1, .banner h1, #proj-title {
     transition-delay: 0.5s; 
 }
 
-/* 滑鼠懸停效果 */
 .text-bubble:hover {
     background-color: #333333; 
     transform: translateX(0) scale(1.05) !important; 
 }
 
-/* --- 手機版排版調整 --- */
 @media (max-width: 768px) {
     .contact-interaction-area {
         flex-direction: column-reverse; 
@@ -343,10 +423,10 @@ h1, .banner h1, #proj-title {
         flex-direction: row; 
         width: 100%;
         justify-content: center;
-        gap: 15px; /* 手機版並排的間距 */
+        gap: 15px; 
     }
     .text-bubble {
         min-width: auto;
-        padding: 8px 28px; /* 手機版也維持精緻的小巧尺寸 */
+        padding: 8px 28px; 
     }
 }
