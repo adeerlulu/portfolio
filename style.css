@@ -286,13 +286,13 @@ h1, .banner h1, #proj-title {
         right: 20px;
         bottom: 20px;
     }
-/* --- 總結與聯絡區塊樣式 --- */
+/* --- 總結文字樣式 --- */
 .about-summary {
     font-family: "Noto Sans TC", sans-serif;
     font-size: 15px;
     line-height: 2;
     color: #4a4a4a;
-    margin-bottom: 45px;
+    margin-bottom: 60px;
     text-align: justify;
     letter-spacing: 0.5px;
 }
@@ -301,60 +301,110 @@ h1, .banner h1, #proj-title {
     margin-bottom: 15px;
 }
 
-.action-buttons {
+/* --- 泡泡互動區塊 --- */
+.bubble-interaction-area {
+    position: relative;
+    height: 180px;
     display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.action-btn {
-    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-    padding: 14px 28px;
-    border-radius: 40px;
+    margin-top: 20px;
+}
+
+/* 中心的 SVG (加上微微的上下浮動特效) */
+.main-svg-center {
+    width: 140px; /* 根據你的 SVG 大小微調 */
+    position: relative;
+    z-index: 10;
+    animation: floating 4s ease-in-out infinite;
+}
+
+.main-svg-center img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
+}
+
+/* 浮動動畫 */
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* --- 彈出的泡泡按鈕 --- */
+.pop-bubble {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 13px;
-    font-family: "Noto Sans TC", sans-serif;
-    font-weight: 500;
+    z-index: 5; /* 藏在主 SVG 後面 */
+    
+    /* 初始狀態：縮小到 0 且透明，位在正中心 */
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    
+    /* 加入果凍彈跳感的過渡效果 */
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* 滾動到此區塊時的彈出狀態 (.active 由 JS 控制) */
+.reveal-section.active .email-bubble {
+    /* 往左上彈出 */
+    transform: translate(calc(-50% - 100px), calc(-50% - 40px)) scale(1);
+    opacity: 1;
+    transition-delay: 0.4s; /* 稍微延遲，產生先後順序感 */
+}
+
+.reveal-section.active .line-bubble {
+    /* 往右上彈出 */
+    transform: translate(calc(-50% + 100px), calc(-50% - 40px)) scale(1);
+    opacity: 1;
+    transition-delay: 0.6s;
+}
+
+/* 各別泡泡顏色 */
+.email-bubble { background-color: #1a1a1a; box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
+.line-bubble { background-color: #06C755; box-shadow: 0 8px 15px rgba(6,199,85,0.3); }
+
+/* 滑鼠懸停效果 (懸停時再稍微放大) */
+.reveal-section.active .email-bubble:hover {
+    transform: translate(calc(-50% - 100px), calc(-50% - 45px)) scale(1.1);
+}
+.reveal-section.active .line-bubble:hover {
+    transform: translate(calc(-50% + 100px), calc(-50% - 45px)) scale(1.1);
+}
+
+/* 泡泡下方的提示文字 (Tooltip) */
+.bubble-tooltip {
+    position: absolute;
+    bottom: -25px;
+    font-family: "Lora", serif;
+    font-size: 11px;
+    color: #1a1a1a;
     letter-spacing: 1px;
-    transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
-/* Email 按鈕 (質感深灰/網頁常用深色) */
-.email-btn {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border: 1px solid #1a1a1a;
+.pop-bubble:hover .bubble-tooltip {
+    opacity: 1;
 }
 
-.email-btn:hover {
-    background-color: #333333;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-/* LINE 按鈕 (LINE 品牌標準綠) */
-.line-btn {
-    background-color: #06C755;
-    color: #ffffff;
-    border: 1px solid #06C755;
-}
-
-.line-btn:hover {
-    background-color: #05b34c;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(6, 199, 85, 0.25);
-}
-
-/* 行動裝置排版適應 */
+/* 行動裝置微調彈出距離 */
 @media (max-width: 768px) {
-    .action-buttons {
-        flex-direction: column;
-        gap: 12px;
+    .reveal-section.active .email-bubble {
+        transform: translate(calc(-50% - 80px), calc(-50% - 20px)) scale(1);
     }
-    .action-btn {
-        width: 100%;
-        justify-content: center;
+    .reveal-section.active .line-bubble {
+        transform: translate(calc(-50% + 80px), calc(-50% - 20px)) scale(1);
     }
 }
