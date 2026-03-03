@@ -286,73 +286,75 @@ h1, .banner h1, #proj-title {
         right: 20px;
         bottom: 20px;
     }
-}
-.social-links-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 40px;
+/* --- 總結與聯絡區塊樣式 --- */
+.about-summary {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 15px;
+    line-height: 2;
+    color: #4a4a4a;
+    margin-bottom: 45px;
+    text-align: justify;
+    letter-spacing: 0.5px;
 }
 
-.social-btn {
+.about-summary p {
+    margin-bottom: 15px;
+}
+
+.action-buttons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 15px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 40px;
     text-decoration: none;
-    color: #1a1a1a;
-    transition: all 0.4s ease;
-    padding: 20px 40px;
-    border: 1px solid transparent;
-    border-radius: 8px;
+    font-size: 13px;
+    font-family: "Noto Sans TC", sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-.social-btn svg {
-    width: 36px;
-    height: 36px;
-    transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+/* Email 按鈕 (質感深灰/網頁常用深色) */
+.email-btn {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: 1px solid #1a1a1a;
 }
 
-.social-btn span {
-    font-family: "Lora", serif;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0.6;
-    transition: opacity 0.4s ease;
+.email-btn:hover {
+    background-color: #333333;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-.social-btn:hover {
-    border-color: #f0f0f0;
-    background: #fafafa;
+/* LINE 按鈕 (LINE 品牌標準綠) */
+.line-btn {
+    background-color: #06C755;
+    color: #ffffff;
+    border: 1px solid #06C755;
 }
 
-.social-btn:hover svg {
-    transform: translateY(-5px);
+.line-btn:hover {
+    background-color: #05b34c;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(6, 199, 85, 0.25);
 }
 
-.social-btn.line-btn:hover svg {
-    fill: #06C755; /* LINE 品牌綠色 */
-}
-
-.social-btn.line-btn:hover span {
-    color: #06C755;
-    opacity: 1;
-}
-
-.social-btn:hover span {
-    opacity: 1;
-}
-
-
+/* 行動裝置排版適應 */
 @media (max-width: 768px) {
-    .social-links-wrapper {
+    .action-buttons {
         flex-direction: column;
-        gap: 20px;
+        gap: 12px;
     }
-    
-    .social-btn {
-        padding: 20px;
-        border: 1px solid #f0f0f0;
+    .action-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
