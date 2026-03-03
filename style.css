@@ -148,51 +148,7 @@ h1, .banner h1, #proj-title {
     transform: translateY(0);
 }
 
-.contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid #eee; }
-.container-700 { max-width: 700px; margin: 0 auto; }
-
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.form-group { margin-bottom: 35px; position: relative; }
-.form-group label { font-size: 11px; color: #1a1a1a; font-weight: 500; letter-spacing: 1.5px; display: block; margin-bottom: 10px; text-transform: uppercase; }
-
-.form-group input, .form-group textarea { 
-    width: 100%; border: none; border-bottom: 1px solid #eee; padding: 10px 0; 
-    font-size: 14px; outline: none; background: transparent !important; border-radius: 0; color: #1a1a1a;
-}
-.form-group input::placeholder, 
-.form-group textarea::placeholder {
-    color: #cccccc; 
-}
-
-.form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid #1a1a1a; }
-
-.captcha-row { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: flex-start; 
-    margin-top: 20px; 
-}
-
-#captchaDisplay { 
-    font-family: "Lora", serif; font-weight: 700; font-size: 20px; padding: 5px 18px; 
-    border: 1px solid #f0f0f0; margin-right: 20px; letter-spacing: 5px; user-select: none; background: #fafafa;
-}
-
-.submit-wrap { margin-top: 25px; }
-.submit-btn {
-    background: #1a1a1a; color: #ffffff; border: 1px solid #1a1a1a; padding: 10px 28px;
-    border-radius: 40px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 15px; transition: all 0.4s ease;
-}
-.arrow-icon { width: 40px; height: 12px; transition: transform 0.6s ease; }
-.submit-btn:hover .arrow-icon { transform: translateX(10px); }
-
-.error-message { font-size: 10px; color: #e74c3c; margin-top: 5px; height: 12px; opacity: 0; transition: opacity 0.3s; }
-.form-group.error input, .form-group.error textarea { border-bottom: 1px solid #e74c3c !important; }
-.form-group.error .error-message { opacity: 1; }
-
-.custom-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.5s ease; }
-.custom-modal.active { opacity: 1; visibility: visible; }
-.modal-content { background: #fff; padding: 60px; border: 1px solid #f0f0f0; text-align: center; max-width: 450px; width: 90%; }
+.contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid #eee; text-align: center; }
 
 @media (max-width: 1024px) { 
     .grid { grid-template-columns: repeat(2, 1fr); } 
@@ -205,10 +161,6 @@ h1, .banner h1, #proj-title {
     .grid { gap: 10px; }
     .work-item { padding: 15px; }
     .banner h1 { font-size: 3rem !important; }
-    .form-row { grid-template-columns: 1fr; gap: 0; }
-    .captcha-row { flex-direction: column; align-items: flex-start; gap: 20px; }
-    .submit-wrap { margin-top: 0; width: 100%; }
-    .submit-btn { width: 100%; justify-content: center; }
 }
 
 @media (max-width: 375px) {
@@ -225,7 +177,9 @@ h1, .banner h1, #proj-title {
     letter-spacing: 1px;
     color: #999;
 }
- .back-to-top {
+
+/* --- Back to Top --- */
+.back-to-top {
     position: fixed;
     right: 40px;
     bottom: 40px;
@@ -235,10 +189,10 @@ h1, .banner h1, #proj-title {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    opacity: 0;           /* 初始隱藏 */
+    opacity: 0; 
     visibility: hidden;
     transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
-    color: #1a1a1a;       /* 配合你的主色調 */
+    color: #1a1a1a; 
 }
 
 .back-to-top.active {
@@ -248,14 +202,14 @@ h1, .banner h1, #proj-title {
 }
 
 .back-to-top:not(.active) {
-    transform: translateY(20px); /* 隱藏時稍微往下沉 */
+    transform: translateY(20px); 
 }
 
 .btt-text {
     font-size: 10px;
     letter-spacing: 2px;
     font-family: 'Lora', serif;
-    writing-mode: vertical-lr; /* 垂直文字，更具設計感 */
+    writing-mode: vertical-lr; 
     margin-bottom: 5px;
     text-transform: uppercase;
 }
@@ -286,29 +240,10 @@ h1, .banner h1, #proj-title {
         right: 20px;
         bottom: 20px;
     }
-/* --- 總結文字樣式 --- */
-.about-summary {
-    font-family: "Noto Sans TC", sans-serif;
-    font-size: 15px;
-    line-height: 2;
-    color: #4a4a4a;
-    margin-bottom: 60px;
-    text-align: justify;
-    letter-spacing: 0.5px;
-}
+} /* <--- 原本就是漏了這個括號！！！ */
 
-.about-summary p {
-    margin-bottom: 15px;
-}
 
-/* --- 文字置中與樣式調整 --- */
-.contact-section {
-    padding: 120px 5%;
-    background: #ffffff;
-    border-top: 1px solid #eee;
-    text-align: center; /* 關鍵：讓所有內容水平置中 */
-}
-
+/* --- 總結文字與泡泡樣式 --- */
 .about-summary {
     font-family: "Noto Sans TC", sans-serif;
     font-size: 15px;
@@ -319,6 +254,7 @@ h1, .banner h1, #proj-title {
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
+    text-align: justify;
 }
 
 .about-summary p {
@@ -331,14 +267,14 @@ h1, .banner h1, #proj-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0; /* 初始間距為 0 */
+    gap: 0; 
     margin-top: 30px;
-    transition: gap 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* 當 active 時，gap 會變大推開按鈕 */
+    transition: gap 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); 
 }
 
 /* 當滾動到此處時，推開按鈕產生並行效果 */
 .reveal-section.active .horizontal-bubble-area {
-    gap: 30px; /* 按鈕與圖片之間的最後間距 */
+    gap: 30px; 
 }
 
 /* --- 中心的 SVG (固定 100x100) --- */
@@ -346,7 +282,7 @@ h1, .banner h1, #proj-title {
     width: 100px;
     height: 100px;
     position: relative;
-    z-index: 10; /* 在泡泡之上 */
+    z-index: 10; 
 }
 
 .main-svg-center img {
@@ -362,54 +298,50 @@ h1, .banner h1, #proj-title {
     justify-content: center;
     align-items: center;
     padding: 12px 24px;
-    background-color: #1a1a1a; /* 黑底 */
-    color: #ffffff; /* 白字 */
+    background-color: #1a1a1a; 
+    color: #ffffff; 
     text-decoration: none;
     font-family: "Lora", serif;
     font-size: 13px;
     letter-spacing: 1px;
-    border-radius: 40px; /* 橢圓形泡泡 */
+    border-radius: 40px; 
     
-    /* 初始狀態：縮小且透明 */
     transform: scale(0);
     opacity: 0;
     
-    /* 動畫效果：大小變化與先後延遲 */
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
-    white-space: nowrap; /* 防止文字折行 */
+    white-space: nowrap; 
 }
 
-/* 滾動到此區塊時，彈出並滑動到兩側 */
 .reveal-section.active .email-bubble {
     transform: scale(1);
     opacity: 1;
-    transition-delay: 0.4s; /* 先彈出 */
+    transition-delay: 0.4s; 
 }
 
 .reveal-section.active .line-bubble {
     transform: scale(1);
     opacity: 1;
-    transition-delay: 0.6s; /* 後彈出 */
+    transition-delay: 0.6s; 
 }
 
-/* 滑鼠懸停效果 (稍微放大與變色) */
 .text-bubble:hover {
-    background-color: #333333; /* 懸停時稍微變淺 */
-    transform: scale(1.05) !important; /* 強制在 active 狀態下也能放大 */
+    background-color: #333333; 
+    transform: scale(1.05) !important; 
 }
 
-/* 行動裝置排版 (並行可能太擠，自動改為上下排列) */
+/* 手機版排版調整 */
 @media (max-width: 768px) {
     .horizontal-bubble-area {
         flex-direction: column;
-        gap: 20px !important; /* 強制上下間距 */
+        gap: 20px !important; 
     }
     .text-bubble {
         width: 100%;
         justify-content: center;
     }
     .email-bubble {
-        order: 2; /* 圖片在中間，Email在圖片下方 */
+        order: 2; 
     }
     .main-svg-center {
         order: 1;
