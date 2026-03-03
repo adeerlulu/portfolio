@@ -62,49 +62,27 @@
         <div id="works-grid" class="grid"></div>
     </main>
 
-    <footer class="contact-section" id="contact">
+<footer class="contact-section" id="contact">
         <div class="container-700 reveal-section" id="revealContact">
             <h2 class="contact-title">Contact us</h2>
-            <form id="contactForm" action="https://formspree.io/f/xlggeplo" method="POST" class="contact-form" autocomplete="off" novalidate>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nameInput">Name</label>
-                        <input type="text" id="nameInput" name="name" placeholder="聯絡人">
-                        <div class="error-message">此欄位為必填</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lineInput">LINE ID</label>
-                        <input type="text" id="lineInput" name="line_id" placeholder="選填">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="emailInput">Email</label>
-                    <input type="email" id="emailInput" name="email" placeholder="電子信箱">
-                    <div class="error-message">格式錯誤</div>
-                </div>
-                <div class="form-group">
-                    <label for="messageInput">Message</label>
-                    <textarea id="messageInput" name="message" rows="2" placeholder="請輸入欲洽詢內容"></textarea>
-                </div>
-                <div class="captcha-row">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label for="captchaInput">Verification</label>
-                        <div class="captcha-input-group">
-                            <span id="captchaDisplay"></span>
-                            <input type="text" id="captchaInput" name="captcha" placeholder="驗證碼" style="width: 100px;">
-                        </div>
-                    </div>
-                    <div class="submit-wrap">
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            <span>送出訊息</span>
-                            <svg class="arrow-icon" viewBox="0 0 50 12">
-                                <line x1="0" y1="6" x2="48" y2="6" stroke="currentColor" stroke-width="0.5" />
-                                <polyline points="44,2 48,6 44,10" fill="none" stroke="currentColor" stroke-width="0.5" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </form>
+            <div class="social-links-wrapper">
+                
+                <a href="https://line.me/ti/p/~adeer0320" target="_blank" class="social-btn line-btn">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738S0 4.935 0 10.304c0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.122.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.844 2.572-5.992z" fill="currentColor"/>
+                    </svg>
+                    <span>Message on LINE</span>
+                </a>
+
+                <a href="mailto:ayunina103@gmail.com" class="social-btn email-btn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="M2 4l10 8 10-8"></path>
+                    </svg>
+                    <span>Send an Email</span>
+                </a>
+
+            </div>
         </div>
     </footer>
 
