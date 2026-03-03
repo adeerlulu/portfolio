@@ -269,7 +269,6 @@ h1, .banner h1, #proj-title {
     transition: transform 0.3s ease;
 }
 
-/* 讓箭頭顏色跟隨文字 */
 .btt-arrow svg {
     width: 100%;
     height: 100%;
@@ -279,13 +278,81 @@ h1, .banner h1, #proj-title {
 }
 
 .back-to-top:hover .btt-arrow {
-    transform: translateY(-5px); /* 懸停時往上跳動 */
+    transform: translateY(-5px); 
 }
 
-/* 行動裝置調整 */
 @media (max-width: 768px) {
     .back-to-top {
         right: 20px;
         bottom: 20px;
+    }
+}
+.social-links-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.social-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: #1a1a1a;
+    transition: all 0.4s ease;
+    padding: 20px 40px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+.social-btn svg {
+    width: 36px;
+    height: 36px;
+    transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.social-btn span {
+    font-family: "Lora", serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    transition: opacity 0.4s ease;
+}
+
+.social-btn:hover {
+    border-color: #f0f0f0;
+    background: #fafafa;
+}
+
+.social-btn:hover svg {
+    transform: translateY(-5px);
+}
+
+.social-btn.line-btn:hover svg {
+    fill: #06C755; /* LINE 品牌綠色 */
+}
+
+.social-btn.line-btn:hover span {
+    color: #06C755;
+    opacity: 1;
+}
+
+.social-btn:hover span {
+    opacity: 1;
+}
+
+
+@media (max-width: 768px) {
+    .social-links-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .social-btn {
+        padding: 20px;
+        border: 1px solid #f0f0f0;
     }
 }
