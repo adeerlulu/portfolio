@@ -82,3 +82,40 @@ function initPortfolio() {
     }
 }
 document.addEventListener('DOMContentLoaded', initPortfolio);
+
+// 數字跑動動畫函式
+function initCounter() {
+    const counter = document.querySelector('.stat-number');
+    if (!counter) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = +counter.getAttribute('data-target');
+                animateValue(counter, 0, target, 1500); // 1500ms = 1.5秒跑完
+                observer.unobserve(entry.target); // 只跑一次
+            }
+        });
+    }, { threshold: 1.0 });
+
+    observer.observe(counter);
+}
+
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+// 記得在 DOM 加載完後執行
+document.addEventListener('DOMContentLoaded', () => {
+    // ... 你原本的 initPortfolio();
+    initCounter(); 
+});
