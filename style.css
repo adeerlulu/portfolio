@@ -240,7 +240,7 @@ h1, .banner h1, #proj-title {
         right: 20px;
         bottom: 20px;
     }
-} /* <--- 原本就是漏了這個括號！！！ */
+} 
 
 
 /* --- 總結文字與泡泡樣式 --- */
@@ -261,20 +261,20 @@ h1, .banner h1, #proj-title {
     margin-bottom: 20px;
 }
 
-/* --- 水平泡泡互動區 (Flexbox 排版) --- */
-.horizontal-bubble-area {
-    position: relative;
+/* --- 圖文左右並排互動區 --- */
+.contact-interaction-area {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0; 
-    margin-top: 30px;
-    transition: gap 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    gap: 30px; /* 泡泡群與圖片的間距 */
+    margin-top: 40px;
 }
 
-/* 當滾動到此處時，推開按鈕產生並行效果 */
-.reveal-section.active .horizontal-bubble-area {
-    gap: 30px; 
+/* 左側：泡泡上下堆疊 */
+.bubble-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* MAIL 和 LINE 之間的上下間距 */
 }
 
 /* --- 中心的 SVG (固定 100x100) --- */
@@ -282,7 +282,7 @@ h1, .banner h1, #proj-title {
     width: 100px;
     height: 100px;
     position: relative;
-    z-index: 10; 
+    z-index: 10;
 }
 
 .main-svg-center img {
@@ -297,56 +297,55 @@ h1, .banner h1, #proj-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12px 24px;
+    padding: 12px 35px; /* 加寬一點讓短短的字也很好看 */
     background-color: #1a1a1a; 
     color: #ffffff; 
     text-decoration: none;
-    font-family: "Lora", serif;
+    font-family: "Lora", "Noto Sans TC", serif;
     font-size: 13px;
-    letter-spacing: 1px;
+    letter-spacing: 2px; /* 增加字距提升質感 */
     border-radius: 40px; 
+    min-width: 120px; /* 確保兩個按鈕寬度一致 */
     
-    transform: scale(0);
+    /* 初始狀態：稍微偏右(藏在圖片方向)且縮小透明 */
+    transform: translateX(30px) scale(0.8);
     opacity: 0;
     
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
-    white-space: nowrap; 
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, background-color 0.3s;
 }
 
+/* 滾動到此區塊時，向左彈出 */
 .reveal-section.active .email-bubble {
-    transform: scale(1);
+    transform: translateX(0) scale(1);
     opacity: 1;
-    transition-delay: 0.4s; 
+    transition-delay: 0.3s; 
 }
 
 .reveal-section.active .line-bubble {
-    transform: scale(1);
+    transform: translateX(0) scale(1);
     opacity: 1;
-    transition-delay: 0.6s; 
+    transition-delay: 0.5s; 
 }
 
+/* 滑鼠懸停效果 */
 .text-bubble:hover {
     background-color: #333333; 
-    transform: scale(1.05) !important; 
+    transform: translateX(0) scale(1.05) !important; 
 }
 
-/* 手機版排版調整 */
+/* --- 手機版排版調整 --- */
 @media (max-width: 768px) {
-    .horizontal-bubble-area {
-        flex-direction: column;
-        gap: 20px !important; 
+    .contact-interaction-area {
+        flex-direction: column-reverse; /* 手機版讓圖片在上面，泡泡在下面 */
+        gap: 30px;
     }
-    .text-bubble {
+    .bubble-stack {
+        flex-direction: row; /* 手機版讓 MAIL 跟 LINE 橫向並列 */
         width: 100%;
         justify-content: center;
     }
-    .email-bubble {
-        order: 2; 
-    }
-    .main-svg-center {
-        order: 1;
-    }
-    .line-bubble {
-        order: 3;
+    .text-bubble {
+        min-width: auto;
+        padding: 12px 40px;
     }
 }
