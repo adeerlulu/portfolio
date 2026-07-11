@@ -1,7 +1,3 @@
-沒問題！我已經將這 16 組專案資料的 `image` 欄位路徑，全部依序修正為你指定的命名格式：`images/work-01.jpg` 到 `images/work-16.jpg`，其他所有的欄位敘述與詳細圖片路徑皆完整保留。
-
-請直接全選並覆蓋你的 `data.js`：
-
 ```javascript
 // data.js - 16 Sets of Project Data
 window.projectData = [
