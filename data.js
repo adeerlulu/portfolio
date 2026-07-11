@@ -1,4 +1,3 @@
-```javascript
 // data.js - 16 Sets of Project Data
 window.projectData = [
     { 
