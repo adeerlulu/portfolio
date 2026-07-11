@@ -1,4 +1,3 @@
-// data.js - 16 Sets of Project Data
 window.projectData = [
     { 
         id: "p01", 
@@ -112,7 +111,7 @@ window.projectData = [
     },
     { 
         id: "p12", 
-        title: "精品雜術內頁專題", 
+        title: "精品雜誌內頁專題", 
         category: "Editorial", 
         image: "images/work-12.jpg", 
         tags: ["Fashion", "Typography", "Grid"],
@@ -161,5 +160,3 @@ window.projectData = [
         link: "works.html?id=p16" 
     }
 ];
-
-```
